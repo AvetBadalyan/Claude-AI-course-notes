@@ -13,7 +13,7 @@ The ability to collaborate with AI in ways that are:
 - **Ethical**
 - **Safe**
 
-![Fluent AI use is Effective, Efficient, Ethical and Safe](assets/fluent-ai-use.png)
+![Fluent AI use is Effective, Efficient, Ethical and Safe](assets/L1-L3-framework/fluent-ai-use.png)
 
 ### Course Structure
 Covers each of the AI Fluency core competencies — the **4Ds** — as well as key technical and practical concepts.
@@ -53,7 +53,7 @@ AI Fluency involves developing **practical skills, knowledge, insights, and valu
 
 ### 🔄 Three Ways People Engage with AI
 
-![Three ways to interact with AI](assets/three-ways-to-interact.png)
+![Three ways to interact with AI](assets/L1-L3-framework/three-ways-to-interact.png)
 
 | Mode | Description |
 |------|-------------|
@@ -71,7 +71,7 @@ By the end of this lesson, you'll be able to:
 
 ### The 4D Framework — Overview
 
-![AI Fluency Framework — Delegation, Description, Discernment, Diligence](assets/4d-framework-flow.png)
+![AI Fluency Framework — Delegation, Description, Discernment, Diligence](assets/L1-L3-framework/4d-framework-flow.png)
 
 The four competencies work **together** across all three modes of AI engagement (Automation, Augmentation, Agency).
 
@@ -112,7 +112,7 @@ Using AI responsibly and ethically, with transparency and accountability.
 
 ### Key Takeaways
 
-![Key takeaways — Fluent AI use and the interconnected 4D cycle](assets/key-takeaways-4d-cycle.png)
+![Key takeaways — Fluent AI use and the interconnected 4D cycle](assets/L1-L3-framework/key-takeaways-4d-cycle.png)
 
 - The **4Ds apply across all three modes** of working with AI (Automation, Augmentation, Agency)
 - The 4Ds are **interconnected with each other** — they influence one another in all directions, not a one-way sequence
@@ -184,11 +184,11 @@ By the end of this lesson, you'll be able to:
 |----------------|---------------|
 | Classifies emails as spam or not spam | Can write a completely new email for you |
 
-![From analysis to creation](assets/analysis-to-creation.png)
+![From analysis to creation](assets/L4-generative-ai/analysis-to-creation.png)
 
 ### Three Pillars That Made It Possible
 
-![Three pillars that made it possible](assets/three-pillars.png)
+![Three pillars that made it possible](assets/L4-generative-ai/three-pillars.png)
 
 | Pillar | Includes | What it means |
 |--------|----------|---------------|
@@ -198,21 +198,21 @@ By the end of this lesson, you'll be able to:
 
 > **Scaling laws:** As compute and data go up ↑, model intelligence goes up ↑ — and entirely new capabilities can emerge at certain scale thresholds.
 
-![Scaling laws](assets/scaling-laws.png)
+![Scaling laws](assets/L4-generative-ai/scaling-laws.png)
 
 ### How It Works — Three Stages
 
 **1. Pre-training** — Models analyze billions of text examples, learning to predict what comes next (next token prediction).
 
-![Behind the scenes of LLMs: Pre-training](assets/pre-training-neural-network.png)
+![Behind the scenes of LLMs: Pre-training](assets/L4-generative-ai/pre-training-neural-network.png)
 
 **2. Fine-tuning** — Models are refined to follow instructions and align with human preferences.
 
-![Behind the scenes of LLMs: Fine-tuning](assets/fine-tuning-neural-network.png)
+![Behind the scenes of LLMs: Fine-tuning](assets/L4-generative-ai/fine-tuning-neural-network.png)
 
 > **Anthropic's goals of fine-tuning — the 3 Hs:**
 
-![Anthropic goals of fine-tuning](assets/fine-tuning-goals.png)
+![Anthropic goals of fine-tuning](assets/L4-generative-ai/fine-tuning-goals.png)
 
 | Goal | Meaning |
 |------|---------|
@@ -224,7 +224,7 @@ By the end of this lesson, you'll be able to:
 
 ### What Makes Generative AI Powerful
 
-![What makes generative AI powerful](assets/what-makes-genai-powerful.png)
+![What makes generative AI powerful](assets/L4-generative-ai/what-makes-genai-powerful.png)
 
 - **Processes vast information during training and learns complex patterns**
 - **Adapts to new tasks through in-context learning** (learning from examples given directly in the prompt)
@@ -242,7 +242,7 @@ By the end of this lesson, you'll be able to:
 - **Context window constraints** — limited amount of information it can hold at once (includes your prompts, AI responses, and any other info you've shared)
 - **Challenges with complex reasoning and math**
 
-![AI context window](assets/context-window.png)
+![AI context window](assets/L4-generative-ai/context-window.png)
 
 ### Key Takeaways
 - Generative AI **creates** new content — it doesn't just classify or retrieve existing data
@@ -260,7 +260,7 @@ By the end of this lesson, you'll be able to:
 
 ### Capabilities
 
-![LLM capabilities](assets/llm-capabilities.png)
+![LLM capabilities](assets/L5-capabilities/llm-capabilities.png)
 
 > Despite having vast internal knowledge from training, LLMs don't have open-ended access to all external resources. Only specific tools or data sources that are explicitly connected are available — everything else remains locked.
 
@@ -274,33 +274,33 @@ By the end of this lesson, you'll be able to:
 #### ⏳ Knowledge Cutoff Date
 AI has no awareness of events after its training data ends.
 
-![Knowledge cutoff date](assets/knowledge-cutoff-date.png)
+![Knowledge cutoff date](assets/L5-capabilities/knowledge-cutoff-date.png)
 
 #### 🌀 Hallucinations
 AI can confidently produce plausible-sounding but factually incorrect information.
 
-![Hallucination example](assets/hallucination-example.png)
+![Hallucination example](assets/L5-capabilities/hallucination-example.png)
 
-![Hallucination — incorrect information](assets/hallucination-incorrect-info.png)
+![Hallucination — incorrect information](assets/L5-capabilities/hallucination-incorrect-info.png)
 
 #### 🪟 Context Window Constraints
 The AI can only consider a limited amount of information at one time.
 
-![AI context window](assets/context-window-2.png)
+![AI context window](assets/L5-capabilities/context-window-2.png)
 
 #### 🎲 Non-Deterministic Output
 The same prompt can produce different answers each time — AI responses are not fixed or predictable.
 
-![Non-deterministic output](assets/non-deterministic-output.png)
+![Non-deterministic output](assets/L5-capabilities/non-deterministic-output.png)
 
 #### 🧮 Reasoning Challenges
 LLMs can struggle with complex multi-step reasoning and math. This is being addressed by **extended thinking** — models that reason step-by-step before answering.
 
-![Reasoning limitations → Extended thinking](assets/reasoning-extended-thinking.png)
+![Reasoning limitations → Extended thinking](assets/L5-capabilities/reasoning-extended-thinking.png)
 
 ### Human + AI — Complementary Strengths
 
-![Humans provide vs AI provides](assets/humans-vs-ai-strengths.png)
+![Humans provide vs AI provides](assets/L5-capabilities/humans-vs-ai-strengths.png)
 
 | Humans provide | AI provides |
 |----------------|-------------|
@@ -313,7 +313,7 @@ LLMs can struggle with complex multi-step reasoning and math. This is being addr
 
 ### Looking Ahead
 
-![Looking ahead](assets/looking-ahead.png)
+![Looking ahead](assets/L5-capabilities/looking-ahead.png)
 
 - **Evolving landscape** — the field is changing rapidly; today's limitations may not be tomorrow's
 - **Human-AI collaboration** — the focus remains on working together, not replacing humans
@@ -341,7 +341,7 @@ By the end of this lesson, you'll be able to:
 
 > **Delegation** is making thoughtful decisions about what work is appropriate for you to do, for AI to do, or for you and AI to do together — and how to distribute those tasks.
 
-![Delegation overview](assets/delegation-overview.png)
+![Delegation overview](assets/L6-delegation/delegation-overview.png)
 
 Effective delegation involves:
 - Understanding the problem you're trying to solve
@@ -354,7 +354,7 @@ Effective delegation involves:
 
 > The ability to clearly define your goals and understand what work is needed **before** involving AI tools.
 
-![Problem Awareness](assets/problem-awareness.png)
+![Problem Awareness](assets/L6-delegation/problem-awareness.png)
 
 - What does **"success"** look like?
 - What kind of thinking and work is needed to get there?
@@ -364,7 +364,7 @@ Effective delegation involves:
 
 > A working knowledge of available AI systems and their specific capabilities and limitations.
 
-![Platform Awareness](assets/platform-awareness.png)
+![Platform Awareness](assets/L6-delegation/platform-awareness.png)
 
 - Understanding the unique strengths and limitations of available options
 - Which models perform best for the work you have in mind?
@@ -374,7 +374,7 @@ Effective delegation involves:
 
 > The strategic process of dividing work between humans and AI.
 
-![Task Delegation](assets/task-delegation.png)
+![Task Delegation](assets/L6-delegation/task-delegation.png)
 
 Ask yourself:
 - What could be **usefully automated**?
@@ -384,7 +384,7 @@ Ask yourself:
 
 ### Key Takeaways
 
-![Delegation key takeaways](assets/delegation-key-takeaways.png)
+![Delegation key takeaways](assets/L6-delegation/delegation-key-takeaways.png)
 
 - The **Delegation** competence is critical to **effective** and **efficient** AI use
 - Delegation means deciding: do it yourself / do it together with AI / let AI handle it independently
