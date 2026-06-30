@@ -329,4 +329,71 @@ LLMs can struggle with complex multi-step reasoning and math. This is being addr
 
 ---
 
+## Lecture 6: The 4Ds — Delegation
+
+### What You'll Learn
+By the end of this lesson, you'll be able to:
+- Understand the Delegation competency and its three components: Problem Awareness, Platform Awareness, and Task Delegation
+- Recognize when and how to delegate tasks to AI effectively
+- Develop awareness of task, platform, and mode considerations when working with AI
+
+### What is Delegation?
+
+> **Delegation** is making thoughtful decisions about what work is appropriate for you to do, for AI to do, or for you and AI to do together — and how to distribute those tasks.
+
+![Delegation overview](assets/delegation-overview.png)
+
+Effective delegation involves:
+- Understanding the problem you're trying to solve
+- Understanding the capabilities of available AI tools
+- Breaking down complex work into smaller parts
+- Making strategic decisions about who does what
+- Choosing the right mode of interaction (Automation / Augmentation / Agency)
+
+### Sub-Competency 1: 🎯 Problem Awareness
+
+> The ability to clearly define your goals and understand what work is needed **before** involving AI tools.
+
+![Problem Awareness](assets/problem-awareness.png)
+
+- What does **"success"** look like?
+- What kind of thinking and work is needed to get there?
+- **AI fluency begins with and depends on your own expertise**
+
+### Sub-Competency 2: 🖥️ Platform Awareness
+
+> A working knowledge of available AI systems and their specific capabilities and limitations.
+
+![Platform Awareness](assets/platform-awareness.png)
+
+- Understanding the unique strengths and limitations of available options
+- Which models perform best for the work you have in mind?
+- Which systems prioritize **speed**, or **creativity**, or **depth**, or **accuracy**?
+
+### Sub-Competency 3: 📋 Task Delegation
+
+> The strategic process of dividing work between humans and AI.
+
+![Task Delegation](assets/task-delegation.png)
+
+Ask yourself:
+- What could be **usefully automated**?
+- Where would **augmentation** create more value than working separately?
+- What should be **done by a human alone**?
+- What could be **done by an agent** on your behalf?
+
+### Key Takeaways
+
+![Delegation key takeaways](assets/delegation-key-takeaways.png)
+
+- The **Delegation** competence is critical to **effective** and **efficient** AI use
+- Delegation means deciding: do it yourself / do it together with AI / let AI handle it independently
+- **Problem Awareness** = clearly understanding your goals before involving AI
+- **Platform Awareness** = knowing what different AI systems can and can't do
+- **Task Delegation** = strategically dividing work to leverage the strengths of both humans and AI
+- Effective delegation requires both **domain expertise** and **understanding of AI capabilities**
+- The goal isn't to automate everything — it's to create the **most effective human-AI partnership** for the task
+
+---
+
 <!-- Add new lectures below this line -->
