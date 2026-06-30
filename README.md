@@ -252,4 +252,81 @@ By the end of this lesson, you'll be able to:
 
 ---
 
+## Lecture 5: Capabilities & Limitations (Deep Dive 1 — Part B)
+
+### What You'll Learn
+By the end of this lesson, you'll be able to:
+- Identify major capabilities and limitations of current generative AI
+
+### Capabilities
+
+![LLM capabilities](assets/llm-capabilities.png)
+
+> Despite having vast internal knowledge from training, LLMs don't have open-ended access to all external resources. Only specific tools or data sources that are explicitly connected are available — everything else remains locked.
+
+- **Versatility across language tasks** — writing, summarising, translating, coding, and more without extra training
+- **Conversational awareness** — maintains context across a dialogue
+- **Task-switching** — can shift between diverse tasks in the same session
+- **Connecting to external tools and data** — can access code execution, search, documents, and APIs *only when explicitly provided*
+
+### Limitations
+
+#### ⏳ Knowledge Cutoff Date
+AI has no awareness of events after its training data ends.
+
+![Knowledge cutoff date](assets/knowledge-cutoff-date.png)
+
+#### 🌀 Hallucinations
+AI can confidently produce plausible-sounding but factually incorrect information.
+
+![Hallucination example](assets/hallucination-example.png)
+
+![Hallucination — incorrect information](assets/hallucination-incorrect-info.png)
+
+#### 🪟 Context Window Constraints
+The AI can only consider a limited amount of information at one time.
+
+![AI context window](assets/context-window-2.png)
+
+#### 🎲 Non-Deterministic Output
+The same prompt can produce different answers each time — AI responses are not fixed or predictable.
+
+![Non-deterministic output](assets/non-deterministic-output.png)
+
+#### 🧮 Reasoning Challenges
+LLMs can struggle with complex multi-step reasoning and math. This is being addressed by **extended thinking** — models that reason step-by-step before answering.
+
+![Reasoning limitations → Extended thinking](assets/reasoning-extended-thinking.png)
+
+### Human + AI — Complementary Strengths
+
+![Humans provide vs AI provides](assets/humans-vs-ai-strengths.png)
+
+| Humans provide | AI provides |
+|----------------|-------------|
+| Critical thinking | Speed |
+| Judgment | Scale |
+| Creativity | Pattern recognition |
+| Ethical oversight | Processing abilities |
+
+> The most effective applications **combine** these strengths — neither humans alone nor AI alone.
+
+### Looking Ahead
+
+![Looking ahead](assets/looking-ahead.png)
+
+- **Evolving landscape** — the field is changing rapidly; today's limitations may not be tomorrow's
+- **Human-AI collaboration** — the focus remains on working together, not replacing humans
+- **Being hands-on** — practical experience is the best way to develop AI Fluency
+
+### Key Takeaways
+- Generative AI creates new content (text, images, code) rather than just analyzing existing data
+- Three key enablers: algorithmic breakthroughs (Transformer), vast training data, increased compute
+- AI learns through: **pre-training** (pattern recognition) → **fine-tuning** (helpful behaviour)
+- Current capabilities: versatility across tasks, conversational awareness, connecting to external tools
+- Current limitations: knowledge cutoff, hallucinations, context window constraints, non-deterministic output, reasoning challenges
+- **Most effective applications combine human and AI strengths** — humans bring judgment and ethics; AI brings speed and scale
+
+---
+
 <!-- Add new lectures below this line -->
