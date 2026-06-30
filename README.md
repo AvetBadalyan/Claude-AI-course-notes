@@ -111,7 +111,11 @@ Using AI responsibly and ethically, with transparency and accountability.
 - **Deployment Diligence** — Taking responsibility for verifying and vouching for the outputs you use or share
 
 ### Key Takeaways
+
+![Key takeaways — Fluent AI use and the interconnected 4D cycle](assets/key-takeaways-4d-cycle.png)
+
 - The **4Ds apply across all three modes** of working with AI (Automation, Augmentation, Agency)
+- The 4Ds are **interconnected with each other** — they influence one another in all directions, not a one-way sequence
 - Each D has **three sub-competencies** that make the framework practical and actionable
 - Developing these competencies **prepares you for evolving AI capabilities** — not just today's tools
 - AI Fluency means engaging with AI in ways that are effective, efficient, ethical, and safe
