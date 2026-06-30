@@ -1,4 +1,4 @@
-# Claude AI Certification — Course Notes
+# 📚 Claude AI Certification — Course Notes
 
 ---
 
@@ -6,12 +6,14 @@
 
 > **Welcome!** This video introduces the course's focus: developing meaningful collaboration with AI rather than just learning about AI technology. The course explores how to build a lasting framework for working with AI systems that goes beyond simple and temporary tips and tricks.
 
-### What is AI Fluency?
+### 🧠 What is AI Fluency?
 The ability to collaborate with AI in ways that are:
 - **Effective**
 - **Efficient**
 - **Ethical**
 - **Safe**
+
+![Fluent AI use is Effective, Efficient, Ethical and Safe](assets/fluent-ai-use.png)
 
 ### Course Structure
 Covers each of the AI Fluency core competencies — the **4Ds** — as well as key technical and practical concepts.
@@ -41,7 +43,7 @@ Covers each of the AI Fluency core competencies — the **4Ds** — as well as k
 
 ## Lecture 2: The AI Fluency Framework
 
-### What You'll Learn
+### 🎯 What You'll Learn
 By the end of this lesson, you'll be able to:
 - Understand what AI Fluency means and why it matters in today's rapidly evolving technological landscape
 - Recognize three emerging ways we collaborate with AI: Automation, Augmentation, and Agency
@@ -49,13 +51,15 @@ By the end of this lesson, you'll be able to:
 ### Why Do We Need AI Fluency?
 AI Fluency involves developing **practical skills, knowledge, insights, and values** that help you interact with AI systems in ways that are effective, efficient, ethical, and safe.
 
-### Three Ways People Engage with AI
+### 🔄 Three Ways People Engage with AI
+
+![Three ways to interact with AI](assets/three-ways-to-interact.png)
 
 | Mode | Description |
 |------|-------------|
-| **Automation** | The AI completes specific tasks based on your instructions |
-| **Augmentation** | You and AI collaborate as creative thinking and task execution partners |
-| **Agency** | You configure AI to work independently on your behalf — establishing its knowledge and behavior patterns rather than just giving it specific tasks |
+| ⚡ **Automation** | The AI completes specific tasks based on your instructions |
+| 🤝 **Augmentation** | You and AI collaborate as creative thinking and task execution partners |
+| 🧠 **Agency** | You configure AI to work independently on your behalf — establishing its knowledge and behavior patterns rather than just giving it specific tasks |
 
 ---
 
@@ -66,6 +70,9 @@ By the end of this lesson, you'll be able to:
 - Explain the AI Fluency Framework and its core "4Ds": Delegation, Description, Discernment, and Diligence
 
 ### The 4D Framework — Overview
+
+![AI Fluency Framework — Delegation, Description, Discernment, Diligence](assets/4d-framework-flow.png)
+
 The four competencies work **together** across all three modes of AI engagement (Automation, Augmentation, Agency).
 
 | Competency | What it means |
@@ -79,25 +86,25 @@ The four competencies work **together** across all three modes of AI engagement 
 
 > Each 4D competency breaks down into three sub-skills. Note: the naming pattern differs per competency — only Description and Discernment follow the **Product / Process / Performance** structure.
 
-#### Delegation
+#### 🎯 Delegation
 Deciding what work should be done by humans, by AI, or distributed between them.
 - **Problem Awareness** — Clearly understanding your goals and the nature of the work *before* involving AI
 - **Platform Awareness** — Understanding the capabilities and limitations of different AI systems
 - **Task Delegation** — Thoughtfully distributing work between humans and AI to leverage the strengths of each
 
-#### Description
+#### 💬 Description
 Effectively communicating with AI systems to get useful outputs.
 - **Product Description** — Defining *what* you want: outputs, format, audience, and style
 - **Process Description** — Defining *how* the AI approaches your request (e.g., step-by-step instructions)
 - **Performance Description** — Defining the AI's *behavior* during collaboration (e.g., concise or detailed, challenging or supportive)
 
-#### Discernment
+#### 🔍 Discernment
 Thoughtfully and critically evaluating AI outputs, processes, and behavior.
 - **Product Discernment** — Evaluating the quality of what AI produces (accuracy, appropriateness, coherence, relevance)
 - **Process Discernment** — Evaluating *how* the AI arrived at its output (logical errors, lapses in attention, inappropriate reasoning)
 - **Performance Discernment** — Evaluating how the AI *behaves* during interaction (is its communication style effective for your needs?)
 
-#### Diligence
+#### 🛡️ Diligence
 Using AI responsibly and ethically, with transparency and accountability.
 - **Creation Diligence** — Being thoughtful about which AI systems you use and how you interact with them
 - **Transparency Diligence** — Being honest about AI's role in your work with everyone who needs to know
@@ -109,27 +116,19 @@ Using AI responsibly and ethically, with transparency and accountability.
 - Developing these competencies **prepares you for evolving AI capabilities** — not just today's tools
 - AI Fluency means engaging with AI in ways that are effective, efficient, ethical, and safe
 
-### Reflection Questions
-- Which of the 4Ds do you feel most confident in already? Which might need more development?
-- Can you recall a recent AI interaction where the framework might have helped?
-- What specific skills from the 4D framework would most enhance your work or personal projects?
-
-### What's Next
-**Deep Dive 1: "What is Generative AI?"** — A two-part technical lesson on the foundational workings of modern AI, how it differs from previous technologies, and its current capabilities and limitations. Especially strengthens the **Delegation** competence.
-
 ---
 
-## Reference: Key Terminology Cheat Sheet
+## 📖 Reference: Key Terminology Cheat Sheet
 
 > Official Anthropic course reference — useful for quick revision before the exam.
 
-### Human-AI Interaction Modes (Full Definitions)
+### 🔄 Human-AI Interaction Modes (Full Definitions)
 
 | Mode | Full Definition |
 |------|-----------------|
-| **Automation** | AI performs specific tasks based on specific human instructions. The human defines what needs to be done, and the AI executes it. |
-| **Augmentation** | Humans and AI collaborate as thinking partners to complete tasks together. Involves iterative back-and-forth where both contribute to the outcome. |
-| **Agency** | Humans configure AI to work independently on their behalf, including interacting with other humans or AI. The human establishes the AI's knowledge and behavior patterns rather than specifying exact actions. |
+| ⚡ **Automation** | AI performs specific tasks based on specific human instructions. The human defines what needs to be done, and the AI executes it. |
+| 🤝 **Augmentation** | Humans and AI collaborate as thinking partners to complete tasks together. Involves iterative back-and-forth where both contribute to the outcome. |
+| 🧠 **Agency** | Humans configure AI to work independently on their behalf, including interacting with other humans or AI. The human establishes the AI's knowledge and behavior patterns rather than specifying exact actions. |
 
 ### AI Technical Concepts
 
