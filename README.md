@@ -169,4 +169,87 @@ Using AI responsibly and ethically, with transparency and accountability.
 
 ---
 
+## Lecture 4: Understanding Generative AI (Deep Dive 1 — Part A)
+
+### What You'll Learn
+By the end of this lesson, you'll be able to:
+- Define generative AI and how it differs from other AI types
+- Recognize the key characteristics and technological foundations of generative AI
+
+### What is Generative AI?
+
+> Generative AI refers to AI systems that can **create new content** rather than just analyzing existing data.
+
+| Traditional AI | Generative AI |
+|----------------|---------------|
+| Classifies emails as spam or not spam | Can write a completely new email for you |
+
+![From analysis to creation](assets/analysis-to-creation.png)
+
+### Three Pillars That Made It Possible
+
+![Three pillars that made it possible](assets/three-pillars.png)
+
+| Pillar | Includes | What it means |
+|--------|----------|---------------|
+| ⚙️ **Algorithms** | Neural networks, Transformers | Transformer architecture (2017) revolutionized processing of long text passages |
+| 💾 **Data** | Articles & websites, Code & multimodal content | Explosion of digital data provided raw material for training |
+| 🖥️ **Computation** | GPUs, TPUs, Computing clusters | Massive increases in computational power made it possible to train models on all that data |
+
+> **Scaling laws:** As compute and data go up ↑, model intelligence goes up ↑ — and entirely new capabilities can emerge at certain scale thresholds.
+
+![Scaling laws](assets/scaling-laws.png)
+
+### How It Works — Three Stages
+
+**1. Pre-training** — Models analyze billions of text examples, learning to predict what comes next (next token prediction).
+
+![Behind the scenes of LLMs: Pre-training](assets/pre-training-neural-network.png)
+
+**2. Fine-tuning** — Models are refined to follow instructions and align with human preferences.
+
+![Behind the scenes of LLMs: Fine-tuning](assets/fine-tuning-neural-network.png)
+
+> **Anthropic's goals of fine-tuning — the 3 Hs:**
+
+![Anthropic goals of fine-tuning](assets/fine-tuning-goals.png)
+
+| Goal | Meaning |
+|------|---------|
+| 🟢 **Helpful** | Genuinely assists users in achieving their goals |
+| 🔵 **Honest** | Doesn't deceive or mislead |
+| 🟦 **Harmless** | Avoids causing harm to users or others |
+
+**3. Deployment** — Users provide prompts; the model generates responses based on the prompts and patterns learned during training.
+
+### What Makes Generative AI Powerful
+
+![What makes generative AI powerful](assets/what-makes-genai-powerful.png)
+
+- **Processes vast information during training and learns complex patterns**
+- **Adapts to new tasks through in-context learning** (learning from examples given directly in the prompt)
+- **Demonstrates emergent capabilities from scale** — abilities that appear unpredictably as models grow larger
+
+### Key Capabilities
+- Versatile language skills
+- General-purpose abilities
+- Learning from examples
+- Connecting to external tools and data
+
+### Current Limitations
+- **Knowledge cutoff date** — no awareness of events after training ended
+- **Hallucinations** — can confidently state plausible but incorrect information
+- **Context window constraints** — limited amount of information it can hold at once (includes your prompts, AI responses, and any other info you've shared)
+- **Challenges with complex reasoning and math**
+
+![AI context window](assets/context-window.png)
+
+### Key Takeaways
+- Generative AI **creates** new content — it doesn't just classify or retrieve existing data
+- Three enablers: better **algorithms** (Transformer 2017), more **data**, and more **compute**
+- LLMs learn in two phases: **pre-training** (broad knowledge) → **fine-tuning** (helpful behavior)
+- Understanding these foundations directly strengthens your **Delegation** competence — knowing what AI can and can't do helps you decide when to use it
+
+---
+
 <!-- Add new lectures below this line -->
