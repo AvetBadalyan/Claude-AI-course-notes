@@ -15,22 +15,8 @@ The ability to collaborate with AI in ways that are:
 
 ![Fluent AI use is Effective, Efficient, Ethical and Safe](assets/L1-L3-framework/fluent-ai-use.png)
 
-### Course Structure
-Covers each of the AI Fluency core competencies — the **4Ds** — as well as key technical and practical concepts.
-
 ### The 4D Competencies
-| # | Competency | Core Question |
-|---|------------|---------------|
-| 1 | **Delegation** | When should humans do the work, and when should AI? |
-| 2 | **Description** | How do we communicate clearly with AI systems? |
-| 3 | **Discernment** | How do we evaluate what AI gives us? |
-| 4 | **Diligence** | How do we ensure our interaction with AI is responsible, transparent, and accountable? |
-
-### What You'll Gain by the End of the Course
-- A framework for thoughtful AI interaction
-- Confidence in choosing **when** and **how** to work with AI effectively
-- Practical collaboration skills
-- The ability to evaluate and disseminate AI-assisted work responsibly
+The AI Fluency Framework is built on four core competencies: **Delegation**, **Description**, **Discernment**, and **Diligence**. These are covered in depth in Lecture 3 onwards.
 
 ### Key Takeaways
 - This course focuses on **human-AI collaboration**, not just understanding AI as a technology
@@ -42,11 +28,6 @@ Covers each of the AI Fluency core competencies — the **4Ds** — as well as k
 ---
 
 ## Lecture 2: The AI Fluency Framework
-
-### 🎯 What You'll Learn
-By the end of this lesson, you'll be able to:
-- Understand what AI Fluency means and why it matters in today's rapidly evolving technological landscape
-- Recognize three emerging ways we collaborate with AI: Automation, Augmentation, and Agency
 
 ### Why Do We Need AI Fluency?
 AI Fluency involves developing **practical skills, knowledge, insights, and values** that help you interact with AI systems in ways that are effective, efficient, ethical, and safe.
@@ -65,22 +46,18 @@ AI Fluency involves developing **practical skills, knowledge, insights, and valu
 
 ## Lecture 3: The 4D Framework Deep Dive
 
-### What You'll Learn
-By the end of this lesson, you'll be able to:
-- Explain the AI Fluency Framework and its core "4Ds": Delegation, Description, Discernment, and Diligence
-
 ### The 4D Framework — Overview
 
 ![AI Fluency Framework — Delegation, Description, Discernment, Diligence](assets/L1-L3-framework/4d-framework-flow.png)
 
 The four competencies work **together** across all three modes of AI engagement (Automation, Augmentation, Agency).
 
-| Competency | What it means |
-|------------|---------------|
-| **Delegation** | Thoughtfully deciding what work to do with AI vs. doing yourself |
-| **Description** | Communicating clearly with AI systems |
-| **Discernment** | Evaluating AI outputs and behavior with a critical eye |
-| **Diligence** | Ensuring you interact with AI responsibly |
+| # | Competency | Core Question | What it means |
+|---|------------|---------------|---------------|
+| 1 | 🎯 **Delegation** | When should humans do the work, and when should AI? | Thoughtfully deciding what work to do with AI vs. doing yourself |
+| 2 | 💬 **Description** | How do we communicate clearly with AI systems? | Communicating clearly with AI systems |
+| 3 | 🔍 **Discernment** | How do we evaluate what AI gives us? | Evaluating AI outputs and behavior with a critical eye |
+| 4 | 🛡️ **Diligence** | How do we ensure our interaction with AI is responsible, transparent, and accountable? | Ensuring you interact with AI responsibly |
 
 ### Sub-Competencies (Three sub-skills inside each D)
 
@@ -171,11 +148,6 @@ Using AI responsibly and ethically, with transparency and accountability.
 
 ## Lecture 4: Understanding Generative AI (Deep Dive 1 — Part A)
 
-### What You'll Learn
-By the end of this lesson, you'll be able to:
-- Define generative AI and how it differs from other AI types
-- Recognize the key characteristics and technological foundations of generative AI
-
 ### What is Generative AI?
 
 > Generative AI refers to AI systems that can **create new content** rather than just analyzing existing data.
@@ -254,10 +226,6 @@ By the end of this lesson, you'll be able to:
 
 ## Lecture 5: Capabilities & Limitations (Deep Dive 1 — Part B)
 
-### What You'll Learn
-By the end of this lesson, you'll be able to:
-- Identify major capabilities and limitations of current generative AI
-
 ### Capabilities
 
 ![LLM capabilities](assets/L5-capabilities/llm-capabilities.png)
@@ -330,12 +298,6 @@ LLMs can struggle with complex multi-step reasoning and math. This is being addr
 ---
 
 ## Lecture 6: The 4Ds — Delegation
-
-### What You'll Learn
-By the end of this lesson, you'll be able to:
-- Understand the Delegation competency and its three components: Problem Awareness, Platform Awareness, and Task Delegation
-- Recognize when and how to delegate tasks to AI effectively
-- Develop awareness of task, platform, and mode considerations when working with AI
 
 ### What is Delegation?
 
