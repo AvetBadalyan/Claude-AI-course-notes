@@ -358,4 +358,199 @@ Ask yourself:
 
 ---
 
+## Lecture 7: The 4Ds — Description
+
+### 🎯 What You'll Learn
+- Understand how to effectively communicate your intentions to AI systems
+- Recognize the importance of clear, purposeful communication
+- Develop skills in three types of Description: **Product**, **Process**, and **Performance**
+
+### What is Description?
+
+> **Description** is the ability to communicate with AI in ways that create a productive collaborative environment. It goes beyond simply writing prompts — it involves creating a collaborative environment where both you and the AI can work effectively together.
+
+![The 4Ds: Description — Product, Process, Performance overview](assets/L7-description/description-overview.png)
+
+- AI can't read your mind — the quality of your results comes down to how clearly you articulate your **needs**, **preferred approach**, and **desired interaction style**
+- AI systems are **interactive partners**, not databases or vending machines
+- Clear communication up front **saves time** and leads to **better results**
+
+### Sub-Competency 1: 📦 Product Description
+
+> Defining **what** you want in terms of outputs, format, audience, and style.
+
+- *"Hey! Guess what I'm thinking?"* → *Sigh.* — don't make the AI guess your intent
+- Be explicit about the **output** you want, its **format**, the **audience**, and the **style**
+
+### Sub-Competency 2: 🛠️ Process Description
+
+> Defining **how** the AI approaches your request — guiding its thought process, such as providing step-by-step instructions for the AI to follow.
+
+![Process Description — the ability to guide the AI's thought process](assets/L7-description/process-description.png)
+
+- **"How" can be more important than "What"** — the approach can matter as much as the end goal
+- **Providing training specific to your problem** — give the AI context tailored to your exact situation
+- Specify things like: **specific data**, **key tasks**, **preferred order**, and so on
+
+### Sub-Competency 3: 🎭 Performance Description
+
+> Defining the AI system's **behavior** during your collaboration — such as whether it should be concise or detailed, challenging or supportive.
+
+![Performance Description — the ability to define the behavioral aspects of an AI interaction](assets/L7-description/performance-description.png)
+
+- *"Act as a Socratic tutor."* — behavior can be shaped just like output
+- **AI tools are interactive systems** that can behave differently in different contexts
+- You need to **explain how you want the AI to behave** to get the best results
+
+### Key Takeaways
+
+![Key takeaways — Description](assets/L7-description/description-key-takeaways.png)
+
+- Description is about communicating with AI in ways that create a **productive collaborative environment**
+- **Product Description** — clearly define what you want: outputs, format, audience, style
+- **Process Description** — guide how the AI approaches your request; can be as important as the end goal itself
+- **Performance Description** — define behavioral aspects: concise vs. detailed, challenging vs. supportive
+- AI systems are **interactive partners**, not databases or vending machines
+- You need to do **more than just write prompts**
+- By nurturing your capacity for product, process, and performance description, you can transform AI tools from **generic assistants** into **finely tuned thinking partners**
+- Clear communication with AI systems up front **saves time** and leads to **better results**
+
+---
+
+## Lecture 8: 6 Techniques for Effective Prompt Engineering
+
+### 🎯 What You'll Learn
+- Understand what prompt engineering is and why it matters for productive AI collaboration
+- Apply six foundational prompting techniques to improve your AI interactions
+- Identify common patterns that lead to successful AI interactions
+- Troubleshoot and refine prompts when AI responses don't meet your needs
+
+![Effective prompting techniques — intro](assets/L8-prompting/video-intro.png)
+
+> **Communicating to AI** boils down to three things: **what we want**, **how we want it done**, and **how we want to interact with the AI**.
+
+![Prompt engineering is designing effective instructions for AI](assets/L8-prompting/video-definition-quote.png)
+
+> **Prompt engineering** is simply the practice of designing effective instructions for AI systems like Claude. It's about **crafting your questions and providing context** in ways that help AI assistants understand exactly what you want.
+
+### The 6 Foundational Techniques
+
+![Foundational prompting tips — overview grid](assets/L8-prompting/video-six-tips-overview.png)
+
+| # | Technique | Before → After |
+|---|-----------|-----------------|
+| 1 | 🧭 **Provide context** | *"Tell me about climate change."* → *"Explain three major impacts of climate change on agriculture in tropical regions, with examples from the past decade."* |
+| 2 | 🌟 **Offer examples** | Give example input→output pairs (few-shot) before asking for the real conversion, so the AI can match the pattern, style, or format |
+| 3 | 📐 **Specify output constraints** | *"Design me a personal art portfolio website."* → specify sections, behavior (sticky/responsive nav), color palette, and features (dark/light toggle) |
+| 4 | 🪜 **Break complex tasks into steps** | *"Analyze this quarterly sales data."* → give a numbered approach: identify top performers → compare quarters → highlight trends → suggest reasons |
+| 5 | 🤔 **Ask it to think first** | *"Before answering, please think through this problem carefully. Consider the different factors involved, potential constraints, and various approaches..."* |
+| 6 | 🎭 **Define role, style, or tone** | *"Please explain how rainbows form from the perspective of an experienced science teacher speaking to a bright 10-year-old..."* |
+
+#### 1. 🧭 Provide Context — Three Levels of Specificity
+
+![Provide context — vague, specific, most specific](assets/L8-prompting/video-provide-context.png)
+
+| Level | Example |
+|-------|---------|
+| **Vague** | *"Tell me about climate change."* |
+| **Specific** | *"Explain three major impacts of climate change on agriculture in tropical regions, with examples from the past decade."* |
+| **Most specific** | Same as above, **plus your own situation**: *"I'm preparing for a job interview at an agricultural research lab in Indonesia. I have a degree in ecology but no specific knowledge on climate change. Write a summary of key concepts that would help me speak intelligently in the interview."* |
+
+> The more specific you are — adding your own goal/background on top of the task — the more tailored and useful the output.
+
+#### 2. 🌟 Offer Examples
+
+![No examples vs with two examples](assets/L8-prompting/video-offer-examples-no.png)
+![With two examples](assets/L8-prompting/video-offer-examples-with.png)
+
+- **No examples** — the AI has to guess your desired tone/format from the instruction alone
+- **With two examples** — showing 2 before/after conversions ("jargon → plain language") lets the AI infer the exact pattern before applying it to your real request
+
+#### 3. 📐 Specify Output Constraints
+
+![Without vs with output specification](assets/L8-prompting/video-specify-constraints.png)
+
+- **Without output specification** — *"Design me a personal art portfolio website."* (AI has to guess everything)
+- **With output specification** — spells out layout (single-page, smooth scrolling), required sections, responsive/sticky nav behavior, color palette, and specific features (dark/light toggle)
+
+#### 4. 🪜 Break Complex Tasks Into Steps
+
+![No steps vs with steps](assets/L8-prompting/video-break-into-steps.png)
+
+- **No steps** — *"Analyze this quarterly sales data."*
+- **With steps** — numbered approach: identify top-performing products → compare quarters → highlight unusual patterns → suggest reasons for trends
+
+#### 5. 🤔 Ask the AI to Think First
+
+![Giving the AI thinking space](assets/L8-prompting/video-think-first.png)
+
+- Explicitly ask the AI to **think through the problem carefully** — consider factors, constraints, and approaches — *before* recommending a solution
+
+#### 6. 🎭 Define Role, Style, or Tone
+
+![Define role — for explanations vs for brainstorming & feedback](assets/L8-prompting/video-define-role.png)
+
+| Use case | Example |
+|----------|---------|
+| **For explanations** | *"Please explain how rainbows form from the perspective of an experienced science teacher speaking to a bright 10-year-old who's interested in science."* |
+| **For brainstorming & feedback** | *"As a UX design expert, review this website wireframe and suggest three improvements focusing on user navigation and accessibility."* |
+
+### 🔑 Secret Weapon: Ask the AI for Help with Prompting
+
+![Secret weapon — ask the AI for help with prompting](assets/L8-prompting/video-secret-weapon.png)
+
+> *"I'm trying to get you, Claude, to help me with [goal]. I'm not sure how to phrase my request to get the best results. Can you help me craft an effective prompt for this?"*
+
+- When you're not sure how to ask for something, **the AI can help improve your own prompt**
+- Perhaps the **most powerful technique of all**
+
+### 🔄 The Iterative Process
+
+![The iterative process — create, respond, refine, output](assets/L8-prompting/video-iterative-process.png)
+
+**Create preliminary prompt → The AI's response → Refine prompt → Final ideal output** (looping back to the AI's response as needed)
+
+![Ways to refine your prompt](assets/L8-prompting/video-refine-ways.png)
+
+Some ways to refine your prompt:
+- Add more specificity or context
+- Provide examples of your desired output
+- Break the task into smaller steps
+- Try a different technique or combination of techniques
+
+### 🛠️ Other Techniques to Try
+
+![Other techniques to try — technique/example table](assets/L8-prompting/video-other-techniques.png)
+
+| Technique | Example |
+|-----------|---------|
+| **Ask for variations** | *"Can you give me three different versions of this?"* |
+| **Request different formats** | *"Instead of a paragraph, could you present this as an interactive artifact?"* |
+| **Check Claude's confidence** | For factual questions, ask: *"How confident are you about this answer?"* |
+| **Reset the conversation** | Sometimes starting fresh gives better results than trying to correct a conversation that's gone off track |
+
+### ✅ What Works and What Doesn't
+
+![Patterns that work well vs common mistakes to avoid](assets/L8-prompting/video-patterns-mistakes.png)
+
+| Patterns that work well | Common mistakes to avoid |
+|--------------------------|---------------------------|
+| Starting with a clear task overview statement | Assuming Claude can read your mind |
+| Including output format specifications and examples | Overloading a single prompt/conversation with multiple unrelated tasks |
+| Detailing specific task constraints or requirements | Being too vague about what success looks like |
+| Providing rich and relevant background information | Not providing feedback on previous responses |
+
+### Key Takeaways
+
+![Key takeaways — 6 foundational prompting techniques](assets/L8-prompting/video-key-takeaways.png)
+
+- Effective prompting combines **clear communication principles** with **AI-specific techniques**
+- Six foundational techniques: **provide context**, **offer examples**, **specify output constraints**, **break down complex tasks**, **give the AI space to think**, **define roles**
+- The "secret weapon" — **ask the AI itself** to help improve your prompt
+- Successful prompting is **iterative** (and collaborative with the AI!) — expect to refine your approach based on results
+- Common successful patterns: clear task overviews, format specifications, explicit constraints, and relevant background information
+- Common mistakes: assuming the AI can read your mind, overloading prompts with unrelated tasks, being vague about success criteria, and not giving feedback on prior responses
+
+---
+
 <!-- Add new lectures below this line -->
