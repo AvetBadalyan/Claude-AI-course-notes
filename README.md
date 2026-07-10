@@ -553,4 +553,111 @@ Some ways to refine your prompt:
 
 ---
 
+## Lecture 9: The 4Ds — Discernment
+
+### 🎯 What You'll Learn
+- Understand how to evaluate AI outputs and processes thoughtfully
+- Develop critical thinking skills for your AI interactions
+- Learn to identify and address quality concerns in your AI interactions
+
+### What is Discernment?
+
+> **Discernment** is the ability to thoughtfully and critically evaluate what AI produces, how it produces it, and how it behaves.
+
+![The 4Ds: Discernment — Product, Process, Performance overview](assets/L9-discernment/discernment-overview.png)
+
+- Discernment is the **flip side of Description** — Description helps you communicate your intentions clearly; Discernment helps you evaluate whether what you receive **meets your needs**
+- **Discernment works hand-in-hand with Description in a continuous feedback loop**
+- Even the most advanced AI systems benefit from **human judgment and oversight**
+
+![Discernment — your ability to critically evaluate what AI produces, how it produces it, and how it behaves](assets/L9-discernment/video-intro.png)
+
+**You need:**
+- **Domain expertise** — your own knowledge of the subject
+- **An understanding of how AI systems work** and their typical shortcomings
+
+![Discernment — 16x9 overview](assets/L9-discernment/discernment-overview-16x9.png)
+
+### Sub-Competency 1: 📋 Product Discernment
+
+> Evaluating the **quality** of what AI produces — accuracy, appropriateness, coherence, relevance. *Your capacity to judge the quality of the AI output.*
+
+![Product Discernment — factually accurate, appropriate, coherent, meets requirements, adds value](assets/L9-discernment/video-product-discernment.png)
+
+- Is it **factually accurate**?
+- Is it **appropriate to audience and purpose**?
+- Is it **coherent and well-structured**?
+- **Does it meet my requirements**?
+- **Does it add value**?
+
+### Sub-Competency 2: 🧩 Process Discernment
+
+> Evaluating **how the AI arrived** at its output — looking for logical errors, lapses in attention, or inappropriate reasoning steps. *Your capacity to judge the quality of the problem-solving approach.*
+
+![Process Discernment — logical inconsistency, lapses in attention, inappropriate steps, stuck on detail, circular reasoning](assets/L9-discernment/video-process-discernment.png)
+
+- **Logical inconsistency**
+- **Lapses in attention**
+- **Inappropriate steps**
+- **Getting stuck on one small detail**
+- **Getting trapped in circular reasoning**
+
+### Sub-Competency 3: 💬 Performance Discernment
+
+> Evaluating **how the AI behaves** during your interaction — considering whether its communication style is effective for your needs. *Your capacity to judge AI behaviors.*
+
+![Performance Discernment — communication style, information level, response to feedback, interaction efficiency](assets/L9-discernment/video-performance-discernment.png)
+
+- Is the **communication style appropriate**?
+- Is the **information at the right level**?
+- Is the **response to feedback appropriate**?
+- Is the **interaction efficient**?
+
+### 🔁 Feedback and Correction
+
+![Feedback and correction — effective feedback includes specifying, explaining, suggesting, revising](assets/L9-discernment/video-feedback-correction.png)
+
+**Effective feedback includes:**
+- **Specifying the problem**
+- **Clearly explaining why it is a problem**
+- **Providing concrete suggestions for improvement**
+- **Revising your instructions or examples**
+
+### Key Takeaways
+
+![Key takeaways — Discernment evaluates needs met, continuous loop, human judgment](assets/L9-discernment/video-key-takeaways.png)
+
+- Discernment is your ability to thoughtfully evaluate **what** AI produces, **how** it produces it, and **how it behaves**
+- **Product Discernment** — evaluating the quality of actual outputs (accuracy, appropriateness, coherence, relevance)
+- **Process Discernment** — assessing how the AI arrived at its output, looking for logical errors, attention gaps, or inappropriate reasoning
+- **Performance Discernment** — evaluating how the AI behaves within the collaboration process itself, considering whether its communication style is effective for your needs
+- **Discernment evaluates how well your needs were met**
+- **A continuous loop of instruction and evaluation drives quality** — Discernment works hand-in-hand with Description
+- **Discernment ensures that AI collaboration remains guided by human judgment** — even the most advanced AI systems benefit from human oversight
+
+### 🏋️ Exercise: Expert Discernment — Evaluating AI Responses in Your Domain
+
+> **Goal:** Practice Product, Process, and Performance Discernment by evaluating AI-generated content in a domain where you have expertise, recognizing how your knowledge enhances your ability to critically assess AI outputs.
+
+1. **Return to your area of expertise** — recall the topic you discussed with Claude in the earlier "Explore something you love" exercise
+2. **Ask for multiple explanations** — start a new conversation and ask Claude to generate **three different explanations or analyses** of a specific aspect of your expert topic (e.g., three explanations of depth of field for photography, three analyses of fermentation for cooking, three perspectives on a historical event)
+3. **Apply your expert discernment**:
+   - **Product Discernment** — Which explanation is most accurate? Any factual errors/misconceptions? Is the level of detail appropriate?
+   - **Process Discernment** — Does Claude follow logical reasoning? Are there gaps in analysis? Does it make appropriate connections between concepts?
+   - **Performance Discernment** — Was Claude attentive to your specific question and responsive to feedback? Is terminology used appropriately? How does tone/style affect clarity?
+4. **Provide feedback and refinement** — identify the strongest and weakest explanations, explain *why*, then work with Claude to create an improved version
+5. **Reflect** — What specific knowledge let you judge strengths/weaknesses? How might a non-expert struggle to discern quality here? What does this teach about the relationship between domain knowledge and effective Discernment?
+
+> 💡 For a more playful Discernment workout, try the "Game Night" suggestions in the final lesson's "Additional Activities."
+
+### 🤔 Reflection
+- Which type of Discernment (Product, Process, or Performance) do you find most challenging to apply, and why?
+- How does Discernment complement Description? How do they work together?
+- What signals or patterns might indicate that an AI output requires closer scrutiny?
+
+### 🔜 What's Next
+In the next lesson, you'll apply both **Description** and **Discernment** skills to the overarching course project — communicating effectively with AI *and* critically evaluating its outputs to produce results that leverage the best of both human and AI capabilities.
+
+---
+
 <!-- Add new lectures below this line -->
