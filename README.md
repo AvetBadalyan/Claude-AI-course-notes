@@ -660,4 +660,147 @@ In the next lesson, you'll apply both **Description** and **Discernment** skills
 
 ---
 
+## Lecture 10: Project Execution with Description-Discernment Loops
+
+> ⏱️ Estimated time: 30–60 minutes
+
+### 🎯 What You'll Learn
+- Apply Description and Discernment skills to a real project
+- Engage in productive Description-Discernment feedback loops
+- Create results through human-AI collaboration that **exceed what either could achieve alone**
+
+### 🏋️ Exercise: Project Execution with Description-Discernment Loops
+
+This lesson has **no new theory** — it's a hands-on application of everything covered in Lectures 6–9 (Delegation, Description, Discernment) to your own course project.
+
+1. **Review your project plan** — pull up the plan from Lesson 5, quickly re-check your delegation decisions (human / AI / collaboration), and refine if needed based on what you've learned since
+2. **Prepare your Description approach** — before executing, plan out:
+   - **Product Description** — what specific outputs do you need for each task? format, style, length, level of detail?
+   - **Process Description** — how should Claude approach each task? specific methods, frameworks, or steps?
+   - **Performance Description** — what collaborative behavior do you want? concise vs. detailed, challenging vs. supportive, ideas-focused vs. analysis-focused?
+3. **Execute using Description-Discernment loops** — for each task:
+   - **Describe** clearly (Product / Process / Performance Description)
+   - **Discern** the quality of what you receive (Product / Process / Performance Discernment)
+   - **Refine** — give feedback on what worked/didn't, adjust your description, iterate until satisfied
+   - **Integrate your own expertise** — add your perspective, creativity, domain knowledge; make the final call on what to keep, modify, or discard; **take responsibility for the final output**
+   - Repeat the loop for each task until the project is complete
+
+### 🤔 Reflection
+- What patterns did you notice in the types of descriptions that led to the best outcomes?
+- Which required more effort from you: **Description** or **Discernment**? Why?
+- How did your actual project execution compare to your initial plan from Lesson 5? What adjustments did you make along the way?
+
+### 🔜 What's Next
+The final competency in the AI Fluency Framework: **Diligence**. While Delegation, Description, and Discernment focus primarily on **effectiveness and efficiency**, Diligence addresses the **ethical and safety** aspects of working with AI — ensuring your AI collaborations are **responsible, transparent, and accountable**.
+
+---
+
+## Lecture 11: The 4Ds — Diligence
+
+### 🎯 What You'll Learn
+- Understand the ethical implications of AI collaboration
+- Understand the importance of transparency in AI work
+- Recognize your responsibility in AI interactions and outputs
+
+### What is Diligence?
+
+> **Diligence** is taking responsibility for what we do with AI and how we do it.
+
+![The 4Ds: Diligence — Creation, Transparency, Deployment overview](assets/L11-diligence/diligence-overview.png)
+
+![Diligence — 16x9 overview](assets/L11-diligence/diligence-overview-16x9.png)
+
+- While Delegation, Description, and Discernment primarily address **effectiveness and efficiency**, Diligence addresses **ethical and safety** aspects that are equally crucial
+- Different contexts (personal, academic, professional) may have **different expectations** for disclosure and verification
+- We each have a responsibility to **understand and meet these expectations**
+
+![Diligence — taking responsibility, rigorous/transparent/accountable, consider broader questions, responsibility starts with awareness](assets/L11-diligence/video-intro.png)
+
+### Sub-Competency 1: 🧭 Creation Diligence
+
+> Being thoughtful about **which AI systems** you use and how you interact with them. *Your ability to be critical and intentional about which AI systems you choose to use and how you use them.*
+
+![Creation Diligence — be critically aware of the AI systems we use, how we work with them, the impacts that come from that interaction](assets/L11-diligence/video-creation-diligence.png)
+
+**Be critically aware of:**
+- The AI systems that we use
+- How we work with them
+- The impacts that come from that interaction
+
+### Sub-Competency 2: 📢 Transparency Diligence
+
+> Being honest about **AI's role in your work** with everyone who needs to know. *The ability to be open and accurate about AI interaction with relevant stakeholders.*
+
+![Transparency Diligence — who needs to know, how should I communicate this, what level of detail is needed](assets/L11-diligence/video-transparency-diligence.png)
+
+- **Who needs to know?**
+- **How should I communicate this?**
+- **What level of detail is needed?**
+
+### Sub-Competency 3: ✅ Deployment Diligence
+
+> Taking responsibility for **verifying and vouching** for the outputs you use or share. *The ability to take informed responsibility for the outputs you use or share after they've been created with AI assistance.*
+
+![Deployment Diligence — verify facts, check for biases, ensure accuracy, check for usage rights](assets/L11-diligence/video-deployment-diligence.png)
+
+- **Verify facts**
+- **Check for biases**
+- **Ensure accuracy**
+- **Check for usage rights**
+- And so on...
+
+### ⚖️ Ethical Frameworks
+
+![Ethical frameworks — personal guidelines, organizational policies, professional standards, industry codes, legal/regulatory frameworks](assets/L11-diligence/video-ethical-frameworks.png)
+
+- Personal guidelines
+- Organizational policies
+- Professional standards
+- Industry codes of conduct
+- Legal and regulatory frameworks
+- **Staying informed is an important part of diligence**
+
+### Key Takeaways
+
+![Key takeaways — AI use should be effective, efficient, ethical, and safe; diligence means responsibility](assets/L11-diligence/video-key-takeaways.png)
+
+- Diligence is about **taking responsibility** for our AI collaborations
+- **Creation Diligence** — being thoughtful about which AI systems we use and how we engage with them
+- **Transparency Diligence** — being honest about AI's role in our work with everyone who needs to know
+- **Deployment Diligence** — taking responsibility for verifying and vouching for the outputs we use or share
+- Different contexts (personal, academic, professional) may have different expectations for disclosure and verification
+- AI use should be not only **effective and efficient**, but also **ethical and safe**
+- We all want AI that is **fair**, **safe**, and of **benefit** to society — **our own behaviors play a key role in making this happen**
+
+### 🏋️ Exercise: Creating a Diligence Statement
+
+> ⏱️ Estimated time: 14 minutes
+
+A **diligence statement** is a transparent acknowledgment of AI's role in your work, along with your commitment to responsibility for the final output. Example:
+
+> *"In creating this [document/project/content], I collaborated with [AI assistant name] to assist with [specific tasks: drafting, research, editing, etc.]. I affirm that all AI-generated and co-created content underwent thorough review and evaluation. The final output accurately reflects my understanding, expertise, and intended meaning. While AI assistance was instrumental in the process, I maintain full responsibility for the content, its accuracy, and its presentation. This disclosure is made in the spirit of transparency and to acknowledge the role of AI in the creation process."*
+
+**Step 1: Understand diligence statements** *(~3 min)* — read the example above.
+
+**Step 2: Reflect on your AI collaboration** *(~5 min)*:
+- **Creation Diligence** — Which AI systems did you choose and why? What data/information did you share? Any privacy, security, or ethical considerations?
+- **Transparency Diligence** — Who is the audience for your output? What disclosure expectations might they have? How specifically did AI contribute to different aspects?
+- **Deployment Diligence** — What steps verified the accuracy/appropriateness of AI contributions? How did you ensure the final output meets your standards? What responsibility are you taking?
+
+**Step 3: Draft your statement** *(~6 min)* — share your reflections (and optionally past conversations) with Claude, and collaborate to draft a statement addressing: which AI systems you used, how AI contributed, your review process, your assertion of responsibility, and any context-specific considerations.
+
+**Step 4: Add your statement to your project** — e.g., footer, appendix, or metadata.
+
+### 🤔 Reflection
+- Which aspect of Diligence (Creation, Transparency, or Deployment) do you find most challenging, and why?
+- How might your approach to Diligence vary depending on the context (personal, academic, professional)?
+- How does acknowledging AI's role in your work affect how others might perceive it?
+- What ethical considerations arose during your project that you hadn't anticipated?
+- What personal guidelines might you develop for responsible AI collaboration going forward?
+
+### 🔜 What's Next
+The **final lesson** of the course: reflecting on AI Fluency as a whole, revisiting the 4D framework, and discussing how to continue developing these skills as AI capabilities evolve.
+
+---
+
 <!-- Add new lectures below this line -->
