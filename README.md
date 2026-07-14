@@ -803,4 +803,131 @@ The **final lesson** of the course: reflecting on AI Fluency as a whole, revisit
 
 ---
 
+## Lecture 12: Conclusion — AI Fluency: Framework and Foundations
+
+> ⏱️ Estimated time: 15 minutes
+
+### 🎯 What You'll Learn
+- Consolidate key learnings from the course
+- Connect AI Fluency to your continuing development
+
+### Video: Conclusion
+
+This concluding video revisits the AI Fluency Framework and brings together the key concepts explored throughout the course.
+
+- The four core competencies (**the 4Ds**): **Delegation** (deciding what work to do with AI vs. independently), **Description** (communicating effectively with AI), **Discernment** (evaluating AI outputs and behaviors), **Diligence** (ensuring responsible AI collaboration)
+- These competencies apply across all **three major ways of interacting with AI**: Automation, Augmentation, and Agency
+- **Fluency develops through practice, not overnight mastery**
+- AI systems are powerful but **not magical solutions** — they're only as useful and safe as we enable them to be through our thoughtful engagement
+
+### Key Takeaways
+
+![Key takeaways — recap of Delegation, Description, Discernment, Diligence](assets/L12-conclusion/video-key-takeaways-4ds-recap.png)
+
+| Competency | Key Takeaways |
+|---|---|
+| 🎯 **Delegation** | Domain expertise is the foundation • Leverage the strengths of both humans and AI |
+| 💬 **Description** | Clear communication is key • Context, examples, and conversations |
+| 🔍 **Discernment** | Critical evaluation of AI output is our responsibility • Discernment skills mitigate AI limitations and enable capabilities |
+| 🛡️ **Diligence** | Maintain accountability for AI interactions, outputs and impacts • Transparency builds trust and integrity in our work |
+
+- AI Fluency develops through **intentional practice** of the four core competencies
+- **Delegation** — our expertise and judgment remain the foundation of effective AI collaboration
+- **Description** — clear communication that bridges our intentions and AI capabilities
+- **Discernment** — thoughtful and critical evaluation of outputs to work within the system's constraints
+- **Diligence** — ensures accountability, transparency, and responsibility in our AI work
+- The most powerful outcomes emerge when **humans and AI build on each other's strengths**
+- The framework is designed to **remain relevant as AI systems continue to evolve**
+
+### 🏋️ Exercises
+
+**Exercise 1: Discuss the AI Fluency Course with Claude**
+- Engage Claude in a meaningful conversation about this course and the AI Fluency Framework (optionally upload a copy of the framework from ringling.libguides.com/ai/framework)
+- Suggested conversation starters:
+  - *"I've just completed a course on AI Fluency covering Delegation, Description, Discernment, and Diligence. Let's discuss how these competencies might apply to [my degree program / my job / etc.]."*
+  - *"Let's explore how the AI Fluency Framework might evolve as AI capabilities advance. What new competencies might become important in the future?"*
+  - *"Help me identify which of the 4D competencies I seem to understand well and which I might need to develop further, based on our conversation."*
+  - *"Here's [some exercise you did in this course]. Let's analyze it to improve my competencies."*
+
+**Exercise 2: Build a Personal AI Policy** — with Claude as a thinking partner, create your own guidelines for responsible/ethical AI collaboration:
+- Clear standards for when/how you'll work with AI in different contexts
+- Boundaries for sensitive or confidential information
+- How you'll maintain quality control for AI-assisted work
+- Ethical issues most relevant to your field or activities
+- Decision-making criteria for addressing ethical dilemmas
+- Perspectives of people who might be affected by your AI interactions
+- How you'll disclose AI collaboration in different contexts
+- Templates for attribution and transparency statements
+- Criteria for when more detailed disclosure is appropriate
+
+> 💡 Reflection for this lesson happens *through* the two exercises above — there are no separate reflection questions.
+
+### 🎓 What's Next
+
+Congratulations on completing **AI Fluency: Framework and Foundations**! This is just the beginning of the journey.
+
+- Fluency develops through **practice** — each AI interaction is a chance to refine your skills
+- Approach AI as a **thinking partner**, not just a tool
+- Maintain a commitment to **effectiveness, efficiency, ethics, and safety**
+- Additional exercises are available in **Lesson 12** to continue the journey
+- Share what you've learned, seek diverse perspectives, and contribute to the conversation on working with AI in ways that amplify human potential while respecting our values and responsibilities to each other
+
+---
+
+## 📎 Appendix: Additional Activities (Self-Paced)
+
+> ⏱️ Estimated time: self-paced — optional practice after finishing the course. Pick what resonates, or use as inspiration for your own.
+
+### 🗺️ Build a Personal AI Fluency Plan
+
+With an AI assistant, create a structured plan for developing your AI fluency over time:
+
+1. **Current competency assessment** — rate yourself (novice / developing / confident) on each of the 4Ds; note specific strengths and growth areas; identify which interaction modes (Automation, Augmentation, Agency) you use most/least effectively
+2. **Development priority identification** — pick 1–2 competencies to focus on first; identify which specific aspects matter most in your context; consider which interaction modes you want to grow
+3. **Specific action planning** — create activities to develop each priority competency; set a timeline/frequency for practice; identify supporting resources/tools; define how you'll recognize progress
+
+> Work with Claude as a thinking partner — share your self-assessments and get feedback on your plan.
+
+### 📚 Build a Personal Prompt & Pattern Library
+
+Create a personalized collection of effective prompts/patterns for recurring AI interactions:
+
+1. **Common task template creation** — identify 5–10 recurring tasks; develop a template prompt for each that consistently works well; include placeholders for variable info
+2. **Effective strategy documentation** — document which Description techniques work for which task types; record Discernment patterns that help you evaluate outputs; note what works best per interaction mode
+3. **Personal reference resource building** — organize templates/strategies so they're easy to search; include examples of successful outputs; keep a system for updating the library as you find new approaches
+
+> Ask Claude to help analyze your past successful interactions and identify what made them effective.
+
+### 🎮 Game Night!
+
+Playful exercises to practice precise **Description** and sharpen **Discernment** through word puzzles — puzzles have specific instructions (unlike open-ended tasks), making them great for both clear communication *and* discernment workouts.
+
+**Swap Riddles**
+- Create a riddle (or try: *"Five-score and more drums I tap to paint a symphony of light. What am I doing?"* → *typing on a ~104-key keyboard to create pixels on a monitor*)
+- Have Claude guess **and explain its reasoning** — note not just the guess but the *why*
+- Don't reveal the answer — instead nudge Claude toward the right chain-of-thought
+- Switch sides: ask Claude for a riddle and have it guide you in return
+
+**Co-operative Crosswords**
+- Work on crossword clues together (cryptic clues are especially interesting)
+- Focus isn't on solving skill — it's on **guiding and refining thinking**: *"Remember, it's only 5 letters"*, *"Can't be that, it starts with B"*, *"Maybe they mean 'swallow' the bird, not the drink"*
+- These steering skills transfer directly to real projects
+
+**Word Association**
+- Pick 12–20 random words and collaborate with Claude to find relationships/themes
+- When Claude makes a questionable connection or misses a pattern, point it out and guide it toward better reasoning — and stay open to Claude spotting things you missed
+- Practice all three Discernment types:
+  - **Product** — do the answers logically fit a cohesive theme?
+  - **Process** — does Claude consider multiple possibilities, or fixate narrowly?
+  - **Performance** — is Claude's communication clear? Does it ask good questions and build on your suggestions?
+
+**More Game Suggestions**
+- **Twenty Questions** — Claude thinks of something, you ask yes/no questions to guess it, then switch roles
+- **Collaborative Storytelling** — alternate sentences building a story; observe how you both maintain coherence
+- **A Wizard Approaches You in the Tavern** — play an RPG with an LLM as player or game master
+- **Concepts & Constraints** — explain a complex concept under a tight constraint (e.g., "cooking metaphors only"); compare your approach to Claude's
+- **Advanced Puzzling** — create logic/word puzzles for Claude to solve (or vice versa); programmers can swap in [Project Euler](https://projecteuler.net/) problems
+
+---
+
 <!-- Add new lectures below this line -->
