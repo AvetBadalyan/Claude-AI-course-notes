@@ -2,9 +2,9 @@
 
 ---
 
-## Lecture 1: Introduction & AI Fluency Framework
+## Lectures 1–3: The AI Fluency Framework
 
-> **Welcome!** This video introduces the course's focus: developing meaningful collaboration with AI rather than just learning about AI technology. The course explores how to build a lasting framework for working with AI systems that goes beyond simple and temporary tips and tricks.
+> **Welcome!** This course's focus: developing meaningful collaboration with AI, not just learning AI technology — a lasting framework, not temporary tips and tricks.
 
 ### 🧠 What is AI Fluency?
 The ability to collaborate with AI in ways that are:
@@ -13,26 +13,11 @@ The ability to collaborate with AI in ways that are:
 - **Ethical**
 - **Safe**
 
+AI Fluency = developing **practical skills, knowledge, insights, and values** for interacting with AI systems.
+
 ![Fluent AI use is Effective, Efficient, Ethical and Safe](assets/L1-L3-framework/fluent-ai-use.png)
 
-### The 4D Competencies
-The AI Fluency Framework is built on four core competencies: **Delegation**, **Description**, **Discernment**, and **Diligence**. These are covered in depth in Lecture 3 onwards.
-
-### Key Takeaways
-- This course focuses on **human-AI collaboration**, not just understanding AI as a technology
-- AI Fluency means engaging with AI systems effectively, efficiently, ethically, and safely
-- The AI Fluency Framework centers on the **4D competencies**: Delegation, Description, Discernment, and Diligence
-- The goal is to develop **lasting skills** that remain relevant as AI technology evolves
-- Effective AI collaboration requires both practical skills and a **fundamental shift in how we think** about working with AI
-
----
-
-## Lecture 2: The AI Fluency Framework
-
-### Why Do We Need AI Fluency?
-AI Fluency involves developing **practical skills, knowledge, insights, and values** that help you interact with AI systems in ways that are effective, efficient, ethical, and safe.
-
-### 🔄 Three Ways People Engage with AI
+### 🔄 Three Ways to Engage with AI
 
 ![Three ways to interact with AI](assets/L1-L3-framework/three-ways-to-interact.png)
 
@@ -41,10 +26,6 @@ AI Fluency involves developing **practical skills, knowledge, insights, and valu
 | ⚡ **Automation** | The AI completes specific tasks based on your instructions |
 | 🤝 **Augmentation** | You and AI collaborate as creative thinking and task execution partners |
 | 🧠 **Agency** | You configure AI to work independently on your behalf — establishing its knowledge and behavior patterns rather than just giving it specific tasks |
-
----
-
-## Lecture 3: The 4D Framework Deep Dive
 
 ### The 4D Framework — Overview
 
@@ -91,11 +72,11 @@ Using AI responsibly and ethically, with transparency and accountability.
 
 ![Key takeaways — Fluent AI use and the interconnected 4D cycle](assets/L1-L3-framework/key-takeaways-4d-cycle.png)
 
+- This course focuses on **human-AI collaboration**, not just understanding AI as a technology — it requires a **fundamental shift in how we think** about working with AI, not just new skills
 - The **4Ds apply across all three modes** of working with AI (Automation, Augmentation, Agency)
 - The 4Ds are **interconnected with each other** — they influence one another in all directions, not a one-way sequence
 - Each D has **three sub-competencies** that make the framework practical and actionable
-- Developing these competencies **prepares you for evolving AI capabilities** — not just today's tools
-- AI Fluency means engaging with AI in ways that are effective, efficient, ethical, and safe
+- Developing these competencies **prepares you for evolving AI capabilities** — lasting skills, not just today's tools
 
 ---
 
@@ -146,7 +127,7 @@ Using AI responsibly and ethically, with transparency and accountability.
 
 ---
 
-## Lecture 4: Understanding Generative AI (Deep Dive 1 — Part A)
+## Lectures 4–5: Understanding Generative AI — Capabilities & Limitations (Deep Dive 1)
 
 ### What is Generative AI?
 
@@ -216,17 +197,7 @@ Using AI responsibly and ethically, with transparency and accountability.
 
 ![AI context window](assets/L4-generative-ai/context-window.png)
 
-### Key Takeaways
-- Generative AI **creates** new content — it doesn't just classify or retrieve existing data
-- Three enablers: better **algorithms** (Transformer 2017), more **data**, and more **compute**
-- LLMs learn in two phases: **pre-training** (broad knowledge) → **fine-tuning** (helpful behavior)
-- Understanding these foundations directly strengthens your **Delegation** competence — knowing what AI can and can't do helps you decide when to use it
-
----
-
-## Lecture 5: Capabilities & Limitations (Deep Dive 1 — Part B)
-
-### Capabilities
+### Capabilities (In Depth)
 
 ![LLM capabilities](assets/L5-capabilities/llm-capabilities.png)
 
@@ -288,12 +259,13 @@ LLMs can struggle with complex multi-step reasoning and math. This is being addr
 - **Being hands-on** — practical experience is the best way to develop AI Fluency
 
 ### Key Takeaways
-- Generative AI creates new content (text, images, code) rather than just analyzing existing data
-- Three key enablers: algorithmic breakthroughs (Transformer), vast training data, increased compute
-- AI learns through: **pre-training** (pattern recognition) → **fine-tuning** (helpful behaviour)
+- Generative AI **creates** new content — it doesn't just classify or retrieve existing data
+- Three key enablers: algorithmic breakthroughs (**Transformer**), vast **training data**, increased **compute**
+- AI learns through: **pre-training** (broad pattern recognition) → **fine-tuning** (helpful, honest, harmless behavior)
 - Current capabilities: versatility across tasks, conversational awareness, connecting to external tools
 - Current limitations: knowledge cutoff, hallucinations, context window constraints, non-deterministic output, reasoning challenges
 - **Most effective applications combine human and AI strengths** — humans bring judgment and ethics; AI brings speed and scale
+- Understanding these foundations directly strengthens your **Delegation** competence — knowing what AI can and can't do helps you decide when to use it
 
 ---
 
@@ -360,11 +332,6 @@ Ask yourself:
 
 ## Lecture 7: The 4Ds — Description
 
-### 🎯 What You'll Learn
-- Understand how to effectively communicate your intentions to AI systems
-- Recognize the importance of clear, purposeful communication
-- Develop skills in three types of Description: **Product**, **Process**, and **Performance**
-
 ### What is Description?
 
 > **Description** is the ability to communicate with AI in ways that create a productive collaborative environment. It goes beyond simply writing prompts — it involves creating a collaborative environment where both you and the AI can work effectively together.
@@ -418,12 +385,6 @@ Ask yourself:
 ---
 
 ## Lecture 8: 6 Techniques for Effective Prompt Engineering
-
-### 🎯 What You'll Learn
-- Understand what prompt engineering is and why it matters for productive AI collaboration
-- Apply six foundational prompting techniques to improve your AI interactions
-- Identify common patterns that lead to successful AI interactions
-- Troubleshoot and refine prompts when AI responses don't meet your needs
 
 ![Effective prompting techniques — intro](assets/L8-prompting/video-intro.png)
 
@@ -555,11 +516,6 @@ Some ways to refine your prompt:
 
 ## Lecture 9: The 4Ds — Discernment
 
-### 🎯 What You'll Learn
-- Understand how to evaluate AI outputs and processes thoughtfully
-- Develop critical thinking skills for your AI interactions
-- Learn to identify and address quality concerns in your AI interactions
-
 ### What is Discernment?
 
 > **Discernment** is the ability to thoughtfully and critically evaluate what AI produces, how it produces it, and how it behaves.
@@ -655,23 +611,13 @@ Some ways to refine your prompt:
 - How does Discernment complement Description? How do they work together?
 - What signals or patterns might indicate that an AI output requires closer scrutiny?
 
-### 🔜 What's Next
-In the next lesson, you'll apply both **Description** and **Discernment** skills to the overarching course project — communicating effectively with AI *and* critically evaluating its outputs to produce results that leverage the best of both human and AI capabilities.
-
 ---
 
 ## Lecture 10: Project Execution with Description-Discernment Loops
 
-> ⏱️ Estimated time: 30–60 minutes
-
-### 🎯 What You'll Learn
-- Apply Description and Discernment skills to a real project
-- Engage in productive Description-Discernment feedback loops
-- Create results through human-AI collaboration that **exceed what either could achieve alone**
+> ⏱️ Estimated time: 30–60 minutes. A hands-on application of Lectures 6–9 (Delegation, Description, Discernment) to your own course project — no new theory, just practice.
 
 ### 🏋️ Exercise: Project Execution with Description-Discernment Loops
-
-This lesson has **no new theory** — it's a hands-on application of everything covered in Lectures 6–9 (Delegation, Description, Discernment) to your own course project.
 
 1. **Review your project plan** — pull up the plan from Lesson 5, quickly re-check your delegation decisions (human / AI / collaboration), and refine if needed based on what you've learned since
 2. **Prepare your Description approach** — before executing, plan out:
@@ -685,22 +631,16 @@ This lesson has **no new theory** — it's a hands-on application of everything 
    - **Integrate your own expertise** — add your perspective, creativity, domain knowledge; make the final call on what to keep, modify, or discard; **take responsibility for the final output**
    - Repeat the loop for each task until the project is complete
 
+> **Example loop:** Task = "write a project summary." *Describe:* "Write a 200-word summary for a non-technical stakeholder, in 3 short paragraphs (Product); cover goal → approach → outcome, in that order (Process); keep the tone confident but not salesy (Performance)." *Discern:* the draft is accurate and well-structured (Product ✅) but jumped straight to outcome before explaining approach (Process ❌) and reads a little too promotional (Performance ❌). *Refine:* "Reorder to goal→approach→outcome, and tone it down — state facts rather than selling them." *Integrate:* you swap in the real budget figures only you have access to, then approve the final version.
+
 ### 🤔 Reflection
 - What patterns did you notice in the types of descriptions that led to the best outcomes?
 - Which required more effort from you: **Description** or **Discernment**? Why?
 - How did your actual project execution compare to your initial plan from Lesson 5? What adjustments did you make along the way?
 
-### 🔜 What's Next
-The final competency in the AI Fluency Framework: **Diligence**. While Delegation, Description, and Discernment focus primarily on **effectiveness and efficiency**, Diligence addresses the **ethical and safety** aspects of working with AI — ensuring your AI collaborations are **responsible, transparent, and accountable**.
-
 ---
 
 ## Lecture 11: The 4Ds — Diligence
-
-### 🎯 What You'll Learn
-- Understand the ethical implications of AI collaboration
-- Understand the importance of transparency in AI work
-- Recognize your responsibility in AI interactions and outputs
 
 ### What is Diligence?
 
@@ -798,20 +738,9 @@ A **diligence statement** is a transparent acknowledgment of AI's role in your w
 - What ethical considerations arose during your project that you hadn't anticipated?
 - What personal guidelines might you develop for responsible AI collaboration going forward?
 
-### 🔜 What's Next
-The **final lesson** of the course: reflecting on AI Fluency as a whole, revisiting the 4D framework, and discussing how to continue developing these skills as AI capabilities evolve.
-
 ---
 
 ## Lecture 12: Conclusion — AI Fluency: Framework and Foundations
-
-> ⏱️ Estimated time: 15 minutes
-
-### 🎯 What You'll Learn
-- Consolidate key learnings from the course
-- Connect AI Fluency to your continuing development
-
-### Video: Conclusion
 
 This concluding video revisits the AI Fluency Framework and brings together the key concepts explored throughout the course.
 
@@ -859,6 +788,8 @@ This concluding video revisits the AI Fluency Framework and brings together the 
 - How you'll disclose AI collaboration in different contexts
 - Templates for attribution and transparency statements
 - Criteria for when more detailed disclosure is appropriate
+
+> **Example policy snippet:** *"I use Claude for drafting and research, never for final decisions involving client data. I always verify factual claims before sharing. Any deliverable with substantial AI involvement gets a one-line disclosure in the footer (see the Diligence Statement template above). I don't paste confidential client information into any AI tool without an enterprise data agreement in place."*
 
 > 💡 Reflection for this lesson happens *through* the two exercises above — there are no separate reflection questions.
 
