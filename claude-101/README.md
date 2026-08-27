@@ -290,4 +290,279 @@ This kind of lightweight evaluation helps you develop intuition for how to work 
 
 ---
 
+## Chapter 4: How You'll Work with Claude on Your Desktop
+
+> ⏱️ Estimated time: 6 minutes
+
+### 🎯 Learning Objectives
+
+By the end of this lesson you'll be able to:
+- Distinguish the ways you work with Claude on the desktop — working with Claude turn by turn, handing whole tasks off for Claude to run, and building software in your codebase
+- Recognize which shape of work a task calls for before you start it
+- Find where each way of working lives in the desktop app today
+
+### 🖥️ Working with Claude on Your Desktop
+
+The Claude desktop app is your home base for working with Claude — from a quick question mid-meeting to a report Claude assembles from six sources while you do something else. The work sorts into **three shapes**, and knowing which one you're in is the whole skill of this lesson:
+
+1. 💬 **Working with Claude, turn by turn.** You and Claude go back and forth. You ask, Claude answers, you steer, it revises. The thinking happens in the exchange.
+2. 🤝 **Handing work off to Claude.** You describe an outcome — a finished brief, a formatted deliverable, a task that runs every Monday — and Claude plans it, does it, and comes back with the result. You review the plan and the output; you don't stitch the steps together yourself.
+3. 💻 **Building software with Claude Code.** Claude works directly in a codebase: reading it, writing and testing code, running commands. Built for developers, and worth knowing about even if you never open it.
+
+The first two are where most knowledge workers spend their day; the third is the developer's workspace.
+
+> **In the product today.** Turn-by-turn work happens in **Chat**. Work you hand off runs in **Cowork**. Building software happens in the **Code tab**. All three live in the Claude desktop app.
+
+### 💬 Working with Claude, Turn by Turn
+
+This is Claude as a thinking partner: the shape of work where the value is in the exchange itself. You bring a half-formed idea, an unfamiliar dashboard, a paragraph that isn't landing — and you work it out together, one turn at a time.
+
+**Reach for this when:**
+- **The answer changes what you ask next.** You're brainstorming, and each response opens the next question. You couldn't have written the whole request up front, because you didn't know yet.
+- **You want to stay in it.** Drafting, editing, thinking out loud — the point is your judgment on every turn, not a finished thing at the end.
+- **It's quick.** A question, a rewrite, a "what does this mean?" — small enough that setting up a whole task would be overhead.
+
+**Try it out when:**
+- You're staring at an unfamiliar dashboard. Screenshot it and ask *"what do these metrics mean?"* Claude explains while the dashboard stays in view, and your follow-up (*"okay, which of these should I actually worry about?"*) is the next turn.
+- You're between meetings and need to structure a presentation. Talk it through by voice; Claude drafts an outline from what you said; you push back on section three; it revises. Four turns, done before your next call.
+- You've been jotting product-launch ideas across Apple Notes for weeks. Ask Claude to pull together everything about the launch, figure out what you left half-finished, and check your other connected tools for gaps. Then work the gaps together.
+
+**In the product today.** In the desktop app this is **Chat** — the same Claude you know from claude.ai, plus a few things that come from running natively on your computer:
+
+| Feature | What it does |
+|---------|---------------|
+| **Quick entry** | Double-tap the Option key (Mac) to pull Claude up over whatever you're working on. It answers in a compact window that stays on top as you switch apps. |
+| **Screenshots and window sharing** | Capture a screenshot or share a window so Claude sees what you see. (Mac) |
+| **Dictation** | Talk through a problem instead of typing. (Mac) |
+| **Desktop connectors** | Connect local tools and services so Claude can work with what's on your machine. |
+
+### 🤝 Handing Work Off to Claude
+
+Working agentically with Claude is a new way of working for many people. Instead of asking a question, you hand Claude the whole piece of work — gather the context, do the analysis, produce the finished thing — and it comes back done. You're **delegating**, not just chatting.
+
+**Reach for this when:**
+- **The task has several steps** you'd normally do in sequence. Pull the figures, compare them, draft the summary, format the doc. Handed off, that's one instruction, not four errands.
+- **The output is a real deliverable.** A Word doc, a spreadsheet, a deck, a formatted PDF — saved where you need it, not pasted into a chat window for you to reassemble.
+- **The work spans your tools.** Meeting notes in one place, the thread in Slack, last quarter's numbers in a spreadsheet. Set up a Friday roll-up as a scheduled task and Claude gathers all three itself every time it runs — nothing for you to round up first.
+- **It should happen on a schedule, or while you're doing something else.** A Friday review of what shipped. A Monday briefing that preps you for your next meeting.
+
+> Handing work off doesn't mean stepping back from it. Before Claude starts, it may ask a few questions to pin down scope and format, and it shows you the plan. As it works, you can watch the task take shape — the sources it's drawing from, the files forming, its progress through the plan — and steer at any point. And when Claude is set to ask before acting, it stops for your approval on the actions that matter, like sending an email or sharing a file. **You stay in control of what leaves your desk.**
+
+**Try it out when:**
+- You want to query all your tools like a database. *"Review what we decided about pricing last quarter across meeting notes, Slack, and email, then update the Q3 deck with the findings."* Claude finds the answer across all of them and updates the deck. Hand it off, keep working, check the result.
+- You have a folder of 50+ project documents — contracts, financial reports, meeting transcripts. Ask Claude to find the ones most relevant to your initiative and produce a summary memo. It reads every page and pulls out the patterns that only emerge from reading all of them. Review fifty like you'd review five.
+- You do the same work every Monday morning — check messages, assemble a status update, prep for the day's meetings. Set it up once as a scheduled task, and start Monday with answers instead of admin.
+
+**In the product today.** In the desktop app, you can hand off tasks in **Cowork**. What that gives you today:
+
+| Capability | What it does |
+|------------|---------------|
+| **Local folder access** | Point Claude at a folder; it reads what's there and saves finished work back to the same place. This is the concrete difference from turn-by-turn Chat, which can read what you upload but hands finished files back as downloads rather than saving them into your folder. |
+| **Scheduled tasks** | Set a task once — a daily briefing, a weekly roundup, a morning inbox triage — and Claude runs it on the cadence you set. If your computer or the app was closed at the scheduled time, it catches up when you're back. |
+| **Subagents** | For a big job, Claude splits the work across background workers running in parallel, each with its own context, and hands you one finished deliverable. |
+| **Projects** | Group related tasks into a workspace with its own files, instructions, and memory — like projects in Chat, but built around the tasks you run. |
+| **Browser use** | With Claude in Chrome, Claude navigates websites and pulls what it finds straight into the task — competitor pricing across ten sites, data from pages with no API. |
+| **Computer use** | When there's no connector for what you need, Claude can operate your computer directly — clicking, typing, opening apps — asking permission before each app it touches, with a blocklist for anything off-limits. In research preview on Pro and Max plans. |
+| **Plugins** | Ready-made bundles of skills, connectors, and agents built for a specific kind of work — a sales plugin, a finance one, a legal one — so Claude works the way that role works. Browse and add them under **Customize → Plugins**. |
+
+> Cowork is available to **Pro, Max, Team, and Enterprise** users, with new capabilities added regularly.
+
+### 💻 Building Software with Claude Code
+
+If you write code, the desktop app gives you a full development environment. Claude works directly in your codebase — reading what's there, writing and modifying code, running commands. Visual diffs show what changed, a built-in terminal shows commands as they run, and **git tracks every version** so you can always roll back.
+
+> If you're not a developer, the takeaway is just this: it's a separate tab, and this course doesn't need it — *Claude Code in Action* covers it in depth.
+
+You choose **where** the work happens:
+
+| Environment | What it means |
+|-------------|----------------|
+| **Local** | Select a folder on your computer and Claude works directly with those files — reading your project, using local tools, and running a development server you can preview in your browser. |
+| **Cloud** | Connect a GitHub repository and Claude works in a cloud environment. Sessions continue even if you close the app, so you can start a big refactor and check back later. Good for larger codebases, or when you want to keep the work off your machine. |
+
+You also choose **how much Claude does on its own**:
+
+| Setting | What it means |
+|---------|----------------|
+| **Manually approve** | Claude proposes every change and waits for your approval. |
+| **Accept edits** | Claude applies file edits automatically. |
+| **Plan** | Claude creates a plan before making changes. |
+
+> **In the product today.** This lives in the **Code tab** of the desktop app, available on Pro, Max, Team, and Enterprise plans. You can run multiple sessions across projects and filter them by environment (Local or Cloud) and status from the sidebar.
+
+### 🧭 Choosing the Right Shape for the Task
+
+You won't pick a tab first — you'll notice what kind of work is in front of you, and the tab follows. Here's the whole lesson in one table.
+
+| You're about to… | The shape it takes | Where it lives today |
+|-------------------|---------------------|------------------------|
+| Ask, brainstorm, draft, or think something through, turn by turn | Working with Claude, turn by turn | **Chat** (quick entry, dictation, screenshots) |
+| Hand off a multi-step task that ends in a finished deliverable, spans your tools, or runs on a schedule | Handing work off | **Cowork** (folder access, connectors, scheduled tasks, subagents) |
+| Write, test, run, and ship code in a codebase | Building software | **The Code tab** (Local or Cloud) |
+
+### 🤔 Lesson Reflection
+
+- Think about how you used Claude this week. Which requests were turn-by-turn thinking, and which were really whole tasks you fed in one question at a time because that's the habit?
+- Take the task you'd most like off your plate. Is it multi-step, does it end in a real file, does it span your tools? If yes to any, it's a hand-off — write down the outcome you'd describe to Claude, not the first question you'd ask.
+
+---
+
+## Chapter 5: Introduction to Projects
+
+> 🗂️ **Unit: Organizing Your Work and Knowledge** · ⏱️ Estimated time: 20 minutes · 🎥 Video: *Introduction to Projects — Getting started with projects in Claude.ai*
+
+### 🎯 Learning Objectives
+
+By the end of this lesson, you will be able to:
+- Explain what projects are and when to use them
+- Create a new project with a name, description, and visibility settings
+- Add documents and files to your project's knowledge base
+- Write effective project instructions to guide Claude's behavior
+- Share projects with teammates (for Claude for Work (Team and Enterprise plan) users)
+
+### 🧠 Key Takeaways
+
+- **Projects are self-contained workspaces** with their own memory, chat histories, knowledge bases, and customized instructions. Think of them as dedicated environments for specific work streams.
+- **Project knowledge** enhances Claude's understanding by letting you upload relevant documents that Claude references across all chats within that project. No more re-uploading the same files each time.
+- **Project instructions** guide Claude's behavior — you can specify tone, expertise level, response style, and more. These instructions apply to every conversation within the project.
+- **Projects scale automatically.** When your knowledge base approaches context limits, Claude switches to searching your project knowledge and pulling in only what's relevant, expanding capacity by up to **10x** while maintaining response quality.
+- For **Claude for Work** users, projects enable collaboration. Share projects with teammates so everyone benefits from the same context, instructions, and accumulated knowledge.
+
+### 🗂️ What Are Projects?
+
+Projects are ideal for **storing knowledge** Claude should reference, **organizing related chats** around a specific topic or work area, and **collaborating** with team members who need access to the same shared context.
+
+#### When to Use Projects
+
+Projects are particularly valuable when you're working on something **ongoing** — not just a one-off question. Consider creating a project when you have a workflow with:
+- **Reference materials** you'll use repeatedly (meeting notes, survey results, reports, historical data, etc.)
+- **Consistent requirements** for how Claude should respond (always use formal language, always cite sources, always follow our template)
+- **Team collaboration needs** where multiple people should work from the same foundation
+
+### 🧩 Anatomy of a Project Page
+
+A project page is built around three right-hand panels, each with its own visibility badge:
+
+| Panel | Typical access | What it holds |
+|-------|-----------------|-----------------|
+| 🧠 **Memory** | *Only you* (private by default) | Builds automatically after a few chats — persists context across conversations within the project |
+| 📋 **Instructions** | *All project users* | The behavior rules you write in Step 2 below, editable via a pencil icon |
+| 📁 **Files** | *All project users* | Your knowledge base, with a capacity meter (e.g. *"1% of project capacity used"*) and a **+** button to add more |
+
+Above that sits the project name, a **Share** button, and the chat prompt box (with its own model picker and history icon). Below the prompt box, chats split into **Your chats** (private until shared) and **Activity**.
+
+> 💡 **Example:** a *"Brand Voice & Marketing Writing Assistant"* project for a flower distribution company — its instructions define Claude as *"a marketing writing assistant for Flower Power,"* and its knowledge base holds a Voice & Style Manual, a Brand Voice Framework, and Brand Voice & Messaging Guidelines (`.docx`/`.txt`/`.pdf` files, each shown with a line count).
+
+### 🏗️ Creating Your First Project
+
+Setting up a project takes just a few minutes.
+
+#### Step 1: Set Up Your Project
+
+1. Hover over the left sidebar and click **"Projects,"** or navigate directly to `claude.ai/projects`
+2. Click **"+ New Project"** in the upper right corner
+3. Give your project a descriptive name (e.g., *"Q4 Marketing Campaign"* or *"Product Documentation"*)
+4. Add a brief description of what you're working on. Claude doesn't see this description directly — it helps you and your teammates understand the project's purpose.
+5. Choose your **visibility settings**: keep it private or share with your organization (for Claude for Work users)
+
+#### Step 2: Add Project Instructions
+
+Project instructions tell Claude how to behave across all conversations in this project. Click **"Instructions"** to open the instructions panel.
+
+Good project instructions typically include:
+
+| Type | Example |
+|------|---------|
+| **Context** about what you're working on | *"This project is for creating marketing content for our B2B software product."* |
+| **Process** instructions | *"First consider a blog structure that will entice this audience, then write the draft."* |
+| **Tone and style** preferences | *"Use a professional but conversational tone. Avoid jargon when possible."* |
+| **Specific requirements** | *"Always include a call-to-action at the end of marketing copy."* |
+
+Once you've written your instructions, click **"Save instructions."** These apply to every chat in this project and work alongside any user preferences and styles you've set.
+
+> 💡 You can also use project instructions to **automate workflows** — e.g., *"When I upload a meeting transcript, create a structured summary using this template."* Think of instructions as programming Claude's behavior for this project.
+
+#### Step 3: Build Your Knowledge Base
+
+Your project's knowledge base is where you upload documents that Claude should reference, via the files menu on the right side of your project's main page.
+
+Click the **"+"** button to add content — supported types include PDF, DOCX, CSV, TXT, HTML, and more, or connect to **Google Drive** to link documents directly.
+
+**What to upload:**
+- Reference documents (brand guidelines, style guides, templates)
+- Background materials (research reports, meeting notes, requirements docs)
+- Examples of work you want Claude to emulate
+- Technical documentation or specifications
+
+> 💡 **Pro tip:** Name your files descriptively. Claude uses file names to understand and retrieve the right information, so `Q4-2024-Brand-Guidelines.pdf` is more helpful than `document1.pdf`.
+
+### 📈 How Projects Handle Large Knowledge Bases
+
+Projects automatically scale to handle large amounts of content through a process called **Retrieval Augmented Generation (RAG)**. At a high level, Claude can automatically find and use the most relevant parts of your uploaded documents when answering, without you needing to tell it which file to look at.
+
+When your project knowledge approaches the context window limit, Claude stops loading everything at once and instead **searches your project's files**, retrieving only what's relevant to your question — expanding your project's capacity by **up to 10x** while maintaining response quality.
+
+You'll see a visual indicator when your project is RAG-enabled, but the experience should feel the same — you can still upload documents, chat with Claude, and get context-aware responses.
+
+### 💬 Working Within Your Project
+
+Once your project is set up, you can start chatting with Claude. Each conversation within the project **automatically** has access to your knowledge base and follows your project instructions.
+
+### 🤝 Collaboration Features
+
+For users on **Claude for Work (Team and Enterprise)** plans, projects become even more powerful through collaboration features.
+
+#### Permission Levels
+
+| Level | What it means |
+|-------|-----------------|
+| 👀 **Can view** | Members can see project contents, access knowledge, and chat — but can't make changes. Read-only access with discussion rights. |
+| ✏️ **Can edit** | Members have full collaboration power. They can modify instructions, update knowledge, manage other members, and actively contribute to the project. |
+| 👑 **Owner** | Project creators control everything, including who sees the project. They can share with specific people or make projects visible to the entire organization. |
+
+#### Sharing Your Project
+
+1. Open the project you want to share
+2. Click the **"Share project"** button to the right of the project name
+3. Add individual members using their name or email, or copy and paste a list of email addresses for bulk sharing (the project then shows up in their **"Shared with you"** section)
+4. Or, share with **"Everyone at [your organization]"** to make your project discoverable within the Team tab
+
+> In the share dialog, each person gets their own access-level dropdown (e.g., **Can edit**) next to their name, plus a **General access** setting (e.g., *"Only people invited"*) and a **Copy link** shortcut for bulk sharing.
+
+Team members receive **email notifications** when you share a project with them, and they can find shared projects in their **"Shared with me"** tab.
+
+### 💡 Example Projects to Inspire You
+
+Not sure where to start? Here are some common project types across different functions:
+
+| Project | What to upload | What Claude does |
+|---------|------------------|--------------------|
+| **Q4 product launch** | Product specs, competitive analysis, messaging brainstorming notes | Keeps this context top of mind for any inquiry or document draft |
+| **Research support** | Competitive review, user research data, customer feedback | Synthesizes sources, drafts reports, maintains consistency across recommendations |
+| **Client account hub** | Client's brand guidelines, past deliverables, communication history | Matches their tone and references their specific context when creating proposals or reports |
+| **Event planning workspace** | Venue contracts, speaker bios, attendee data | Generates run-of-show documents, attendee communications, and post-event reports consistent with your event's theme |
+| **Job description generator** | Past job descriptions, team charters, internal headcount request docs | Drafts job descriptions that reflect your team's actual work and culture |
+
+More ideas from the video — projects aren't just for work:
+
+| 🌂 Bring a product to market | ✏️ Establish a content creation hub | 🍎 Develop an educational course |
+|---|---|---|
+| **📊 Financial & budget planning** | | **🏠 Manage a home renovation** |
+
+### ✅ Best Practices for Projects
+
+- **Start focused, then expand.** Begin with a specific use case rather than trying to create one project for everything. You can always add more content as you go.
+- **Keep your knowledge base current.** Outdated documents can lead to outdated responses. Review and update your project knowledge periodically.
+- **Write clear instructions.** Be specific about what you want. Vague instructions lead to inconsistent results.
+- **Name your documents descriptively** (e.g., `Q4-2025-Sales-Report.pdf` not `report.pdf`) and group related files together. Claude uses filenames and proximity to understand relationships between documents.
+- **Reference documents by name.** When asking questions, you can mention specific documents to help Claude focus its search: *"Based on our Q3 report, what were the top customer concerns?"*
+
+### 🤔 Lesson Reflection
+
+- What ongoing work could benefit from having a dedicated project with persistent context?
+- What documents do you expect you'll be re-uploading or re-explaining to Claude on a regular basis?
+- If you're on a team, are there projects that would benefit from shared knowledge and instructions?
+
+---
+
 <!-- Add new lectures below this line -->
