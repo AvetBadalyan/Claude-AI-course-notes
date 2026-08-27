@@ -565,4 +565,203 @@ More ideas from the video — projects aren't just for work:
 
 ---
 
+## Chapter 6: Creating with Artifacts
+
+> 🗂️ **Unit: Organizing Your Work and Knowledge** · ⏱️ Estimated time: 20 minutes
+
+### 🎯 Learning Objectives
+
+By the end of this lesson, you will be able to:
+- Explain what artifacts are and when Claude creates them
+- Share artifacts with colleagues and publish them publicly
+- Troubleshoot common artifact issues
+
+### 🎨 What Are Artifacts?
+
+**Artifacts** are standalone, interactive outputs that Claude creates in a dedicated window alongside your conversation. Instead of getting a long block of code or text buried in the chat, you see your content rendered and ready to use — whether that's a working website, an interactive chart, or a document you can immediately download.
+
+Claude automatically creates an artifact when content meets certain criteria:
+- It's **significant and self-contained**, typically over 15 lines
+- It's something you're likely to want to **edit, iterate on, or reuse**
+- It represents **complex content** that stands on its own without needing the surrounding conversation
+- It's content you'll want to **reference or use later**
+
+### 🧰 Common Artifact Types
+
+Claude can create different types of artifacts, each suited to different needs:
+
+| Type | What it's for |
+|------|-----------------|
+| 📄 **Documents** (markdown & plain text) | Great for anything text-heavy that you'll want to export or continue editing, like meeting notes, reports, project plans, blog posts, and other written content |
+| 💻 **Code snippets** | Working code in any programming language — Python, JavaScript, C++, and more. View the code, copy it, or download it to use in your own projects |
+| 🌐 **HTML pages** | Complete web pages with HTML, CSS, and JavaScript in a single file. Perfect for landing pages, forms, interactive demos, or quick prototypes |
+| 🖼️ **SVG images** | Scalable vector graphics for logos, icons, illustrations, and other visual elements. These render directly in the artifact window so you can see exactly what you're getting |
+| 📊 **Mermaid diagrams** | Flowcharts, sequence diagrams, Gantt charts, org charts, and more. Describe the relationships you want to visualize, and Claude will create a diagram you can refine |
+| ⚛️ **React components** | Interactive UI elements with real functionality — calculators, dashboards, games, data visualizations. These aren't just mockups; they include actual logic and respond to user input |
+
+> Word documents, Excel spreadsheets, PowerPoint presentations, and PDFs work differently. Claude creates those through a separate **file creation** capability, not as artifacts, and returns them to you as files you can download.
+
+### ✨ Creating Your First Artifact
+
+Creating an artifact is as simple as having a conversation. Just describe what you want, and Claude will determine whether to present it as an artifact. For example, you might say:
+
+- *"Create a flowchart showing our customer onboarding process"* — note: Claude may now generate visual diagrams like flowcharts as HTML using **Imagine**, in addition to code-based artifacts
+- *"Build an interactive dashboard that lets me input monthly expenses and see a breakdown"*
+- *"Design a landing page for a productivity app with a hero section and feature list"*
+- *"Write a project brief template I can reuse for new initiatives"*
+
+If Claude doesn't automatically create an artifact when you expect one, you can explicitly ask: *"Create this as an artifact"* or *"Show me this in an artifact."*
+
+When Claude generates an artifact, it appears in a dedicated window to the right of your conversation. From here, you can:
+
+| Action | What it does |
+|--------|---------------|
+| **View different formats** | Toggle between a preview (how it looks) and the underlying code |
+| **Copy content** | Click the copy icon to grab the content for use elsewhere |
+| **Download files** | Save the artifact as a file to your computer |
+| **View code** | See exactly what Claude generated under the hood |
+
+### 🔗 Sharing and Publishing Artifacts
+
+Once you've created something useful, you have several options for sharing it:
+
+| Option | Who it's for | How it works |
+|--------|----------------|----------------|
+| **Copy or download** | Anyone | For personal use or sharing via other channels, use the copy or download buttons in the lower right corner of the artifact window |
+| **Share within your organization** | Claude for Work (Team & Enterprise) | The shared artifact stays within your organization and requires team authentication to access |
+| **Publish publicly** | Free, Pro, and Max users | Makes the artifact accessible to anyone with the link |
+
+When you publish:
+- Only the **selected version** becomes public (your chat remains private)
+- **Anyone can view and interact** with the artifact without a Claude account
+
+To publish, click the **"Share"** or **"Publish"** button in the upper right corner of the artifact. You can unpublish at any time by returning to that artifact and removing public access.
+
+> ⚠️ Once published, an artifact is publicly accessible via its link — anyone can view it, even without a Claude account. Published artifacts are **not indexed by search engines**, so they won't appear in Google results.
+
+### 💡 Tips for Getting the Most from Artifacts
+
+- **Be specific about what you want.** *"Build a budget tracker"* is good, but *"Build a monthly budget tracker where I can input expenses by category, see a pie chart breakdown, and get a warning when I'm over budget"* is better.
+- **Describe the end user.** Telling Claude who will use the artifact helps it make appropriate design choices. *"This flowchart is for new employees"* leads to different results than *"This flowchart is for the engineering team."*
+- **Iterate incrementally.** Ask Claude to add one feature or make one change at a time. This makes it easier to identify what's working and catch issues early.
+- **Request artifacts when needed.** If you ask for something substantial and Claude responds in the chat instead of creating an artifact, just say *"Please create that as an artifact."*
+
+### 🤔 Lesson Reflection
+
+- What recurring work could benefit from having an interactive artifact you can reuse?
+- Are there processes in your work that would be clearer as a flowchart or diagram?
+- What prototype or tool would help you test an idea quickly?
+
+---
+
+## Chapter 7: Working with Skills
+
+> 🗂️ **Unit: Organizing Your Work and Knowledge** · ⏱️ Estimated time: 15 minutes
+
+### 🎯 Learning Objectives
+
+By the end of this lesson, you will be able to:
+- Explain what Skills are and how Claude uses them
+- Identify Anthropic's built-in Skills for document creation
+- Enable and manage Skills in your settings
+
+> 📋 **Plan availability:** Skills are currently a feature preview for **Pro, Max, Team, and Enterprise** plans. If you're on the Free plan, you can read along to understand the concept and skip the hands-on steps.
+
+### 🧩 What Are Skills?
+
+**Skills** are folders of instructions, scripts, and resources that Claude loads dynamically to improve performance on specialized tasks. Think of them as **expertise packages** — they teach Claude how to complete specific tasks in a repeatable way.
+
+You've already seen Skills at work if you've used Claude to create Excel spreadsheets, PowerPoint presentations, Word documents, or PDFs — those file creation capabilities are powered by Skills running behind the scenes. But Skills go far beyond document creation: custom Skills can codify entire repeatable workflows — a quarterly variance analysis methodology, a brand voice review process, or a compliance checklist — so Claude follows the same rigorous steps every time.
+
+#### Types of Skills
+
+| Type | Who makes them | How they're used |
+|------|------------------|--------------------|
+| 🏛️ **Anthropic Skills** | Created and maintained by Anthropic | Enhanced document creation for Excel, Word, PowerPoint, and PDF files. Available to all paid users — Claude invokes them automatically when relevant, no setup needed |
+| 🛠️ **Custom Skills** | You or your organization | Built for specialized workflows and domain-specific tasks — e.g. applying brand guidelines to presentations, structuring meeting notes in a specific format, or executing your organization's data analysis workflows |
+
+### ⚙️ Enabling Skills
+
+Skills are currently available as a **feature preview** for users on Pro, Max, Team, and Enterprise plans. To use Skills, you'll need **Code execution and file creation** enabled, since Skills require Claude's secure sandboxed computing environment to function.
+
+1. Navigate to **Settings > Capabilities**
+2. Ensure that **Code execution and file creation** is toggled on
+3. Scroll to the **Skills** section
+4. Toggle individual skills on or off as needed
+
+| Plan | Enabling Skills |
+|------|-------------------|
+| **Enterprise** | Organization **Owners** must first enable both Code execution and Skills in Admin settings before individual members can access them |
+| **Team** | Enabled by **default** at the organization level |
+
+Once enabled, you'll see available Skills listed in your settings, including Anthropic's built-in Skills and any custom Skills you've uploaded.
+
+### 🚀 Using Skills in Practice
+
+The beauty of Skills is that you typically don't need to think about them — Claude handles skill selection automatically based on your request. Examples of prompts that would invoke Skills:
+- *"Create an Excel spreadsheet tracking monthly expenses with formulas for totals"*
+- *"Turn this meeting notes document into a PowerPoint presentation"*
+- *"Generate a PDF report summarizing this data"*
+- *"Build a financial model in Excel with scenario analysis"*
+
+When Claude uses a Skill, you'll see it mentioned in Claude's chain of thought as it works. The output will be a downloadable file you can save to your computer or directly to Google Drive.
+
+#### 📁 File Editing
+
+This same capability means Claude can work with your **actual files** (within a contained environment) to create updated versions of them.
+
+> Note: in Chat, Claude creates a **new version** of the document rather than editing the original in place.
+
+Upload slides, spreadsheets, contracts (or any `.xlsx`, `.pptx`, `.docx`, or `.pdf` files) and watch as Claude creates slides, performs analyses, and adds suggested edits. When Claude is done, you can download these files or open them in Drive — e.g. a "Pricing Analysis" spreadsheet, a "Market Research" PDF, a "Pitch Deck" presentation, or a "Food Truck Business" document.
+
+> ⚠️ To use these capabilities you'll need to give Claude access to external data sources — toggle **"Allow limited network access"** on when prompted. This lets Claude install packages and libraries to perform advanced data analysis, custom visualizations, and specialized file processing. Monitor closely, as it **increases security risks**; allowed domains can be managed in Settings.
+
+### 🔒 Security Considerations
+
+Because Skills can include executable code, it's important to use them thoughtfully:
+- Only install custom Skills from trusted sources
+- Anthropic's built-in Skills are tested and maintained by Anthropic
+- Custom Skills you upload are private to your individual account
+- If you're installing a custom Skill from an external source, review its contents before use to understand what it does
+
+### 🏗️ Creating Custom Skills
+
+While Anthropic's built-in Skills cover common document creation tasks, the real power of Skills comes from **creating your own**. Custom Skills let you teach Claude your specific workflows, brand guidelines, and ways of working — so Claude can apply that knowledge automatically whenever it's relevant.
+
+The easiest way to create a custom Skill is through **conversation with Claude itself** — you don't need to write code or manually create files; Claude handles the technical structure for you.
+
+| Step | What to do |
+|------|-------------|
+| 1. **Start a new chat** | Tell Claude what you want to create, e.g. *"I want to create a skill for writing quarterly business reviews"* or *"I need a skill that applies our brand guidelines to presentations."* |
+| 2. **Answer Claude's questions** | Claude interviews you about your workflow: What should this skill do? What makes good output for this type of work? Can you give examples of when you'd use this skill? |
+| 3. **Upload reference materials** | Templates, style guides, brand assets, or examples of work you're proud of — all help Claude understand exactly what you're looking for |
+| 4. **Save your skill** | Claude generates a file containing your properly structured skill. Save it and it's ready for Claude to use |
+| 5. **See your skills** | Find the **Customize** tab in the left sidebar — see all skills available to you, and edit them manually or by chatting with Claude |
+
+Your custom Skill will appear in your Skills list alongside Anthropic's built-in Skills. From that point forward, Claude will **automatically invoke it** whenever you work on relevant tasks — no manual triggering needed. You can improve your skills with iteration — ask Claude to edit a skill and it will update the files for you.
+
+### ⚖️ Skills vs. Projects
+
+You might be wondering — if both skills and projects can be used to give more context to Claude, when should I use each? Think of it this way: **projects store knowledge, skills perform tasks.**
+
+- **Projects are knowledge hubs.** They hold the reference materials Claude needs to understand your work — project specs, meeting notes, research documents. When you upload files to a project, Claude draws on that information across every conversation within that project.
+- **Skills are procedural machines.** They encode *how* Claude should execute a task — the specific steps, order of operations, and methodology you want followed every time. Skills shine when you have repeatable workflows you want Claude to run consistently.
+
+The two features **complement each other**. A skill can reference knowledge stored in a project — your "customer call prep" skill might pull from customer profiles uploaded to a project's knowledge base. The project provides the **what** (information), the skill provides the **how** (process).
+
+|  | 🗂️ Projects | 🛠️ Skills |
+|---|---|---|
+| **Purpose** | Store knowledge Claude references | Define processes Claude executes |
+| **Best for** | Long-term context, reference materials, team collaboration | Repeatable workflows, multi-step tasks, consistent methodology |
+| **Example** | Customer hub, research buddy, feedback generator | Process guidelines (like brand or legal), blog drafting, PDF creation |
+| **Persistence** | Knowledge available across all chats in the project | Instructions applied when the skill is invoked |
+
+### 🤔 Lesson Reflection
+
+- What types of documents do you create regularly that could benefit from Claude's built-in Skills?
+- Are there repetitive workflows in your work that might be good candidates for custom Skills?
+- How might Skills change the way you think about document creation and data analysis?
+
+---
+
 <!-- Add new lectures below this line -->
