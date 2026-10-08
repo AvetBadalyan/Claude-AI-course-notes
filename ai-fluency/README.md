@@ -807,6 +807,175 @@ Congratulations on completing **AI Fluency: Framework and Foundations**! This is
 
 ---
 
+## 📋 Certification Quiz — AI Fluency: Framework & Foundations
+
+> 🎯 **Score: 10/10** — Perfect score!
+
+### Question 1: What is AI Fluency? ✅
+
+**According to the AI Fluency Framework, what does AI Fluency mean?**
+
+- ❌ Using AI to automate all possible tasks
+- ❌ Becoming a technical expert in AI development
+- ✅ **The ability to work with AI effectively, efficiently, ethically, and safely**
+- ❌ Memorizing the best prompts for different AI tools
+
+---
+
+### Question 2: The 4 Ds ✅
+
+**The four core competencies in the AI Fluency Framework are known as "The 4 Ds." Which of the following lists all four correctly?**
+
+- ✅ **Delegation, Description, Discernment, Diligence**
+- ❌ Design, Description, Development, Deployment
+- ❌ Direction, Description, Decision-making, Diligence
+- ❌ Data, Delegation, Discernment, Documentation
+
+---
+
+### Question 3: Delegation Competency ✅
+
+**Which competency focuses primarily on deciding what work should be done by AI versus what should be handled by humans?**
+
+- ❌ Description
+- ❌ Discernment
+- ✅ **Delegation**
+- ❌ Diligence
+
+---
+
+### Question 4: Diligence Focus ✅
+
+**According to the framework, what is the primary focus of the Diligence competency?**
+
+- ❌ Evaluating the quality of AI outputs
+- ❌ Making AI work faster and more efficiently
+- ✅ **Responsible AI use, transparency, and accountability**
+- ❌ Writing better prompts for AI systems
+
+---
+
+### Question 5: Problem Awareness ✅
+
+**Which of the following best describes "Problem Awareness" within the Delegation competency?**
+
+- ❌ Evaluating the quality of AI outputs
+- ❌ Understanding which AI platform to use
+- ✅ **Clearly defining your goals and understanding what work is needed before involving AI**
+- ❌ Knowing how to write effective prompts
+
+---
+
+### Question 6: Description Competency ✅
+
+**Which competency focuses on communicating clearly with AI systems about what you want, how you want it done, and how you want to interact?**
+
+- ❌ Delegation
+- ❌ Discernment
+- ❌ Diligence
+- ✅ **Description**
+
+---
+
+### Question 7: Product Description ✅
+
+**Which of the following best describes "Product Description" within the Description competency?**
+
+- ❌ Explaining which AI platform to use for a task
+- ✅ **Clearly defining what you want the AI to create or provide**
+- ❌ Taking responsibility for AI-generated content accuracy
+- ❌ Evaluating whether AI outputs meet your requirements
+
+---
+
+### Question 8: Discernment Competency ✅
+
+**Which competency involves critically evaluating AI outputs, processes, and behaviors to ensure quality and appropriateness?**
+
+- ❌ Delegation
+- ❌ Diligence
+- ❌ Description
+- ✅ **Discernment**
+
+---
+
+### Question 9: Process Discernment ✅
+
+**Which of the following best describes "Process Discernment" within the Discernment competency?**
+
+- ❌ Ensuring transparency about AI involvement in your work
+- ✅ **Assessing whether the AI's reasoning process and problem solving approach is effective**
+- ❌ Judging the final quality of AI-generated content
+- ❌ Deciding which AI system to use for a task
+
+---
+
+### Question 10: Transparency Diligence ✅
+
+**Which of the following best describes "Transparency Diligence" within the Diligence competency?**
+
+- ❌ Making AI work as fast as possible
+- ❌ Ensuring AI outputs are technically accurate
+- ❌ Choosing the most advanced AI system available
+- ✅ **Being open and honest about AI's role in your work with those who need to know**
+
+---
+
+## 📊 Quiz Summary
+
+| Topic | Question | Key Concept |
+|-------|----------|-------------|
+| **Core Definition** | Q1 | AI Fluency = effective, efficient, ethical, and safe AI use |
+| **Framework** | Q2 | 4Ds = Delegation · Description · Discernment · Diligence |
+| **Delegation** | Q3 | Delegation = deciding AI vs. human work |
+| **Diligence** | Q4 | Diligence = responsible use, transparency, accountability |
+| **Problem Awareness** | Q5 | Problem Awareness = defining goals before AI |
+| **Description** | Q6 | Description = communicating what, how, and interaction style |
+| **Product Description** | Q7 | Product Description = defining what AI creates |
+| **Discernment** | Q8 | Discernment = critically evaluating AI outputs/behaviors |
+| **Process Discernment** | Q9 | Process Discernment = assessing AI's reasoning approach |
+| **Transparency Diligence** | Q10 | Transparency Diligence = being honest about AI's role |
+
+### 🎯 Study Tips for Exam
+
+**Core Definition:**
+- **AI Fluency** = working with AI effectively, efficiently, ethically, and safely
+- **Not about:** automating everything, becoming an AI developer, or memorizing prompts
+
+**The 4Ds Framework:**
+- **Delegation** — deciding what work AI vs. humans should do
+- **Description** — communicating clearly with AI (what, how, interaction style)
+- **Discernment** — critically evaluating AI outputs, processes, behaviors
+- **Diligence** — responsible use, transparency, and accountability
+
+**Delegation Sub-Skills:**
+- **Problem Awareness** = defining goals before AI involvement
+- **Platform Awareness** = understanding AI capabilities/limitations
+- **Task Delegation** = strategically distributing work
+
+**Description Sub-Skills:**
+- **Product Description** = defining what AI creates/provides
+- **Process Description** = guiding AI's approach
+- **Performance Description** = defining AI's interaction behavior
+
+**Discernment Sub-Skills:**
+- **Product Discernment** = evaluating output quality
+- **Process Discernment** = assessing AI's reasoning approach
+- **Performance Discernment** = evaluating AI's behavior
+
+**Diligence Sub-Skills:**
+- **Creation Diligence** = being thoughtful about which AI systems and how to use them
+- **Transparency Diligence** = being honest about AI's role
+- **Deployment Diligence** = verifying and vouching for outputs
+
+**Key Distinctions:**
+- Delegation focuses on **deciding** (AI vs. human work)
+- Description focuses on **communicating** (what, how, interaction)
+- Discernment focuses on **evaluating** (outputs, processes, behaviors)
+- Diligence focuses on **responsibility** (ethics, transparency, accountability)
+
+---
+
 ## 📎 Appendix: Additional Activities (Self-Paced)
 
 > ⏱️ Estimated time: self-paced — optional practice after finishing the course. Pick what resonates, or use as inspiration for your own.

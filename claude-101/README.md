@@ -1736,4 +1736,153 @@ You've completed **Claude 101** and are now equipped to:
 
 ---
 
+## 📋 Certification Quiz — Claude 101
+
+> 🎯 **Score: 10/10** — Perfect score!
+
+### Question 1: Claude's Capabilities ✅
+
+**Which of the following best describes Claude's capabilities?**
+
+- ✅ **Claude is an AI assistant that can help with writing, research, coding, problem-solving, and more**
+- ❌ Claude is a voice assistant for smart home devices
+- ❌ Claude is a chatbot designed primarily for customer service
+- ❌ Claude is a search engine that retrieves information from the web
+
+---
+
+### Question 2: Effective Prompt Elements ✅
+
+**Which three elements make up an effective prompt?**
+
+- ❌ Introduction, body, and conclusion
+- ✅ **Setting the stage, defining the task, and specifying rules**
+- ❌ Question, answer, and follow-up
+- ❌ Subject, verb, and object
+
+---
+
+### Question 3: Handling Generic Responses ✅
+
+**If Claude's response is too generic, what should you try?**
+
+- ❌ Switch to a different AI model
+- ❌ Ask Claude to search the web for better answers
+- ✅ **Add more details about your audience, role, or constraints**
+- ❌ Start a new conversation and ask the same question
+
+---
+
+### Question 4: Project Knowledge Base & Context Limits ✅
+
+**What happens when your project knowledge base approaches context limits?**
+
+- ❌ Claude stops accepting new file uploads
+- ❌ Older files are automatically deleted to make room
+- ❌ You must create a new project to continue
+- ✅ **Claude searches your project knowledge and retrieves only what's relevant, expanding capacity by up to 10x**
+
+---
+
+### Question 5: Published Artifacts ✅
+
+**What can you do with a published artifact?**
+
+- ✅ **Share it with anyone via a link—they can view and interact with it, even without a Claude account**
+- ❌ Only view it—no interaction is possible
+- ❌ It automatically gets posted to social media
+- ❌ It becomes permanently locked and cannot be modified
+
+---
+
+### Question 6: Projects vs. Skills ✅
+
+**What is the primary difference between projects and skills?**
+
+- ❌ Projects are free, skills require a paid plan
+- ✅ **Projects store knowledge, skills perform tasks**
+- ❌ Projects are for teams, skills are for individuals
+- ❌ Projects work offline, skills require internet
+
+---
+
+### Question 7: Connector Data Access ✅
+
+**What data can Claude access through connectors?**
+
+- ❌ Only data created in the last 30 days
+- ❌ All data in the connected service
+- ✅ **Only data you have permission to access**
+- ❌ Only docs that have been individually shared with Anthropic
+
+---
+
+### Question 8: Enterprise Search Setup ✅
+
+**Who needs to complete the initial setup before team members can use Enterprise Search?**
+
+- ❌ Anthropic support team
+- ❌ Each individual user
+- ❌ The IT security team
+- ✅ **An organization Owner (admin)**
+
+---
+
+### Question 9: Research Use Cases ✅
+
+**Which of the following tasks is a good candidate for Research?**
+
+- ✅ **Conducting comprehensive market analysis**
+- ❌ Reformatting a PDF file
+- ❌ Brainstorming product codenames
+- ❌ Redlining legal documents
+
+---
+
+### Question 10: Claude Products for Development ✅
+
+**Which Claude product is best suited for navigating an unfamiliar codebase and automating development tasks?**
+
+- ❌ Claude in Chrome
+- ✅ **Claude Code**
+- ❌ Claude Tag
+- ❌ Claude for Excel
+
+---
+
+## 📊 Quiz Summary
+
+| Topic | Question | Key Concept |
+|-------|----------|-------------|
+| **Capabilities** | Q1 | Claude = writing, research, coding, problem-solving assistant |
+| **Prompting** | Q2 | Effective prompts = Stage + Task + Rules |
+| **Iteration** | Q3 | Generic response → Add audience/role/constraints |
+| **Projects** | Q4 | RAG expands capacity 10x via smart retrieval |
+| **Artifacts** | Q5 | Published = shareable link, no Claude account needed |
+| **Organization** | Q6 | Projects store knowledge · Skills perform tasks |
+| **Connectors** | Q7 | Permission-based access only |
+| **Enterprise** | Q8 | Owner/admin completes initial setup |
+| **Research** | Q9 | Best for: comprehensive multi-source analysis |
+| **Tools** | Q10 | Claude Code = codebase navigation + automation |
+
+### 🎯 Study Tips for Exam
+
+**Core Principles:**
+- **3 H's:** Helpful, Honest, Harmless (Constitutional AI)
+- **4 Ds:** Delegation → Description → Discernment → Diligence
+- **Prompt Framework:** Stage → Task → Rules
+
+**Key Distinctions:**
+- **Projects vs Skills:** Knowledge vs Process
+- **Models:** Opus (complex) vs Sonnet (everyday)
+- **Work Shapes:** Chat (turn-by-turn) · Cowork (hand-off) · Code (build)
+
+**Feature Capabilities:**
+- **Projects:** RAG for 10x capacity expansion
+- **Artifacts:** Publicly shareable, no login required
+- **Connectors:** Permission-based, revocable access
+- **Research:** Multi-source, agentic investigation
+
+---
+
 <!-- End of Claude 101 Course -->

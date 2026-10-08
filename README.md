@@ -6,8 +6,8 @@ Notes and visual summaries from the **Anthropic Academy / Claude Certified Archi
 
 | # | Course | Status | Notes |
 |---|--------|--------|-------|
-| 1 | AI Fluency: Framework & Foundations | ✅ Done | [ai-fluency/README.md](ai-fluency/README.md) |
-| 2 | Claude 101 | 🔄 In progress | [claude-101/README.md](claude-101/README.md) |
+| 1 | AI Fluency: Framework & Foundations | ✅ Done | [ai-fluency/README.md](ai-fluency/README.md) · 🏆 **Certified (10/10)** |
+| 2 | Claude 101 | ✅ Done | [claude-101/README.md](claude-101/README.md) · 🏆 **Certified (10/10)** |
 | 3 | Claude Code in Action | 🔲 Not started | — |
 | 4 | Introduction to Agent Skills | 🔲 Not started | — |
 | 5 | Introduction to MCP | 🔲 Not started | — |
