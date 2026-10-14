@@ -332,4 +332,152 @@ Claude Code combines several agentic concepts: an **agentic loop**, a **managed 
 - Skipping permissions makes mistakes **harder to catch before they happen**
 
 ---
+
+## Chapter 3: Installing Claude Code
+
+> 🎬 **Video: Installing Claude Code** — Claude Code is simple to install whether you want to use it in your **terminal, on the web, or in your IDE**.
+
+### 🧠 Key Takeaways
+
+- **Terminal:** on macOS, Linux, or WSL, install with a single `curl` command. Homebrew and winget work too, but **don't auto-update**
+- **After installing,** run `claude` in your project directory. **If the command isn't found, restart your terminal**
+- **Scope:** whatever directory you run `claude` in, it has access to **that directory and all of its subfolders**
+- **IDEs:** install the **Anthropic** extension for VS Code (look for the **blue verification check**) or the plugin for JetBrains
+- **Desktop and web:** Desktop has a **"Code" toggle**; the web is at **claude.ai/code** and is **restricted to GitHub repositories**
+- **Which one?** The **terminal gets features first**; IDEs are nearly identical; Desktop suits background work; web suits remote GitHub work
+
+### ⌨️ Terminal
+
+![Terminal showing Claude Code successfully installed via curl — version 2.1.72, location ~/.local/bin/claude, next step "Run claude --help"](assets/L3-installing-claude-code/terminal-curl-install.png)
+
+| Platform | Install method | Auto-updates? |
+|----------|----------------|:-------------:|
+| 🍎 **macOS / 🐧 Linux / WSL** | `curl` command (installs in one go) | ✅ |
+| 🍎 **macOS / 🐧 Linux** | **Homebrew** (`brew install`) | ❌ |
+| 🪟 **Windows — PowerShell** | `Invoke-RestMethod` command | — |
+| 🪟 **Windows — CMD** | `curl` command | — |
+| 🪟 **Windows** | **winget** | ❌ |
+
+> 📌 *From the screenshot (macOS):* `curl -fsSL https://claude.ai/install.sh | bash`. The installer reports the **version** (2.1.72) and **location** (`~/.local/bin/claude`) and suggests running `claude --help`. *The lesson doesn't state the Auto-updates cell for the `curl` and Windows script methods. That cell is my inference from "Homebrew and winget won't auto-update", so check it against the official docs.*
+
+#### ▶️ After installation
+
+1. You should be able to run the `claude` command. **If not, restart your terminal.**
+2. Navigate to your project directory and run:
+
+```bash
+claude
+```
+
+3. Go through the **initial setup steps**: choose your **color theme** and **sign in** with your Claude account (**Pro, Max, or Enterprise**) or use an **API key**
+4. If your organization has a **Claude Enterprise** account, be sure to select that option
+
+![Claude Code welcome screen in Windows PowerShell with the "Select login method" menu](assets/L3-installing-claude-code/login-method-selection.png)
+
+What the screenshot shows (login method menu):
+
+| Option | Description shown |
+|--------|--------------------|
+| **1. Claude account with subscription** | Pro, Max, Team, or Enterprise |
+| **2. Anthropic Console account** | API usage billing |
+| **3. 3rd-party platform** | Amazon Bedrock, Microsoft Foundry, or Vertex AI |
+
+> 📌 *The lesson text lists "Pro, Max, or Enterprise"; the screenshot also lists **Team**, which matches [Claude 101, Chapter 4](../claude-101/README.md) (Pro, Max, Team, Enterprise). The screenshot is a Windows PowerShell session, so the setup is the same on Windows.*
+
+> 🔐 **Scope rule:** Claude Code can access **the directory you run `claude` in and all of its subfolders**. Choose where you launch it on purpose.
+
+### 🟦 Visual Studio Code
+
+![Claude Code for VS Code extension page by Anthropic with the blue verification badge, plus the Claude Code panel on the right](assets/L3-installing-claude-code/vscode-extension-page.png)
+
+| Step | What to do |
+|------|------------|
+| 1️⃣ | Open the **Extensions** panel and search for **"Claude Code"** |
+| 2️⃣ | Choose the extension by **Anthropic** with the **blue verification check**, then hit **Install** |
+| 3️⃣ | You **may need to restart VS Code** |
+| 4️⃣ | Open the command palette with **Ctrl/Cmd + Shift + P** and search for **"Claude Code: Open in New Tab"**, or click the **Claude logo** if it's visible in your sidebar |
+
+- The VS Code extension gives a **very similar experience to the terminal**
+- You can **opt out of the UI** and use the terminal experience directly in your settings
+
+> 💡 **Check the publisher.** The screenshot shows the extension published by **Anthropic** with the verified badge, listed above third-party extensions.
+
+### 🧠 JetBrains
+
+![JetBrains Settings → Plugins: searching "claude code" and the Claude Code [Beta] plugin by Anthropic PBC, with other similarly named third-party plugins in the results](assets/L3-installing-claude-code/jetbrains-plugin-marketplace.png)
+
+1. Install the **Claude Code plugin** from the **JetBrains Marketplace**
+2. **Restart your IDE**
+3. When you reopen it, you'll see the **Claude logo**. Clicking it opens a pane with the **terminal experience** that works alongside your editor
+
+What the screenshot shows (plugin details):
+
+| Feature | What it does |
+|---------|---------------|
+| **Diff viewing** | Open file diffs in the IDE diff viewer to review and modify proposed changes |
+| **Selection context** | The current selection in the IDE is automatically shared with Claude Code |
+| **File reference shortcuts** | `Cmd+Option+K` (Mac) or `Ctrl+Alt+K` (Linux/Windows) inserts file references (e.g. `@File#L1-99`) |
+| **Diagnostics sharing** | Squiggly errors and warnings are shared with Claude Code in real time |
+
+> ⚠️ **From the screenshot:** the plugin page says it **requires Claude Code to be installed separately**.
+> 📌 *The search results also show several third-party plugins with similar names (e.g. "Claude Code GUI", "Claude Code Plus"). The official one in the screenshot is **Claude Code [Beta]** by **Anthropic PBC**. The lesson doesn't mention this. It's my observation from the screenshot.*
+
+### 🖥️ Desktop
+
+![Claude Desktop with the Chat / Cowork / Code toggle, the Code tab open, and a list of recent project folders](assets/L3-installing-claude-code/desktop-code-folder-picker.png)
+
+- After **installing and signing into Claude Desktop**, you'll see a toggle at the top labeled **"Code"**
+- The look and feel is **similar to the chat side**, but it lets you:
+  - 📁 **work in a specific folder**
+  - 🔐 **change permissions**
+  - ☁️ **work in a cloud environment**
+
+> 🔗 Same three tabs as [Claude 101, Chapter 4](../claude-101/README.md): **Chat · Cowork · Code**. *In the screenshot, the **Select folder** menu lists **Recent** folders plus "Choose a different folder", and the **Local** environment selector sits at the bottom right.*
+
+### 🌐 Web
+
+![Claude Code on the web at claude.ai/code with a repository selector and starter prompts](assets/L3-installing-claude-code/web-claude-ai-code.png)
+
+- Go to **claude.ai/code**, or click the **"Code"** label in the sidebar of the chat app
+- Works **similarly to the desktop app**, but you're **restricted to GitHub repositories**
+
+> 📌 *From the screenshot:* a **Select a repository** dropdown and starter prompts: **Write a CLAUDE.md**, **Explain this codebase**, **Review recent changes**. *The lesson doesn't explain these prompts.*
+
+### 🧭 Which One Should I Use?
+
+| Surface | Best when… |
+|---------|------------|
+| ⌨️ **Terminal** | You want to **stay on the cutting edge** — **features ship there first** |
+| 🟦🧠 **IDE integrations** (VS Code, JetBrains) | You want Claude Code **more intertwined with your code editor**, with a **nearly identical experience** |
+| 🖥️ **Desktop** | You want to **let Claude run in the background** while you handle other tasks |
+| 🌐 **Web** | You want to **work remotely on projects through a GitHub repository** |
+
+> 💡 However you want to use Claude Code is up to you.
+
+### 🔁 Recap
+
+Claude Code installs in the **terminal** (curl, Homebrew, winget, PowerShell/CMD), as an **extension or plugin** in **VS Code** and **JetBrains**, in the **Desktop app's Code toggle**, and on the **web** at claude.ai/code. The **terminal gets features first**; the other surfaces fit different workflows.
+
+### 📝 Quick Reference: Installing Claude Code (for exam prep)
+
+| Surface | How to get it | Key point |
+|---------|---------------|-----------|
+| ⌨️ **Terminal** | `curl` (macOS/Linux/WSL), `Invoke-RestMethod` (PowerShell), `curl` (CMD) | **Features ship here first**; run `claude` in your project directory |
+| 🍺 **Homebrew / winget** | `brew install` / `winget` | **No auto-updates** |
+| 🟦 **VS Code** | Extension by **Anthropic** (blue check) | Command palette → "Claude Code: Open in New Tab"; restart may be needed |
+| 🧠 **JetBrains** | Plugin from JetBrains Marketplace | **Restart IDE**; Claude logo opens a terminal-style pane |
+| 🖥️ **Desktop** | Sign in to Claude Desktop → **"Code"** toggle | Folder, permissions, **cloud environment**; good for background work |
+| 🌐 **Web** | claude.ai/code | **GitHub repositories only** |
+
+> 🎓 **Memory tip:** **T**erminal = **T**op features · **I**DE = **I**ntegrated · **D**esktop = **D**o it in the background · **W**eb = **W**ork on GitHub repos
+
+**Key features for exam:**
+- `claude` can access the **directory you run it in and all subfolders**
+- If `claude` isn't found after install → **restart your terminal**
+- **Homebrew and winget don't auto-update**
+- Sign-in options: **Claude account** (Pro, Max, Enterprise) **or an API key**; Enterprise orgs should choose the Enterprise option
+- VS Code: choose the extension with the **blue verification check**; JetBrains: **restart the IDE** after installing
+- Web = **GitHub repositories only**
+
+---
 <!-- Add new chapters below this line -->
