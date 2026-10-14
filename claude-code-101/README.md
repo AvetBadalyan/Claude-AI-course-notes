@@ -197,4 +197,139 @@ Claude Code is an **agentic coding tool**. It reads your codebase, edits your fi
 
 ---
 
+## Chapter 2: How Claude Code Works
+
+> Claude Code is different from typical chat applications. Understanding how it works under the hood will help you use it more effectively.
+
+### 🧠 Key Takeaways
+
+- **The agentic loop** is the core of Claude Code: **gather context → take action → verify results**, repeated until the result is complete and verifiable
+- **You stay in the loop** — you can add context, interrupt, or steer at any point
+- **Context window** = how much conversation, file content, and command output Claude can hold; when the limit is reached, Claude Code **compacts** the conversation automatically
+- **Tools** are the backbone of agents — they let Claude Code decide *when to execute code* instead of just returning text
+- **Permission modes:** Default (asks for edits *and* commands) · Auto-accept (edits without asking, commands still need approval) · Plan mode (read-only, builds a plan first)
+
+### 🔁 The Agentic Loop
+
+![Agentic loop diagram — Your prompt flows into Gather context → Take action → Verify results, which loops back and ends in Done; you can interrupt, steer, or add context at any point](assets/L2-how-claude-code-works/agentic-loop-diagram.png)
+
+| Step | What happens |
+|------|---------------|
+| 1️⃣ **You enter a prompt** | The loop starts with your request |
+| 2️⃣ **Gather context** | Claude gets what it needs by interacting with the model, which returns **text or a tool call** that Claude Code can execute |
+| 3️⃣ **Take action** | For example, **editing a file** or **running a command** |
+| 4️⃣ **Verify results** | Claude checks whether the results achieve what your prompt set out to do |
+| 5️⃣ **Done or repeat** | ✅ If yes → Claude **finishes and waits for the next prompt**. ❌ If no → it **loops back and tries again** until the results are complete and verifiable |
+
+> 🙋 **Throughout the loop, you can add context, interrupt, or steer the model** to help guide it toward your goal (the orange box in the diagram).
+
+> 🔗 **Same loop as Chapter 1, different labels** (my mapping): *Think* ≈ gather context (the model returns text or a tool call) · *Act* ≈ take action · *Done? / Observe* ≈ verify results.
+
+#### 🔎 Example: One Pass Through the Loop
+
+The user types: *"Can we create a simple test api with typescript?"*
+
+![Claude Code reading a file, deciding the project is empty, and asking approval to run npm init -y](assets/L2-how-claude-code-works/permission-prompt-npm-init.png)
+
+| Loop step | What the screenshot shows |
+|-----------|----------------------------|
+| **Prompt** | *"Can we create a simple test api with typescript?"* |
+| **Gather context** | `Read 1 file (ctrl+o to expand)` — then Claude concludes: *"Empty project. I'll set up a simple Express API with TypeScript."* |
+| **Take action** | `Bash(npm init -y)` — *"Initialize npm project"* |
+| **Permission check** | *"This command requires approval"* — the loop **pauses until you decide** |
+
+The approval options:
+
+| Option | Meaning |
+|--------|---------|
+| **1. Yes** | Allow this one command |
+| **2. Yes, and don't ask again for: `npm init:*`** | Allow it and matching commands going forward |
+| **3. No** | Deny it |
+
+Shortcuts shown: `Esc` to cancel · `Tab` to amend · `ctrl+e` to explain
+
+> 🔗 Same prompt style as the `npx tsc --init` approval in Chapter 1 — this time for `npm init:*`.
+
+### 🧠 Context
+
+Claude has a **context window** that determines how much of your **conversation, file contents, command outputs, and more** it can store and reference.
+
+**What happens at the limit:**
+- Once you reach it, Claude Code **compacts** your conversation
+- It **automatically determines what it can remove or summarize** to bring the context window back down to a usable size
+
+> 🔗 In the `/context` screenshot from [Chapter 1](#chapter-1-what-is-claude-code), the **Autocompact buffer** row is most likely this mechanism (my inference — the lesson doesn't connect them explicitly).
+
+### 🛠️ Tools
+
+> **Tools are the backbone of how agents work.**
+
+| | 💬 **Typical AI assistant** | 💻 **Claude Code** |
+|---|---|---|
+| **Input → Output** | Text in → text out | Can decide **when to execute code** to get closer to completing a task |
+| **Capabilities** | Generates responses | Uses tools like a **file-reading tool**, a **web search tool**, or any number of other capabilities |
+
+- Claude Code uses **semantic understanding** to determine **when to call a tool** and **how to use the output**
+
+![A tools list from the course demo — Bash, Glob, Grep, Read, WebFetch, TodoWrite, WebSearch, BashOutput, Skill, SlashCommand, and mcp__ide__ tools](assets/L2-how-claude-code-works/agent-tools-list.png)
+
+What the screenshot shows (a `tools:` line, apparently from an agent's configuration, next to a description about proactively suggesting a `code-quality-reviewer` agent after major code changes):
+
+| Tool name | What the name suggests |
+|-----------|-------------------------|
+| `Read` | Read files |
+| `Glob`, `Grep` | Find files / search inside files |
+| `Bash`, `BashOutput` | Run shell commands / read their output |
+| `WebFetch`, `WebSearch` | Fetch a web page / search the web |
+| `TodoWrite` | Keep a task list |
+| `Skill`, `SlashCommand` | Invoke skills / slash commands |
+| `mcp__ide__getDiagnostics`, `mcp__ide__executeCode` | Tools exposed through an IDE connection (the `mcp__` prefix) |
+
+> 📌 *This screenshot isn't explained in the lesson — the "what the name suggests" column is my reading of the tool names, not lesson content.*
+
+### 🔐 Permissions
+
+Claude Code has several **permission modes**:
+
+| Mode | Behavior |
+|------|----------|
+| 🟡 **Default** | Claude asks for **explicit permission before editing a file or running a shell command** |
+| 🟢 **Auto-accept** | **Files are edited without asking**, but **commands still require approval** |
+| 🔵 **Plan mode** | Uses **read-only tools** to compile a **plan of action before starting any work** |
+
+- All of this can be **configured in your settings file**
+
+> 🔗 Related: [Claude 101, Chapter 4](../claude-101/README.md) lists the desktop Code tab settings *Manually approve / Accept edits / Plan* — they line up with Default / Auto-accept / Plan mode (my mapping).
+> 🔗 The Chapter 1 plan-mode screenshot showed `plan mode on (shift+tab to cycle)` — that footer hint is how the demo switches modes.
+
+> ⚠️ **Be cautious when skipping permissions.** Giving Claude Code free rein to run commands means **a mistake could be harder to catch before it happens.**
+
+### 🔁 Recap
+
+Claude Code combines several agentic concepts: an **agentic loop**, a **managed context window**, **tools**, and **configurable permissions** — all inside your terminal. It can **read your codebase, take action, and verify its own work**. That's what makes it fundamentally different from a chat window.
+
+### 📝 Quick Reference: How Claude Code Works (for exam prep)
+
+| Concept | Key point |
+|---------|-----------|
+| 🔁 **Agentic loop** | Gather context → Take action → Verify results → (repeat until complete and verifiable) |
+| 🙋 **Your role** | Add context, interrupt, or steer at any point in the loop |
+| 🧠 **Context window** | Holds conversation, file contents, command outputs; **auto-compacts** when full |
+| 🛠️ **Tools** | Backbone of agents; Claude decides **when** to call a tool and **how** to use the output (semantic understanding) |
+| 🟡 **Default mode** | Asks before editing files **and** running commands |
+| 🟢 **Auto-accept** | Edits files without asking; **commands still need approval** |
+| 🔵 **Plan mode** | **Read-only** tools to build a plan before any work |
+| ⚙️ **Config** | Permissions are configurable in the **settings file** |
+
+> 🎓 **Memory tip:** **L-C-T-P** — **L**oop · **C**ontext · **T**ools · **P**ermissions (the four agentic concepts of Claude Code)
+
+**Key features for exam:**
+- Loop ends only when results are **complete and verifiable**; failures **loop back and retry**
+- **Context compaction** is automatic — Claude Code decides what to remove or summarize
+- **Typical assistants:** text in → text out · **Claude Code:** can execute code via tools
+- **Auto-accept ≠ fully autonomous** — commands still need approval
+- **Plan mode = read-only** until the plan is made
+- Skipping permissions makes mistakes **harder to catch before they happen**
+
+---
 <!-- Add new chapters below this line -->
