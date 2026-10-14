@@ -1411,7 +1411,7 @@ Claude is also available in several **specialized tools** designed to meet you w
 
 ### 💻 Claude Code
 
-![Claude Code on the web (claude.ai/code, research preview) — a session list for acme/tea-sales with a Cloud environment, and an open session where Claude reads files, edits code, runs lint and tests, pushes a branch, and offers Create PR / Open in CLI](assets/chapter-12/claude-code-interface.png)
+![Claude Code on the web (claude.ai/code, research preview) — a session list for acme/tea-sales with a Cloud environment, and an open session where Claude reads files, edits code, runs lint and tests, pushes a branch, and offers Create PR / Open in CLI](assets/L12-other-ways/claude-code-interface.png)
 
 **Claude Code** is an agentic coding tool that works where you work — in your terminal, IDE, browser, or even in Slack. It understands your codebase, executes commands, and handles entire development workflows through natural language.
 
@@ -1423,13 +1423,13 @@ Claude is also available in several **specialized tools** designed to meet you w
 - 🤖 **Automate tedious tasks** like fixing lint errors, resolving merge conflicts, or writing release notes
 - 🖥️ **Work in your terminal** alongside your existing IDE and development tools rather than switching to a separate interface
 
-![GitHub "Open a pull request" page — base: main compared with a claude/realtime-inventory branch, titled "Update inventory dashboard in real-time"](assets/chapter-12/claude-code-github.png)
+![GitHub "Open a pull request" page — base: main compared with a claude/realtime-inventory branch, titled "Update inventory dashboard in real-time"](assets/L12-other-ways/claude-code-github.png)
 
 ---
 
 ### 💬 Claude Tag
 
-![Claude Tag in Slack — a Claude agent in a #launch thread notices a merged feature, offers to update the blog draft and beta invite email, and reports each completed step with an "Open session in Claude" link](assets/chapter-12/claude-tag-slack.png)
+![Claude Tag in Slack — a Claude agent in a #launch thread notices a merged feature, offers to update the blog draft and beta invite email, and reports each completed step with an "Open session in Claude" link](assets/L12-other-ways/claude-tag-slack.png)
 
 **Claude Tag** brings Claude directly into Slack, allowing you to get help in channels and threads or bring Slack context into your Claude conversations — just tag Claude in any thread.
 
@@ -1466,7 +1466,7 @@ Claude integrates directly into Microsoft Office applications as a sidebar, brin
 
 #### 📈 Claude for Excel
 
-![Claude for Excel — debugging a #REF! error in a Headcount tab; Claude finds the broken formula (=#REF!+2) in E15 and checks the surrounding pattern](assets/chapter-12/claude-excel-debugging.png)
+![Claude for Excel — debugging a #REF! error in a Headcount tab; Claude finds the broken formula (=#REF!+2) in E15 and checks the surrounding pattern](assets/L12-other-ways/claude-excel-debugging.png)
 
 **Claude for Excel** brings Claude directly into Microsoft Excel through a sidebar, allowing you to analyze, understand, and modify spreadsheets through conversation.
 
@@ -1478,7 +1478,7 @@ Claude integrates directly into Microsoft Office applications as a sidebar, brin
 - 📄 **Create new spreadsheets** or populate existing templates with data while maintaining proper formula structure
 - 📊 **Build pivot tables or charts** to visualize your data quickly
 
-![Claude for Excel — "Walk me through this workbook": Claude reads the Assumptions, Headcount, and Compensation sheets to explain how the tabs connect](assets/chapter-12/claude-excel-workbook.png)
+![Claude for Excel — "Walk me through this workbook": Claude reads the Assumptions, Headcount, and Compensation sheets to explain how the tabs connect](assets/L12-other-ways/claude-excel-workbook.png)
 
 ---
 
@@ -1519,7 +1519,7 @@ Claude integrates directly into Microsoft Office applications as a sidebar, brin
 
 ### 🌐 Claude in Chrome
 
-![Claude in Chrome — Gmail with the Claude sidebar (research preview) clicking, typing, and drafting a budget-update email; the "Ask before acting" setting is shown](assets/chapter-12/claude-chrome-gmail.png)
+![Claude in Chrome — Gmail with the Claude sidebar (research preview) clicking, typing, and drafting a budget-update email; the "Ask before acting" setting is shown](assets/L12-other-ways/claude-chrome-gmail.png)
 
 **Claude in Chrome** is a browser extension that adds Claude as a sidebar in Google Chrome. It can observe what you're working on and take actions directly within your browser.
 
@@ -1531,7 +1531,7 @@ Claude integrates directly into Microsoft Office applications as a sidebar, brin
 - 🧪 **Test website features** or navigate multi-step workflows without manually clicking through each step
 - 🔄 **Maintain context** as you move between tabs and tasks — great for pulling context from niche internal tools, CRMs, or dashboards
 
-![Claude in Chrome — Google Docs renovation budget doc with the Claude sidebar taking a screenshot to review the document](assets/chapter-12/claude-chrome-docs.png)
+![Claude in Chrome — Google Docs renovation budget doc with the Claude sidebar taking a screenshot to review the document](assets/L12-other-ways/claude-chrome-docs.png)
 
 > ⚠️ **Important note:** Claude in Chrome is **generally available**. It's **on by default** on the Pro, Max, and Team plans, and on the Enterprise plan it's **off by default** until an org admin turns it on. It **isn't available on the Free plan**. Anthropic recommends using it for **low-risk tasks on trusted websites**. The extension asks for permission before taking high-risk actions like purchasing or sharing personal data, and certain categories of websites (financial services, adult content) are blocked by default.
 
@@ -1539,7 +1539,7 @@ Claude integrates directly into Microsoft Office applications as a sidebar, brin
 
 ### 📋 Summary: All Claude Tools
 
-![Claude tools summary table — Tool / Best for / Where it runs](assets/chapter-12/tools-summary-table.png)
+![Claude tools summary table — Tool / Best for / Where it runs](assets/L12-other-ways/tools-summary-table.png)
 
 | Tool | Best for | Where it runs |
 |------|----------|---------------|
