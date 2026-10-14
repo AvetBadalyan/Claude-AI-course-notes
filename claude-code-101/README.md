@@ -107,7 +107,7 @@ What the screenshot shows:
 - Claude is **locating answers strategically** instead of loading the whole project — this is the "agentic" behavior described under the context window below
 - Footer: `plan mode on (shift+tab to cycle)`, `esc to interrupt`, `ctrl+b to run in background`, and `medium · /effort`
 
-> 📌 *Plan mode and `/effort` appear in the demo but aren't explained in this lesson.*
+> 📌 *Plan mode is explained in [Chapter 2](#chapter-2-how-claude-code-works); `/effort` appears in the demo but isn't explained yet.*
 
 ### 🧭 Using Claude Code Effectively
 
@@ -140,7 +140,7 @@ The `/context` command shows how the window is being used:
 - Notice that **before you've typed much, tools and the system prompt already use space** — the window is a finite budget
 - The tool also lists `SlashCommand Tool · 0 commands · Total: 864 tokens`
 
-> 📌 *`/context` and the autocompact buffer are shown in the video but not explained in this lesson.*
+> 📌 *`/context` is shown in the video but not explained; the autocompact buffer most likely relates to the automatic compaction described in [Chapter 2](#chapter-2-how-claude-code-works).*
 
 #### 2️⃣ It Asks for Permission
 
