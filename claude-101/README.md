@@ -325,7 +325,7 @@ This kind of lightweight evaluation helps you develop intuition for how to work 
 
 ## Chapter 4: How You'll Work with Claude on Your Desktop
 
-> ⏱️ Estimated time: 6 minutes
+> ⏱️ Estimated time: 11 minutes
 
 ### 🎯 Learning Objectives
 
@@ -375,9 +375,11 @@ Working agentically with Claude is a new way of working for many people. Instead
 
 **Reach for this when:**
 - **The task has several steps** you'd normally do in sequence. Pull the figures, compare them, draft the summary, format the doc. Handed off, that's one instruction, not four errands.
-- **The output is a real deliverable.** A Word doc, a spreadsheet, a deck, a formatted PDF — saved where you need it, not pasted into a chat window for you to reassemble.
+- **The output is finished files, where you need them.** A batch of renamed files, a spreadsheet saved into the right folder, a formatted PDF on your desktop — delivered to your file system, not handed back for you to file away.
 - **The work spans your tools.** Meeting notes in one place, the thread in Slack, last quarter's numbers in a spreadsheet. Set up a Friday roll-up as a scheduled task and Claude gathers all three itself every time it runs — nothing for you to round up first.
 - **It should happen on a schedule, or while you're doing something else.** A Friday review of what shipped. A Monday briefing that preps you for your next meeting.
+
+> 💡 A deck or doc on its own **doesn't need a hand-off**: on paid plans you can make those as **artifacts** in any conversation (see Chapter 6: Creating with Artifacts).
 
 > Handing work off doesn't mean stepping back from it. Before Claude starts, it may ask a few questions to pin down scope and format, and it shows you the plan. As it works, you can watch the task take shape — the sources it's drawing from, the files forming, its progress through the plan — and steer at any point. And when Claude is set to ask before acting, it stops for your approval on the actions that matter, like sending an email or sharing a file. **You stay in control of what leaves your desk.**
 
@@ -391,7 +393,7 @@ Working agentically with Claude is a new way of working for many people. Instead
 | Capability | What it does |
 |------------|---------------|
 | **Local folder access** | Point Claude at a folder; it reads what's there and saves finished work back to the same place. This is the concrete difference from turn-by-turn Chat, which can read what you upload but hands finished files back as downloads rather than saving them into your folder. |
-| **Scheduled tasks** | Set a task once — a daily briefing, a weekly roundup, a morning inbox triage — and Claude runs it on the cadence you set. If your computer or the app was closed at the scheduled time, it catches up when you're back. |
+| **Scheduled tasks** | Set a task once — a daily briefing, a weekly roundup, a morning inbox triage — and Claude runs it on the cadence you set. **Scheduled tasks run remotely**, so they run even when your computer is asleep or the app is closed. A task that **needs files on your computer runs locally, only while the app is open.** |
 | **Subagents** | For a big job, Claude splits the work across background workers running in parallel, each with its own context, and hands you one finished deliverable. |
 | **Projects** | Group related tasks into a workspace with its own files, instructions, and memory — like projects in Chat, but built around the tasks you run. |
 | **Browser use** | With Claude in Chrome, Claude navigates websites and pulls what it finds straight into the task — competitor pricing across ten sites, data from pages with no API. |
@@ -411,9 +413,9 @@ You choose **where** the work happens:
 | Environment | What it means |
 |-------------|----------------|
 | **Local** | Select a folder on your computer and Claude works directly with those files — reading your project, using local tools, and running a development server you can preview in your browser. |
-| **Cloud** | Connect a GitHub repository and Claude works in a cloud environment. Sessions continue even if you close the app, so you can start a big refactor and check back later. Good for larger codebases, or when you want to keep the work off your machine. |
+| **Cloud** | Connect a GitHub repository and Claude works in a cloud environment. Sessions continue even if you close the app, so you can start a big refactor and check back later. Good for larger codebases, or when you want to keep the work off your machine. You can run **Cowork in the cloud** in the same spirit — see the *Introduction to Claude Cowork* course (in beta, on eligible plans). |
 
-You also choose **how much Claude does on its own**:
+You also choose **how much Claude does on its own**, with settings including:
 
 | Setting | What it means |
 |---------|----------------|
@@ -421,7 +423,7 @@ You also choose **how much Claude does on its own**:
 | **Accept edits** | Claude applies file edits automatically. |
 | **Plan** | Claude creates a plan before making changes. |
 
-> **In the product today.** This lives in the **Code tab** of the desktop app, available on Pro, Max, Team, and Enterprise plans. You can run multiple sessions across projects and filter them by environment (Local or Cloud) and status from the sidebar.
+> **In the product today.** This lives in the **Code tab** of the desktop app, available on **Pro, Max, Team, and Enterprise** plans. You can run multiple sessions across projects and filter them by environment (Local or Cloud) and status from the sidebar.
 
 ### 🧭 Choosing the Right Shape for the Task
 
@@ -438,15 +440,22 @@ You won't pick a tab first — you'll notice what kind of work is in front of yo
 | Shape | When to use it | Where it lives |
 |-------|----------------|----------------|
 | 💬 **Turn by turn** | Back-and-forth thinking, brainstorming, quick questions | **Chat** (desktop app) |
-| 🤝 **Hand off work** | Multi-step tasks, finished deliverables, scheduled work | **Cowork** (Pro/Max/Team/Enterprise) |
-| 💻 **Build software** | Direct codebase work, writing/testing code | **Code tab** (for developers) |
+| 🤝 **Hand off work** | Multi-step tasks, finished files saved where you need them, scheduled work | **Cowork** (Pro/Max/Team/Enterprise) |
+| 💻 **Build software** | Direct codebase work, writing/testing code | **Code tab** (Pro/Max/Team/Enterprise; for developers) |
 
 > 🎓 **Memory tip:** Chat = Conversation · Cowork = Complete tasks · Code = Codebase
+
+**Key features for exam:**
+- **Chat vs Cowork:** Chat hands finished files back as downloads; Cowork **saves them into your folder**
+- **Scheduled tasks run remotely** (even if the computer is asleep / app closed) — unless the task needs local files, then it runs **locally, only while the app is open**
+- A deck or doc alone → **artifact** in any conversation, no hand-off needed
+- **Computer use** = research preview on Pro and Max; asks permission before each app
+- **Code tab:** Local or Cloud environment · Manually approve / Accept edits / Plan
 
 ### 🤔 Lesson Reflection
 
 - Think about how you used Claude this week. Which requests were turn-by-turn thinking, and which were really whole tasks you fed in one question at a time because that's the habit?
-- Take the task you'd most like off your plate. Is it multi-step, does it end in a real file, does it span your tools? If yes to any, it's a hand-off — write down the outcome you'd describe to Claude, not the first question you'd ask.
+- Take the task you'd most like off your plate. Is it multi-step, does it need files saved and organized on your computer, does it span your tools? If yes to any, it's a hand-off — write down the outcome you'd describe to Claude, not the first question you'd ask.
 
 ---
 
@@ -1402,7 +1411,7 @@ Claude is also available in several **specialized tools** designed to meet you w
 
 ### 💻 Claude Code
 
-![Claude Code Interface](assets/chapter-12/claude-code-interface.png)
+![Claude Code on the web (claude.ai/code, research preview) — a session list for acme/tea-sales with a Cloud environment, and an open session where Claude reads files, edits code, runs lint and tests, pushes a branch, and offers Create PR / Open in CLI](assets/chapter-12/claude-code-interface.png)
 
 **Claude Code** is an agentic coding tool that works where you work — in your terminal, IDE, browser, or even in Slack. It understands your codebase, executes commands, and handles entire development workflows through natural language.
 
@@ -1410,17 +1419,17 @@ Claude is also available in several **specialized tools** designed to meet you w
 
 - ✍️ **Build features** by describing what you need in plain English, and have Claude write the code, run tests, and create commits
 - 🐛 **Debug issues** by pasting error messages and having Claude analyze your codebase to identify and fix problems
-- 🗺️ **Navigate unfamiliar codebases** and ask questions about how different parts work together
+- 🗺️ **Navigate an unfamiliar codebase** and ask questions about how different parts work together
 - 🤖 **Automate tedious tasks** like fixing lint errors, resolving merge conflicts, or writing release notes
 - 🖥️ **Work in your terminal** alongside your existing IDE and development tools rather than switching to a separate interface
 
-![Claude Code GitHub Integration](assets/chapter-12/claude-code-github.png)
+![GitHub "Open a pull request" page — base: main compared with a claude/realtime-inventory branch, titled "Update inventory dashboard in real-time"](assets/chapter-12/claude-code-github.png)
 
 ---
 
 ### 💬 Claude Tag
 
-![Claude Tag in Slack](assets/chapter-12/claude-tag-slack.png)
+![Claude Tag in Slack — a Claude agent in a #launch thread notices a merged feature, offers to update the blog draft and beta invite email, and reports each completed step with an "Open session in Claude" link](assets/chapter-12/claude-tag-slack.png)
 
 **Claude Tag** brings Claude directly into Slack, allowing you to get help in channels and threads or bring Slack context into your Claude conversations — just tag Claude in any thread.
 
@@ -1428,8 +1437,8 @@ Claude is also available in several **specialized tools** designed to meet you w
 
 - 📝 **Draft responses** to messages, summarize lengthy threads, or break down complex discussions without leaving Slack
 - 📅 **Prepare for meetings** by having Claude pull together relevant conversations and shared documents from your workspace
-- 👋 **Onboarding** to a new team and want help understanding ongoing projects by reviewing channel history
-- 🔄 **Hand off coding tasks** directly from a bug report or feature discussion—just tag Claude and it can spin up a Claude Code session using the surrounding context
+- 👋 **Onboard to a new team** and get help understanding ongoing projects by reviewing channel history
+- 🔄 **Hand off coding tasks** directly from a bug report or feature discussion — just tag Claude and it can spin up a Claude Code session using the surrounding context
 - ❓ **Get quick answers** about industry trends, technical concepts, or company information during a conversation
 
 ---
@@ -1442,12 +1451,12 @@ It works inside any conversation with Claude and in the Artifacts tab, and it's 
 
 #### When to use Claude Design:
 
-- 📐 **Go from written brief, sketch, or reference screenshot** to a working UI prototype without writing code
+- 📐 **Go from a written brief, sketch, or reference screenshot** to a working UI prototype without writing code
 - 🔄 **Explore design directions** and generate and compare several variations quickly
-- ✏️ **Iterate on layout, copy, or interactions** without editing markup — on the canvas, with a comment, or by asking
+- ✏️ **Iterate on layout, copy, or interactions** without editing markup — on the canvas, with a comment, or by asking (Chapter 6 covers the mechanics)
 - 🎯 **Use your team's design system**, so what you hand off matches what engineering will build
 
-> ⚠️ **Availability:** Claude Design inside your conversations is in **beta** and available on **paid plans** (Pro, Max, Team, and Enterprise). On Pro and Max it's **on by default**. On Team it's on by default, and an admin can turn it off. On Enterprise an admin turns it on in Organization settings > Artifacts.
+> ⚠️ **Availability:** Claude Design inside your conversations is in **beta** and available on **paid plans** (Pro, Max, Team, and Enterprise). On Pro and Max it's **on by default**. On Team it's on by default, and an admin can turn it off. On Enterprise an admin turns it on in Organization settings > Artifacts. The **standalone claude.ai/design space has its own separate settings**. Chapter 6 covers how it fits alongside Claude Slides and Claude Docs.
 
 ---
 
@@ -1457,19 +1466,19 @@ Claude integrates directly into Microsoft Office applications as a sidebar, brin
 
 #### 📈 Claude for Excel
 
-![Claude for Excel - Debugging](assets/chapter-12/claude-excel-debugging.png)
+![Claude for Excel — debugging a #REF! error in a Headcount tab; Claude finds the broken formula (=#REF!+2) in E15 and checks the surrounding pattern](assets/chapter-12/claude-excel-debugging.png)
 
 **Claude for Excel** brings Claude directly into Microsoft Excel through a sidebar, allowing you to analyze, understand, and modify spreadsheets through conversation.
 
 **When to use Claude for Excel:**
 
-- 📋 **Understand complex workbooks** — how specific formulas or calculation flows work across sheets
+- 📋 **Understand a complex multi-tab workbook** — how specific formulas or calculation flows work across sheets
 - 🔧 **Update assumptions or inputs** across your model while preserving formula dependencies and relationships
 - 🐛 **Debug spreadsheet errors** like #REF!, #VALUE!, or circular references — Claude traces them to their source and suggests fixes
 - 📄 **Create new spreadsheets** or populate existing templates with data while maintaining proper formula structure
 - 📊 **Build pivot tables or charts** to visualize your data quickly
 
-![Claude for Excel - Reading Workbook](assets/chapter-12/claude-excel-workbook.png)
+![Claude for Excel — "Walk me through this workbook": Claude reads the Assumptions, Headcount, and Compensation sheets to explain how the tabs connect](assets/chapter-12/claude-excel-workbook.png)
 
 ---
 
@@ -1483,7 +1492,7 @@ Claude integrates directly into Microsoft Office applications as a sidebar, brin
 - ✍️ **Rewrite or tighten slide copy** — shortening bullets, adding speaker notes, or adjusting tone for a specific audience
 - 🔄 **Restructure an existing deck** — reordering sections, splitting dense slides, or merging overlapping ones
 - 🎨 **Apply consistent formatting** across the deck — titles, bullet styles, and layouts — without manually fixing each slide
-- 💡 **Get visual suggestions** for a slide, such as which layout or chart type best fits the point you're making
+- 💡 **Get quick visual suggestions** for a slide, such as which layout or chart type best fits the point you're making
 
 ---
 
@@ -1495,7 +1504,7 @@ Claude integrates directly into Microsoft Office applications as a sidebar, brin
 
 - 📝 **Turn an outline or rough notes** into a structured first draft in your team's template
 - ✏️ **Revise a section** — tighten the writing, adjust the tone for a specific reader, or rework the structure — without leaving the document
-- 💬 **Respond to reviewer comments** and tracked changes and want help working through them in place
+- 💬 **Respond to reviewer comments and tracked changes** and get help working through them in place
 - 🔗 **Ground the draft in source material** you've connected, so claims in the document trace back to where they came from
 
 ---
@@ -1504,13 +1513,13 @@ Claude integrates directly into Microsoft Office applications as a sidebar, brin
 
 **Claude for Outlook** brings Claude into your inbox as a sidebar, so you can triage mail, draft replies with context from related threads and your calendar, and turn a long email chain into a clear summary or a set of next steps.
 
-> ⚠️ **Availability:** Claude for Outlook is currently in **beta** and is installed separately from the other Microsoft 365 add-ins. See [Claude for Outlook documentation](https://support.anthropic.com) for setup.
+> ⚠️ **Availability:** Claude for Outlook is currently in **beta** and is **installed separately** from the other Microsoft 365 add-ins.
 
 ---
 
 ### 🌐 Claude in Chrome
 
-![Claude in Chrome - Gmail](assets/chapter-12/claude-chrome-gmail.png)
+![Claude in Chrome — Gmail with the Claude sidebar (research preview) clicking, typing, and drafting a budget-update email; the "Ask before acting" setting is shown](assets/chapter-12/claude-chrome-gmail.png)
 
 **Claude in Chrome** is a browser extension that adds Claude as a sidebar in Google Chrome. It can observe what you're working on and take actions directly within your browser.
 
@@ -1522,7 +1531,7 @@ Claude integrates directly into Microsoft Office applications as a sidebar, brin
 - 🧪 **Test website features** or navigate multi-step workflows without manually clicking through each step
 - 🔄 **Maintain context** as you move between tabs and tasks — great for pulling context from niche internal tools, CRMs, or dashboards
 
-![Claude in Chrome - Google Docs](assets/chapter-12/claude-chrome-docs.png)
+![Claude in Chrome — Google Docs renovation budget doc with the Claude sidebar taking a screenshot to review the document](assets/chapter-12/claude-chrome-docs.png)
 
 > ⚠️ **Important note:** Claude in Chrome is **generally available**. It's **on by default** on the Pro, Max, and Team plans, and on the Enterprise plan it's **off by default** until an org admin turns it on. It **isn't available on the Free plan**. Anthropic recommends using it for **low-risk tasks on trusted websites**. The extension asks for permission before taking high-risk actions like purchasing or sharing personal data, and certain categories of websites (financial services, adult content) are blocked by default.
 
@@ -1530,7 +1539,7 @@ Claude integrates directly into Microsoft Office applications as a sidebar, brin
 
 ### 📋 Summary: All Claude Tools
 
-![Claude Tools Summary](assets/chapter-12/tools-summary-table.png)
+![Claude tools summary table — Tool / Best for / Where it runs](assets/chapter-12/tools-summary-table.png)
 
 | Tool | Best for | Where it runs |
 |------|----------|---------------|
@@ -1546,25 +1555,26 @@ Claude integrates directly into Microsoft Office applications as a sidebar, brin
 
 ### 📝 Quick Reference: Claude Tools (for exam prep)
 
-| Tool | Key Use Cases | Plan Availability |
-|------|---------------|-------------------|
-| 💻 **Claude Code** | Agentic coding, debugging, codebase navigation, git workflows | All plans |
-| 💬 **Claude Tag** | Slack integration, thread summaries, meeting prep | Team/Enterprise |
-| 🎨 **Claude Design** | UI prototypes from sketches/screenshots, design system integration | Pro, Max, Team, Enterprise (beta) |
-| 📊 **Claude for Excel** | Formula debugging, workbook analysis, pivot tables | Microsoft 365 subscribers |
-| 📽️ **Claude for PowerPoint** | Deck creation from outlines, slide restructuring, formatting | Microsoft 365 subscribers |
-| 📄 **Claude for Word** | Document drafting, tracked changes, source-grounded writing | Microsoft 365 subscribers |
-| 📧 **Claude for Outlook** | Email triage, reply drafting, thread summarization | Microsoft 365 subscribers (beta) |
-| 🌐 **Claude in Chrome** | Web research, email management, form filling, browser automation | Pro, Max, Team, Enterprise |
+| Tool | Key Use Cases | Availability (as stated in the course) |
+|------|---------------|-----------------------------------------|
+| 💻 **Claude Code** | Agentic coding, debugging, codebase navigation, git workflows | Terminal, IDE, browser, Slack · Code tab in the desktop app: Pro, Max, Team, Enterprise (Chapter 4) |
+| 🤝 **Claude Cowork** | Multi-step tasks, file organization, scheduled work | Desktop · Pro, Max, Team, Enterprise (Chapter 4); web/mobile in beta on eligible plans |
+| 💬 **Claude Tag** | Slack threads, meeting prep, handing off coding tasks | Slack workspace |
+| 🎨 **Claude Design** | UI prototypes from sketches/screenshots, design systems | **Beta** · paid plans (Pro, Max, Team, Enterprise) · standalone claude.ai/design has separate settings |
+| 📊 **Claude for Excel** | Formula debugging, workbook analysis, pivot tables | Excel sidebar |
+| 📽️ **Claude for PowerPoint** | Deck creation from outlines, slide restructuring, formatting | PowerPoint sidebar |
+| 📄 **Claude for Word** | Drafting, tracked changes, source-grounded writing | Word sidebar |
+| 📧 **Claude for Outlook** | Email triage, reply drafting, thread summarization | Outlook sidebar · **beta**, installed separately |
+| 🌐 **Claude in Chrome** | Web research, email management, form filling, browser automation | **GA** · on by default: Pro, Max, Team · Enterprise: off until admin enables · not on Free |
 
 > 🎓 **Memory tip:** Claude tools meet you **where you work** — from terminal to Slack to Microsoft 365 to Chrome
 
 **Key features for exam:**
 - **Claude Code** = Agentic, works in terminal/IDE/browser/Slack
-- **Claude Tag** = Slack integration with context-aware responses
-- **Claude Design** = Sketch/screenshot → working prototype
-- **Microsoft 365** = Sidebar in Excel, PowerPoint, Word, Outlook
-- **Claude in Chrome** = Browser sidebar, low-risk tasks only by default
+- **Claude Tag** = Slack integration; can spin up a Claude Code session from a thread
+- **Claude Design** = Sketch/screenshot → working prototype (beta, paid plans)
+- **Microsoft 365** = Sidebar in Excel, PowerPoint, Word, Outlook (Outlook = beta, separate install)
+- **Claude in Chrome** = Browser sidebar, low-risk tasks on trusted sites; asks permission for high-risk actions; finance/adult sites blocked by default
 
 ### 🤔 Lesson Reflection
 
