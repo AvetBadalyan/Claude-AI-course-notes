@@ -354,11 +354,11 @@ Claude Code combines several agentic concepts: an **agentic loop**, a **managed 
 |----------|----------------|:-------------:|
 | 🍎 **macOS / 🐧 Linux / WSL** | `curl` command (installs in one go) | ✅ |
 | 🍎 **macOS / 🐧 Linux** | **Homebrew** (`brew install`) | ❌ |
-| 🪟 **Windows — PowerShell** | `Invoke-RestMethod` command | — |
-| 🪟 **Windows — CMD** | `curl` command | — |
+| 🪟 **Windows — PowerShell** | `Invoke-RestMethod` command | ✅ |
+| 🪟 **Windows — CMD** | `curl` command | ✅ |
 | 🪟 **Windows** | **winget** | ❌ |
 
-> 📌 *From the screenshot (macOS):* `curl -fsSL https://claude.ai/install.sh | bash`. The installer reports the **version** (2.1.72) and **location** (`~/.local/bin/claude`) and suggests running `claude --help`. *The lesson doesn't state the Auto-updates cell for the `curl` and Windows script methods. That cell is my inference from "Homebrew and winget won't auto-update", so check it against the official docs.*
+> 📌 *From the screenshot (macOS):* `curl -fsSL https://claude.ai/install.sh | bash`. The installer reports the **version** (2.1.72) and **location** (`~/.local/bin/claude`) and suggests running `claude --help`. *The lesson itself only says Homebrew and winget don't auto-update. The ✅ for the script installs comes from Anthropic's official setup docs (native installs update in the background), not from the lesson.*
 
 #### ▶️ After installation
 
