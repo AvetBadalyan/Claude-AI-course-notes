@@ -617,7 +617,7 @@ Some ways to refine your prompt:
 
 ## Lecture 10: Project Execution with Description-Discernment Loops
 
-> ⏱️ Estimated time: 30–60 minutes. A hands-on application of Lectures 6–9 (Delegation, Description, Discernment) to your own course project — no new theory, just practice.
+> A hands-on application of Lectures 6–9 (Delegation, Description, Discernment) to your own course project — no new theory, just practice.
 
 ### 🏋️ Exercise: Project Execution with Description-Discernment Loops
 
@@ -716,20 +716,18 @@ Some ways to refine your prompt:
 
 ### 🏋️ Exercise: Creating a Diligence Statement
 
-> ⏱️ Estimated time: 14 minutes
-
 A **diligence statement** is a transparent acknowledgment of AI's role in your work, along with your commitment to responsibility for the final output. Example:
 
 > *"In creating this [document/project/content], I collaborated with [AI assistant name] to assist with [specific tasks: drafting, research, editing, etc.]. I affirm that all AI-generated and co-created content underwent thorough review and evaluation. The final output accurately reflects my understanding, expertise, and intended meaning. While AI assistance was instrumental in the process, I maintain full responsibility for the content, its accuracy, and its presentation. This disclosure is made in the spirit of transparency and to acknowledge the role of AI in the creation process."*
 
-**Step 1: Understand diligence statements** *(~3 min)* — read the example above.
+**Step 1: Understand diligence statements** — read the example above.
 
-**Step 2: Reflect on your AI collaboration** *(~5 min)*:
+**Step 2: Reflect on your AI collaboration**:
 - **Creation Diligence** — Which AI systems did you choose and why? What data/information did you share? Any privacy, security, or ethical considerations?
 - **Transparency Diligence** — Who is the audience for your output? What disclosure expectations might they have? How specifically did AI contribute to different aspects?
 - **Deployment Diligence** — What steps verified the accuracy/appropriateness of AI contributions? How did you ensure the final output meets your standards? What responsibility are you taking?
 
-**Step 3: Draft your statement** *(~6 min)* — share your reflections (and optionally past conversations) with Claude, and collaborate to draft a statement addressing: which AI systems you used, how AI contributed, your review process, your assertion of responsibility, and any context-specific considerations.
+**Step 3: Draft your statement** — share your reflections (and optionally past conversations) with Claude, and collaborate to draft a statement addressing: which AI systems you used, how AI contributed, your review process, your assertion of responsibility, and any context-specific considerations.
 
 **Step 4: Add your statement to your project** — e.g., footer, appendix, or metadata.
 
@@ -792,18 +790,6 @@ This concluding video revisits the AI Fluency Framework and brings together the 
 - Criteria for when more detailed disclosure is appropriate
 
 > **Example policy snippet:** *"I use Claude for drafting and research, never for final decisions involving client data. I always verify factual claims before sharing. Any deliverable with substantial AI involvement gets a one-line disclosure in the footer (see the Diligence Statement template above). I don't paste confidential client information into any AI tool without an enterprise data agreement in place."*
-
-> 💡 Reflection for this lesson happens *through* the two exercises above — there are no separate reflection questions.
-
-### 🎓 What's Next
-
-Congratulations on completing **AI Fluency: Framework and Foundations**! This is just the beginning of the journey.
-
-- Fluency develops through **practice** — each AI interaction is a chance to refine your skills
-- Approach AI as a **thinking partner**, not just a tool
-- Maintain a commitment to **effectiveness, efficiency, ethics, and safety**
-- Additional exercises are available in **Lesson 12** to continue the journey
-- Share what you've learned, seek diverse perspectives, and contribute to the conversation on working with AI in ways that amplify human potential while respecting our values and responsibilities to each other
 
 ---
 
@@ -978,7 +964,7 @@ Congratulations on completing **AI Fluency: Framework and Foundations**! This is
 
 ## 📎 Appendix: Additional Activities (Self-Paced)
 
-> ⏱️ Estimated time: self-paced — optional practice after finishing the course. Pick what resonates, or use as inspiration for your own.
+> Optional, self-paced practice after finishing the course. Pick what resonates, or use as inspiration for your own.
 
 ### 🗺️ Build a Personal AI Fluency Plan
 
@@ -1032,4 +1018,4 @@ Playful exercises to practice precise **Description** and sharpen **Discernment*
 
 ---
 
-<!-- Add new lectures below this line -->
+<!-- End of AI Fluency Course -->

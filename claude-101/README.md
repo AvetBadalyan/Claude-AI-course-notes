@@ -6,7 +6,16 @@
 
 ## Chapter 1: What is Claude?
 
+> 🗂️ **Unit: Meet Claude**
+
 > Claude is more than a chatbot—it's an AI assistant designed to be your thinking partner.
+
+### 🎯 Learning Objectives
+
+By the end of this lesson you'll be able to:
+- Explain what Claude is and the principles that guide its design
+- Describe Claude's core capabilities and how it differs from a simple chatbot
+- Identify the different ways to access Claude (web, desktop, and mobile)
 
 ### 🧠 Key Takeaways
 
@@ -64,7 +73,7 @@ Claude is the intelligence—the AI assistant you're learning to work with throu
 
 ## Chapter 2: Your First Conversation with Claude
 
-> ⏱️ Estimated time: 20 minutes · 🎥 Video: *Getting started with Claude.ai*
+> 🗂️ **Unit: Meet Claude** · 🎥 Video: *Getting started with Claude.ai*
 
 > Claude brings AI intelligence, but you bring the context and expertise that makes the work meaningful.
 
@@ -213,7 +222,7 @@ Before moving on, try prompting Claude with a question or task. If you need an i
 
 ## Chapter 3: Getting Better Results
 
-> ⏱️ Estimated time: 15 minutes
+> 🗂️ **Unit: Meet Claude**
 
 ### 🎯 Learning Objectives
 
@@ -325,7 +334,7 @@ This kind of lightweight evaluation helps you develop intuition for how to work 
 
 ## Chapter 4: How You'll Work with Claude on Your Desktop
 
-> ⏱️ Estimated time: 11 minutes
+> 🗂️ **Unit: Meet Claude**
 
 ### 🎯 Learning Objectives
 
@@ -461,7 +470,7 @@ You won't pick a tab first — you'll notice what kind of work is in front of yo
 
 ## Chapter 5: Introduction to Projects
 
-> 🗂️ **Unit: Organizing Your Work and Knowledge** · ⏱️ Estimated time: 20 minutes · 🎥 Video: *Introduction to Projects — Getting started with projects in Claude.ai*
+> 🗂️ **Unit: Organizing Your Work and Knowledge** · 🎥 Video: *Introduction to Projects — Getting started with projects in Claude.ai*
 
 ### 🎯 Learning Objectives
 
@@ -492,6 +501,8 @@ Projects are particularly valuable when you're working on something **ongoing** 
 - **Team collaboration needs** where multiple people should work from the same foundation
 
 ### 🧩 Anatomy of a Project Page
+
+> 📌 *From the lesson video, not the lesson text.*
 
 A project page is built around three right-hand panels, each with its own visibility badge:
 
@@ -579,7 +590,7 @@ For users on **Claude for Work (Team and Enterprise)** plans, projects become ev
 3. Add individual members using their name or email, or copy and paste a list of email addresses for bulk sharing (the project then shows up in their **"Shared with you"** section)
 4. Or, share with **"Everyone at [your organization]"** to make your project discoverable within the Team tab
 
-> In the share dialog, each person gets their own access-level dropdown (e.g., **Can edit**) next to their name, plus a **General access** setting (e.g., *"Only people invited"*) and a **Copy link** shortcut for bulk sharing.
+> 📌 *From the video, not the lesson text:* In the share dialog, each person gets their own access-level dropdown (e.g., **Can edit**) next to their name, plus a **General access** setting (e.g., *"Only people invited"*) and a **Copy link** shortcut for bulk sharing.
 
 Team members receive **email notifications** when you share a project with them, and they can find shared projects in their **"Shared with me"** tab.
 
@@ -618,6 +629,8 @@ More ideas from the video — projects aren't just for work:
 | 📁 **Files** | Your knowledge base (PDFs, DOCX, CSV, etc.) | All project users |
 | 💬 **Chats** | Individual conversations within the project | Private until shared |
 
+> 📌 *The "Who sees it" column comes from the project-page layout shown in the video, not the lesson text.*
+
 > 🎓 **Memory tip:** Projects = **Self-contained workspaces** with their own knowledge, instructions, and memory
 
 **Key features for exam:**
@@ -635,7 +648,7 @@ More ideas from the video — projects aren't just for work:
 
 ## Chapter 6: Creating with Artifacts
 
-> 🗂️ **Unit: Organizing Your Work and Knowledge** · ⏱️ Estimated time: 20 minutes
+> 🗂️ **Unit: Organizing Your Work and Knowledge**
 
 ### 🎯 Learning Objectives
 
@@ -742,7 +755,7 @@ To publish, click the **"Share"** or **"Publish"** button in the upper right cor
 
 ## Chapter 7: Working with Skills
 
-> 🗂️ **Unit: Organizing Your Work and Knowledge** · ⏱️ Estimated time: 15 minutes
+> 🗂️ **Unit: Organizing Your Work and Knowledge**
 
 ### 🎯 Learning Objectives
 
@@ -751,7 +764,7 @@ By the end of this lesson, you will be able to:
 - Identify Anthropic's built-in Skills for document creation
 - Enable and manage Skills in your settings
 
-> 📋 **Plan availability:** Skills are currently a feature preview for **Pro, Max, Team, and Enterprise** plans. If you're on the Free plan, you can read along to understand the concept and skip the hands-on steps.
+> 📋 **Plan availability:** Skills are available on **all plans**. They require **Code execution and file creation** to be enabled.
 
 ### 🧩 What Are Skills?
 
@@ -763,12 +776,12 @@ You've already seen Skills at work if you've used Claude to create Excel spreads
 
 | Type | Who makes them | How they're used |
 |------|------------------|--------------------|
-| 🏛️ **Anthropic Skills** | Created and maintained by Anthropic | Enhanced document creation for Excel, Word, PowerPoint, and PDF files. Available to all paid users — Claude invokes them automatically when relevant, no setup needed |
+| 🏛️ **Anthropic Skills** | Created and maintained by Anthropic | Enhanced document creation for Excel, Word, PowerPoint, and PDF files. Claude invokes them automatically when relevant, so you don't need to do anything special to use them |
 | 🛠️ **Custom Skills** | You or your organization | Built for specialized workflows and domain-specific tasks — e.g. applying brand guidelines to presentations, structuring meeting notes in a specific format, or executing your organization's data analysis workflows |
 
 ### ⚙️ Enabling Skills
 
-Skills are currently available as a **feature preview** for users on Pro, Max, Team, and Enterprise plans. To use Skills, you'll need **Code execution and file creation** enabled, since Skills require Claude's secure sandboxed computing environment to function.
+Skills are available on **all plans**. To use Skills, you'll need **Code execution and file creation** enabled, since Skills require Claude's secure sandboxed computing environment to function.
 
 1. Navigate to **Settings > Capabilities**
 2. Ensure that **Code execution and file creation** is toggled on
@@ -792,15 +805,17 @@ The beauty of Skills is that you typically don't need to think about them — Cl
 
 When Claude uses a Skill, you'll see it mentioned in Claude's chain of thought as it works. The output will be a downloadable file you can save to your computer or directly to Google Drive.
 
-#### 📁 File Editing
+> 💡 On **paid plans where Claude Slides and Claude Docs are enabled**, asking for a deck or a document can create an **artifact** instead — one you keep working on with Claude, then export when you're done. See [Chapter 6: Creating with Artifacts](#chapter-6-creating-with-artifacts) for how the two differ.
+
+#### 📁 File Execution
 
 This same capability means Claude can work with your **actual files** (within a contained environment) to create updated versions of them.
 
-> Note: in Chat, Claude creates a **new version** of the document rather than editing the original in place.
+> Note: in Chat, when you upload a file, Claude creates a **new version** of the document rather than editing the original in place.
 
 Upload slides, spreadsheets, contracts (or any `.xlsx`, `.pptx`, `.docx`, or `.pdf` files) and watch as Claude creates slides, performs analyses, and adds suggested edits. When Claude is done, you can download these files or open them in Drive — e.g. a "Pricing Analysis" spreadsheet, a "Market Research" PDF, a "Pitch Deck" presentation, or a "Food Truck Business" document.
 
-> ⚠️ To use these capabilities you'll need to give Claude access to external data sources — toggle **"Allow limited network access"** on when prompted. This lets Claude install packages and libraries to perform advanced data analysis, custom visualizations, and specialized file processing. Monitor closely, as it **increases security risks**; allowed domains can be managed in Settings.
+> ⚠️ To use these capabilities you'll need to give Claude access to external data sources — toggle **"Allow limited network access"** on when prompted.
 
 ### 🔒 Security Considerations
 
@@ -849,14 +864,14 @@ The two features **complement each other**. A skill can reference knowledge stor
 | **Purpose** | Store knowledge Claude references | Define processes Claude executes |
 | **Best for** | Long-term context, reference materials | Repeatable workflows, multi-step tasks |
 | **Persistence** | Knowledge available across all project chats | Instructions applied when skill is invoked |
-| **Plan availability** | All plans | Pro, Max, Team, Enterprise (feature preview) |
+| **Plan availability** | Not stated in the lesson (sharing is Team/Enterprise only) | **All plans** (requires Code execution and file creation) |
 
 > 🎓 **Memory tip:** Projects = **Knowledge hubs** (what) · Skills = **Procedural machines** (how)
 
 **Key features for exam:**
 - **Anthropic Skills** = Built-in (Excel, Word, PowerPoint, PDF creation)
 - **Custom Skills** = You create for specialized workflows
-- Skills require **Code execution** enabled
+- Skills are available on **all plans** and require **Code execution and file creation** enabled
 - Can create skills by **chatting with Claude** (no manual coding needed)
 
 ### 🤔 Lesson Reflection
@@ -869,7 +884,7 @@ The two features **complement each other**. A skill can reference knowledge stor
 
 ## Chapter 8: Connecting Your Tools
 
-> 🗂️ **Unit: Expanding Claude's Reach** · ⏱️ Estimated time: 16 minutes
+> 🗂️ **Unit: Expanding Claude's Reach**
 
 ### 🎯 Learning Objectives
 
@@ -996,13 +1011,11 @@ When you connect Claude to external services, you're granting it access to read�
 - What tasks currently require you to copy and paste information that connectors could handle automatically?
 - Are there workflows where combining data from multiple connected sources would save you significant time?
 
-> **What's next:** In the next lesson, you'll learn about **Enterprise Search** — a specialized feature for Claude for Work users that connects Claude to your organization's knowledge sources with custom prompts optimized for your company's context.
-
 ---
 
 ## Chapter 9: Enterprise Search
 
-> 🗂️ **Unit: Expanding Claude's Reach** · ⏱️ Estimated time: 17 minutes
+> 🗂️ **Unit: Expanding Claude's Reach**
 
 > ⚠️ **Plan availability:** Enterprise Search is available on **Team and Enterprise plans** only, and must be enabled by a workspace admin.
 
@@ -1125,7 +1138,7 @@ In short, **yes**. Here's why:
 
 ## Chapter 10: Research for Deep Dives
 
-> 🗂️ **Unit: Expanding Claude's Reach** · ⏱️ Estimated time: 12 minutes
+> 🗂️ **Unit: Expanding Claude's Reach**
 
 ### 🎯 Learning Objectives
 
@@ -1269,7 +1282,7 @@ When you have Google Workspace or other integrations connected, Research becomes
 
 ## Chapter 11: Claude in Action — Use Cases by Role
 
-> 🗂️ **Unit: Putting It All Together** · ⏱️ Estimated time: 2 minutes
+> 🗂️ **Unit: Putting It All Together**
 
 ### 🎯 Learning Objectives
 
@@ -1394,7 +1407,7 @@ Remember the **7 role categories**:
 
 ## Chapter 12: Other Ways to Work with Claude
 
-> 🗂️ **Unit: Putting It All Together** · ⏱️ Estimated time: 17 minutes
+> 🗂️ **Unit: Putting It All Together**
 
 ### 🎯 Learning Objectives
 
@@ -1582,8 +1595,6 @@ Claude integrates directly into Microsoft Office applications as a sidebar, brin
 - Are there tasks you currently switch between multiple applications to complete that Claude could streamline?
 - How might using Claude in your existing tools (Slack, Microsoft 365, Chrome) change the way you work?
 
-> **What's next:** Wrap up with a short recap of this course and a quiz to earn your completion badge that you can share on LinkedIn, and with your team.
-
 ---
 
 ## Chapter 13: Conclusion & Certificate
@@ -1685,11 +1696,11 @@ Claude is designed to be a **collaborator, not a replacement**. The best results
 
 ### 🎓 Memory Tips for Exam
 
-**The 3 H's:** Helpful, Honest, Harmless (Constitutional AI)  
-**The 4 Ds:** Delegation → Description → Discernment → Diligence  
-**3 Shapes:** Chat (turn-by-turn) · Cowork (hand-off) · Code (build)  
-**MCP:** Model Context Protocol = USB-C for AI  
-**RAG:** Retrieval Augmented Generation (Projects use this)  
+**The 3 H's:** Helpful, Honest, Harmless (Constitutional AI)
+**The 4 Ds:** Delegation → Description → Discernment → Diligence
+**3 Shapes:** Chat (turn-by-turn) · Cowork (hand-off) · Code (build)
+**MCP:** Model Context Protocol = USB-C for AI
+**RAG:** Retrieval Augmented Generation (Projects use this)
 
 **7 Roles with Use Cases:**
 1. General (everyone)
