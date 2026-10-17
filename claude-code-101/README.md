@@ -81,6 +81,7 @@ The lesson says agents can have access to **other AI agents**. In the demo below
 
 ![Claude Code spawning a code-reviewer subagent from the terminal](assets/L1-what-is-claude-code/subagent-code-reviewer.png)
 
+> 🔗 *Why you'd spawn a reviewer subagent is explained in [Chapter 5](#chapter-5-the-explore--plan--code--commit-workflow): it's the review step before you commit.*
 > 📌 *Seen in the demo, not explained in this lesson:* `/remote-control` is shown as active (the session is reachable in the CLI or at a claude.ai/code session URL), and the footer shows `esc to interrupt`.
 
 ### 🛠️ What Can Claude Code Actually Do?
@@ -603,6 +604,158 @@ When using Claude Code, try to be **as descriptive as possible** with your promp
 - After you **accept the plan**, Claude can still **ask for approval at each step**
 - **No right or wrong mode** — choose what you're comfortable with
 - **Descriptive prompts** make Claude's work easier
+
+---
+
+## Chapter 5: The Explore → Plan → Code → Commit Workflow
+
+> 🎬 **Video** — *If you take one thing away from this course, let it be this workflow:* **Explore, Plan, Code, and Commit.** Without it, most people jump straight to asking Claude to write code — which means **more course-correcting later on**.
+
+### 🧠 Key Takeaways
+
+- **The workflow:** Explore → Plan → Code → Commit
+- **Explore and Plan** are fastest in **Plan Mode** — Claude **can't edit files**, it just **reads files** to gather information
+- **Enter plan mode:** press **Shift + Tab until you see "Plan Mode"** under the text input
+- **Review the plan** — if it doesn't meet your criteria, **ask Claude to revise specific areas**. This is the **best place to course-correct**, because **no code is written yet**
+- You can run the **explore subagent without plan mode** for a general summary of your codebase when you don't plan to make changes
+- **Code:** approve the plan, and Claude works through the list; you choose **auto-accept or ask each time**
+- **Three tips for coding:** define **success criteria** · add **tools** · include a **test suite**
+- **Commit:** test it yourself, run a **subagent code reviewer** (a fresh pair of eyes), then have Claude generate a **commit message in your style**
+
+### 🗺️ The Workflow at a Glance
+
+| Step | What it does |
+|------|---------------|
+| 🔍 **Explore** | Gives Claude the **relevant context** it needs for your project |
+| 📋 **Plan** | Creates a **plan of action** that Claude uses to **measure success** |
+| 💻 **Code** | The **back and forth** between you and Claude before settling on the final outcome |
+| ✅ **Commit** | Helps you **review and push** your code so you can start on your next feature |
+
+> 🔗 [Chapter 4](#chapter-4-your-first-prompt) taught the **modes**; this chapter is how you **use them in order**.
+
+### 🔍📋 Explore and Plan
+
+The fastest way to handle these first two steps is with **Plan Mode**. In plan mode, Claude **can't edit files** — it just **reads files** to gather information about how it will tackle the implementation.
+
+To enter plan mode, press **Shift + Tab** until you see **"Plan Mode"** under the text input.
+
+![Claude Code status bar showing "plan mode on (shift+tab to cycle)" under the empty prompt](assets/L5-explore-plan-code-commit/plan-mode-on-footer.png)
+
+Then write a prompt like:
+
+> *"I need to add WebP conversion to our image upload pipeline. Figure out where in the pipeline it should happen, whether we need new dependencies, and how to approach it."*
+
+What Claude does:
+- 📖 **Reads relevant files**
+- 🌐 **Runs some web searches**
+- 📋 **Gives you a plan of action**
+
+Then **review it** and decide if it meets your criteria. **If not, ask it to revise specific areas.**
+
+> 🔗 This is the same WebP prompt as the **Explore** demo in [Chapter 1](#chapter-1-what-is-claude-code) — the `Explore image upload pipeline` task there is the **Explore** step of this workflow (my mapping).
+
+![Claude Code presenting a finished plan — a Verification checklist and the prompt "Claude has written up a plan and is ready to execute. Would you like to proceed?" with four options](assets/L5-explore-plan-code-commit/plan-ready-to-execute.png)
+
+What the screenshot shows:
+
+| Part of the screen | What it shows |
+|--------------------|----------------|
+| **End of the plan** | Files that need **no changes**: `src/index.ts` (static serving already handles `.webp`), `src/services/userService.ts` (`avatar_url` is just a string, extension-agnostic), and existing `.jpg`/`.png` avatars (cleaned up normally on new uploads) |
+| **Verification list** | 6 checks: `npm install` succeeds with `sharp` · uploading a JPEG/PNG/GIF avatar saves a `.webp` in `uploads/avatars/` · `avatar_url` ends with `.webp` · fetching it serves `Content-Type: image/webp` · uploading a new avatar deletes the old `.webp` · a corrupt/invalid file returns a **422 error** with **no orphaned files** |
+| **Prompt** | *"Claude has written up a plan and is ready to execute. Would you like to proceed?"* |
+| **Option 1** | Yes, **clear context (12% used)** and auto-accept edits |
+| **Option 2** | Yes, **auto-accept edits** |
+| **Option 3** | Yes, **manually approve edits** |
+| **Option 4** | A typed reply: *"Can you make the upload limit 10mb?"* |
+| **Footer** | `ctrl-g to edit in VS Code · ~/.claude/plans/….md` |
+
+> 📌 *My mapping to the lesson (the lesson only says the screen offers "options to approve, revise areas, or ask questions"):*
+> - **Options 2 and 3** = the lesson's *"auto-accepts file edits or asks you each time"*
+> - **Option 4** = *"ask it to revise specific areas"* — you can **type feedback instead of approving**, before any code exists
+> - The **Verification list** is what *success criteria* look like (see the Code tips below)
+>
+> 📌 *Not explained in the lesson:* **"clear context (12% used)"** (the 12% is most likely context-window usage, as in the `/context` view from [Chapter 1](#chapter-1-what-is-claude-code)) and **ctrl-g / the saved plan file** under `~/.claude/plans/`.
+
+> 💡 **This is the best place to course-correct** — **before any code is written.**
+
+> 💡 You can also run the **explore subagent without being in plan mode** if you just want a **general summary of your codebase** without intending to make changes afterward.
+
+### 💻 Code
+
+Once the plan looks good, select **"approve"** to accept it and let Claude **work through the list items**. You can choose whether Claude **auto-accepts file edits** or **asks you each time** (see [Chapter 4](#chapter-4-your-first-prompt)).
+
+- Claude will do its best to **troubleshoot before considering the plan "finished"**, but **at times you'll need to step in**
+- **Benefit of Plan Mode:** after execution, you also have **the context of how you got to the results**, which **helps guide Claude's next decisions**
+
+#### ✅ Three Tips for a Smoother Coding Phase
+
+| Tip | Why |
+|-----|-----|
+| 🎯 **Define a success criteria** | For Claude to be confident in its results, it needs to be clear on **what "correct" looks like**. **Make this explicit when writing your plan.** |
+| 🧰 **Add tools** | Tools that help Claude complete its goals **remove a lot of back and forth**. Example: for web UIs, install the **Claude in Chrome** extension so Claude Code can **control a browser tab and test the UI directly**. |
+| 🧪 **Include a test suite** | Give Claude a test suite it can **continuously validate against**. Claude can even **write tests for you**. Before handing this off, make sure the tests are a **reliable source of truth** to avoid **false positives**. |
+
+![The Claude in Chrome extension page in the Chrome Web Store — "Claude in Chrome (Beta)", 3,000,000 users, with a "Remove from Chrome" button showing it is installed](assets/L5-explore-plan-code-commit/claude-in-chrome-extension.png)
+
+> 📌 *From the screenshot (Chrome Web Store listing):* the description says Claude *"works directly in your browser, automating tasks and taking actions on your behalf… navigate websites, fill forms, extract data, and run multi-step workflows"* and is *"available to all paid subscribers"*. The **Remove from Chrome** button means it's already installed. Preview thumbnails include *"Test code right in your browser with Claude Code"* and *"Approve Claude's plan and let it run"*.
+> 🔗 For plan availability as stated by the course, see [Claude 101, Chapter 12](../claude-101/README.md): on by default for **Pro, Max, Team**; **Enterprise** off until an admin turns it on; **not on Free**.
+
+> 💡 **Quick tip:** If you find Claude **keeps running into the same issues**, ask it to **save the solution to its `CLAUDE.md` file**.
+
+### ✅ Commit
+
+Once you've **tested the changes yourself** and are happy with the results, it's time to push your code.
+
+| Step | What to do |
+|------|------------|
+| 1️⃣ **Test it yourself** | Make sure you're happy with the results |
+| 2️⃣ **Run a subagent code reviewer** | A subagent gets a **fresh pair of eyes** on the codebase — it **doesn't carry the bias** the main agent might have from the session |
+| 3️⃣ **Generate a commit message** | Get Claude to write one **in your style** |
+| 4️⃣ **Rinse and repeat** | Start the next feature |
+
+![A code-reviewer subagent running in Claude Code — "Spawn the code reviewer subagent to review the code we last created", then code-reviewer (Review recent code changes) listing files and reading source files](assets/L5-explore-plan-code-commit/code-reviewer-subagent.png)
+
+What the screenshot shows:
+
+| Part of the screen | What it shows |
+|--------------------|----------------|
+| **Prompt** | *"Spawn the code reviewer subagent to review the code we last created"* |
+| **Subagent** | `code-reviewer (Review recent code changes)` |
+| **Its tool calls** | `Bash(find …/src -name "*.ts" \| head -20)` → `Read(src/utils/errors.ts)` → `Read(src/services/userService.ts)` → `+17 more tool uses (ctrl+o to expand)` |
+| **Hints** | `ctrl+b to run in background` · `esc to interrupt` |
+
+> 🔗 The same subagent demo appeared in [Chapter 1](#chapter-1-what-is-claude-code) — now you know **why** you'd spawn it: it's the **review step before you commit**.
+> 📌 *Not explained in the lesson:* `ctrl+b to run in background` and the status line `Schlepping… (32s · ↓ 799 tokens)` (looks like a progress/token indicator — my reading).
+
+### 🔁 Recap
+
+To be effective with Claude Code, follow the **Explore, Plan, Code, and Commit** workflow:
+
+- **Explore** gives Claude the **relevant context** it needs for your project
+- **Plan** creates a **plan of action** that Claude uses to **measure success**
+- **Code** is the **back and forth** between you and Claude before settling on the final outcome
+- **Commit** helps you **review and push** your code so you can start on your next feature
+
+### 📝 Quick Reference: Explore → Plan → Code → Commit (for exam prep)
+
+| Step | Goal | How | Key tip |
+|------|------|-----|---------|
+| 🔍 **Explore** | Give Claude the context it needs | **Plan mode** (read-only) or the **explore subagent** | Describe what you need, what to figure out, and how to approach it |
+| 📋 **Plan** | An action plan Claude measures success against | Review the plan; **ask to revise specific areas** | **Best place to course-correct** — before any code |
+| 💻 **Code** | Work through the plan to a final outcome | **Approve** the plan; auto-accept edits or ask each time | **Success criteria · tools · test suite** |
+| ✅ **Commit** | Review and push | Test yourself → **code-reviewer subagent** → commit message in your style | **Fresh eyes**, no session bias |
+
+> 🎓 **Memory tip:** **E-P-C-C** — **E**xplore · **P**lan · **C**ode · **C**ommit — *look before you leap, review before you push*
+
+**Key features for exam:**
+- Skipping straight to code → **more course-correcting later**
+- **Plan mode:** Claude **can't edit files**, it only **reads** to gather information
+- Enter plan mode: **Shift + Tab until "Plan Mode"** shows under the text input
+- Plan not right? **Ask to revise specific areas** — cheapest time to fix things
+- **Explore subagent** works **without plan mode** (general codebase summary, no changes planned)
+- Coding tips: **success criteria** (make them explicit in the plan) · **tools** (e.g. **Claude in Chrome** to test UIs) · **test suite** (a **reliable source of truth** → avoid **false positives**)
+- Same issue keeps happening? Ask Claude to **save the solution to `CLAUDE.md`**
+- Commit: **test yourself** → **subagent code reviewer** (**fresh pair of eyes**, **no bias** from the session) → **commit message in your style**
 
 ---
 <!-- Add new chapters below this line -->
