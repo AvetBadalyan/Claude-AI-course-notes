@@ -82,6 +82,7 @@ The lesson says agents can have access to **other AI agents**. In the demo below
 ![Claude Code spawning a code-reviewer subagent from the terminal](assets/L1-what-is-claude-code/subagent-code-reviewer.png)
 
 > 🔗 *Why you'd spawn a reviewer subagent is explained in [Chapter 5](#chapter-5-the-explore--plan--code--commit-workflow): it's the review step before you commit.*
+>
 > 📌 *Seen in the demo, not explained in this lesson:* `/remote-control` is shown as active (the session is reachable in the CLI or at a claude.ai/code session URL), and the footer shows `esc to interrupt`.
 
 ### 🛠️ What Can Claude Code Actually Do?
@@ -109,6 +110,8 @@ What the screenshot shows:
 - Footer: `plan mode on (shift+tab to cycle)`, `esc to interrupt`, `ctrl+b to run in background`, and `medium · /effort`
 
 > 📌 *Plan mode is explained in [Chapter 2](#chapter-2-how-claude-code-works) and [Chapter 4](#chapter-4-your-first-prompt); `/effort` appears in the demo but isn't explained yet.*
+>
+> 🔗 *This is the Explore step of the workflow in [Chapter 5](#chapter-5-the-explore--plan--code--commit-workflow) — the same WebP prompt.*
 
 ### 🧭 Using Claude Code Effectively
 
@@ -301,6 +304,7 @@ Claude Code has several **permission modes**:
 - All of this can be **configured in your settings file**
 
 > 🔗 Related: [Claude 101, Chapter 4](../claude-101/README.md) lists the desktop Code tab settings *Manually approve / Accept edits / Plan* — they line up with Default / Auto-accept / Plan mode (my mapping).
+>
 > 🔗 The Chapter 1 plan-mode screenshot showed `plan mode on (shift+tab to cycle)` — **Shift + Tab** is how you switch modes (confirmed in [Chapter 4](#chapter-4-your-first-prompt)).
 
 > ⚠️ **Be cautious when skipping permissions.** Giving Claude Code free rein to run commands means **a mistake could be harder to catch before it happens.**
@@ -421,6 +425,7 @@ What the screenshot shows (plugin details):
 | **Diagnostics sharing** | Squiggly errors and warnings are shared with Claude Code in real time |
 
 > ⚠️ **From the screenshot:** the plugin page says it **requires Claude Code to be installed separately**.
+>
 > 📌 *The search results also show several third-party plugins with similar names (e.g. "Claude Code GUI", "Claude Code Plus"). The official one in the screenshot is **Claude Code [Beta]** by **Anthropic PBC**. The lesson doesn't mention this. It's my observation from the screenshot.*
 
 ### 🖥️ Desktop
@@ -506,7 +511,7 @@ You can choose whether Claude **auto-accepts every file change** it suggests, or
 
 > 💡 **There's no right or wrong answer** — it's whatever you're comfortable with.
 
-> 🔗 Same behavior as **Default** and **Auto-accept** in [Chapter 2: Permissions](#-permissions) (my mapping — the lesson uses different names). The desktop equivalents are *Manually approve* and *Accept edits* in [Claude 101, Chapter 4](../claude-101/README.md).
+> 🔗 Same behavior as **Default** and **Auto-accept** in [Chapter 2: Permissions](#chapter-2-how-claude-code-works) (my mapping — the lesson uses different names). The desktop equivalents are *Manually approve* and *Accept edits* in [Claude 101, Chapter 4](../claude-101/README.md).
 
 ![Claude Code in accept-edits mode — after a code review, the user asks "can you fix all critical issues please?" and Claude reads src/middleware/upload.ts](assets/L4-your-first-prompt/auto-accept-mode.png)
 
@@ -519,7 +524,7 @@ What the screenshot shows:
 | **Claude working** | `Reading 2 files… (ctrl+o to expand)` → `src/middleware/upload.ts` |
 | **Footer** | `accept edits on (shift+tab to cycle) · esc to interrupt` |
 
-> 📌 *My reading, not explained in the lesson:* the footer label **`accept edits on`** is how this mode is displayed (the lesson calls it auto-accept). `esc to interrupt` matches the lesson's point that you can **interrupt or steer** at any time ([Chapter 2](#-the-agentic-loop)). The screenshot is a review followed by a "fix it" request — the lesson only says the screenshot shows auto-accept mode *"reading files and working through a task"*.
+> 📌 *My reading, not explained in the lesson:* the footer label **`accept edits on`** is how this mode is displayed (the lesson calls it auto-accept). `esc to interrupt` matches the lesson's point that you can **interrupt or steer** at any time ([Chapter 2](#chapter-2-how-claude-code-works)). The screenshot is a review followed by a "fix it" request — the lesson only says the screenshot shows auto-accept mode *"reading files and working through a task"*.
 
 ### 🗺️ Plan Mode
 
@@ -550,6 +555,7 @@ What the screenshot shows (the **status bar indicator** the lesson points to):
 | **Footer (right)** | `In index.ts` and `medium · /effort` |
 
 > 📌 *Not explained in the lesson:* `/init` and `CLAUDE.md`, `/remote-control` (shown active again), `/effort`, and `In index.ts` (it appears to show the file open in the connected IDE — my reading).
+>
 > 🔗 You already saw plan mode working in [Chapter 1](#chapter-1-what-is-claude-code): the *Explore image upload pipeline* screenshot has the same `plan mode on` footer, and its read-only `ls`, `grep`, and `Read` calls are exactly the kind of work plan mode does.
 
 ### 🌗 Example: Add a Dark Mode Toggle
@@ -698,6 +704,7 @@ Once the plan looks good, select **"approve"** to accept it and let Claude **wor
 ![The Claude in Chrome extension page in the Chrome Web Store — "Claude in Chrome (Beta)", 3,000,000 users, with a "Remove from Chrome" button showing it is installed](assets/L5-explore-plan-code-commit/claude-in-chrome-extension.png)
 
 > 📌 *From the screenshot (Chrome Web Store listing):* the description says Claude *"works directly in your browser, automating tasks and taking actions on your behalf… navigate websites, fill forms, extract data, and run multi-step workflows"* and is *"available to all paid subscribers"*. The **Remove from Chrome** button means it's already installed. Preview thumbnails include *"Test code right in your browser with Claude Code"* and *"Approve Claude's plan and let it run"*.
+>
 > 🔗 For plan availability as stated by the course, see [Claude 101, Chapter 12](../claude-101/README.md): on by default for **Pro, Max, Team**; **Enterprise** off until an admin turns it on; **not on Free**.
 
 > 💡 **Quick tip:** If you find Claude **keeps running into the same issues**, ask it to **save the solution to its `CLAUDE.md` file**.
@@ -725,6 +732,7 @@ What the screenshot shows:
 | **Hints** | `ctrl+b to run in background` · `esc to interrupt` |
 
 > 🔗 The same subagent demo appeared in [Chapter 1](#chapter-1-what-is-claude-code) — now you know **why** you'd spawn it: it's the **review step before you commit**.
+>
 > 📌 *Not explained in the lesson:* `ctrl+b to run in background` and the status line `Schlepping… (32s · ↓ 799 tokens)` (looks like a progress/token indicator — my reading).
 
 ### 🔁 Recap
