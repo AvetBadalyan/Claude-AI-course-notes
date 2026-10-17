@@ -107,7 +107,7 @@ What the screenshot shows:
 - Claude is **locating answers strategically** instead of loading the whole project — this is the "agentic" behavior described under the context window below
 - Footer: `plan mode on (shift+tab to cycle)`, `esc to interrupt`, `ctrl+b to run in background`, and `medium · /effort`
 
-> 📌 *Plan mode is explained in [Chapter 2](#chapter-2-how-claude-code-works); `/effort` appears in the demo but isn't explained yet.*
+> 📌 *Plan mode is explained in [Chapter 2](#chapter-2-how-claude-code-works) and [Chapter 4](#chapter-4-your-first-prompt); `/effort` appears in the demo but isn't explained yet.*
 
 ### 🧭 Using Claude Code Effectively
 
@@ -300,7 +300,7 @@ Claude Code has several **permission modes**:
 - All of this can be **configured in your settings file**
 
 > 🔗 Related: [Claude 101, Chapter 4](../claude-101/README.md) lists the desktop Code tab settings *Manually approve / Accept edits / Plan* — they line up with Default / Auto-accept / Plan mode (my mapping).
-> 🔗 The Chapter 1 plan-mode screenshot showed `plan mode on (shift+tab to cycle)` — that footer hint is how the demo switches modes.
+> 🔗 The Chapter 1 plan-mode screenshot showed `plan mode on (shift+tab to cycle)` — **Shift + Tab** is how you switch modes (confirmed in [Chapter 4](#chapter-4-your-first-prompt)).
 
 > ⚠️ **Be cautious when skipping permissions.** Giving Claude Code free rein to run commands means **a mistake could be harder to catch before it happens.**
 
@@ -478,6 +478,131 @@ Claude Code installs in the **terminal** (curl, Homebrew, winget, PowerShell/CMD
 - Sign-in options: **Claude account** (Pro, Max, Enterprise) **or an API key**; Enterprise orgs should choose the Enterprise option
 - VS Code: choose the extension with the **blue verification check**; JetBrains: **restart the IDE** after installing
 - Web = **GitHub repositories only**
+
+---
+
+## Chapter 4: Your First Prompt
+
+> 🎬 **Video** — You talk to Claude Code like you would any AI assistant. When entering your prompt, here are some things to consider that can both **protect you** and **make things easier**.
+
+### 🧠 Key Takeaways
+
+- **Press Shift + Tab to cycle between modes** — you choose how much Claude does without asking
+- **Approval mode:** Claude asks permission **each time** it wants to edit a file **or** run a command
+- **Auto-accept mode:** **file edits are automatically approved**, but **commands still require your permission**
+- **Plan mode** (in the same Shift + Tab cycle): uses **read-only tools** to analyze your codebase and research your suggested implementation, **asks clarifying questions**, then returns a **detailed plan** it can execute
+- **Plan mode is great for** complex, multi-step changes and for a **safe code review**
+- **Be as descriptive as possible** in your prompt
+
+### 🔀 Auto-Accept vs. Approval
+
+You can choose whether Claude **auto-accepts every file change** it suggests, or **asks for your explicit permission each time**. Press **Shift + Tab** to cycle between modes.
+
+| Mode | What happens |
+|------|---------------|
+| ✋ **Approval mode** | Claude asks permission **each time** it wants to **edit a file or run a command** |
+| ⚡ **Auto-accept mode** | **File edits are automatically approved**, but **commands still require your permission** |
+
+> 💡 **There's no right or wrong answer** — it's whatever you're comfortable with.
+
+> 🔗 Same behavior as **Default** and **Auto-accept** in [Chapter 2: Permissions](#-permissions) (my mapping — the lesson uses different names). The desktop equivalents are *Manually approve* and *Accept edits* in [Claude 101, Chapter 4](../claude-101/README.md).
+
+![Claude Code in accept-edits mode — after a code review, the user asks "can you fix all critical issues please?" and Claude reads src/middleware/upload.ts](assets/L4-your-first-prompt/auto-accept-mode.png)
+
+What the screenshot shows:
+
+| Part of the screen | What it shows |
+|--------------------|----------------|
+| **Earlier output** | A code review ending with *"6. Missing input validation — no email format or password strength checks"*, a **Medium** list (no upload size/rate limits, hardcoded JWT secret fallback, no request correlation IDs, possible orphaned files on failed uploads), and *"Would you like me to fix any of these issues?"* |
+| **Your follow-up** | *"can you fix all critical issues please?"* |
+| **Claude working** | `Reading 2 files… (ctrl+o to expand)` → `src/middleware/upload.ts` |
+| **Footer** | `accept edits on (shift+tab to cycle) · esc to interrupt` |
+
+> 📌 *My reading, not explained in the lesson:* the footer label **`accept edits on`** is how this mode is displayed (the lesson calls it auto-accept). `esc to interrupt` matches the lesson's point that you can **interrupt or steer** at any time ([Chapter 2](#-the-agentic-loop)). The screenshot is a review followed by a "fix it" request — the lesson only says the screenshot shows auto-accept mode *"reading files and working through a task"*.
+
+### 🗺️ Plan Mode
+
+Within the **Shift + Tab** menu is **Plan Mode**.
+
+| What plan mode does | |
+|---------------------|--|
+| 🔍 **Analyzes** | Takes your prompt and uses **read-only tools** to analyze your codebase |
+| 📚 **Researches** | Looks into your suggested implementation |
+| ❓ **Asks** | **Clarifying questions** along the way |
+| 📋 **Returns** | A **detailed plan** it can execute |
+
+**Great for:**
+- 🧩 Planning **complex changes**
+- 🛡️ Doing a **safe code review**
+- 🪜 **Multi-step implementations** toward a feature — *"this is exactly where Plan Mode excels"*
+
+![Claude Code welcome screen with plan mode on — footer shows "plan mode on (shift+tab to cycle)"](assets/L4-your-first-prompt/plan-mode-status-bar.png)
+
+What the screenshot shows (the **status bar indicator** the lesson points to):
+
+| Part of the screen | What it shows |
+|--------------------|----------------|
+| **Command** | `claude` run from the project folder `~/sample-project` |
+| **Welcome box** | Claude Code **v2.1.72**, model **Opus 4.6** on a **Claude Max** account |
+| **Tip** | *"Run /init to create a CLAUDE.md file w…"* |
+| **Footer (left)** | **`plan mode on (shift+tab to cycle)`** |
+| **Footer (right)** | `In index.ts` and `medium · /effort` |
+
+> 📌 *Not explained in the lesson:* `/init` and `CLAUDE.md`, `/remote-control` (shown active again), `/effort`, and `In index.ts` (it appears to show the file open in the connected IDE — my reading).
+> 🔗 You already saw plan mode working in [Chapter 1](#chapter-1-what-is-claude-code): the *Explore image upload pipeline* screenshot has the same `plan mode on` footer, and its read-only `ls`, `grep`, and `Read` calls are exactly the kind of work plan mode does.
+
+### 🌗 Example: Add a Dark Mode Toggle
+
+Say you have an application that needs a dark mode toggle.
+
+| Step | What to do |
+|------|------------|
+| 1️⃣ | **Open the root directory** of your project and run `claude` |
+| 2️⃣ | Press **Shift + Tab a couple of times** to enter **Plan Mode** |
+| 3️⃣ | Write your prompt (below) |
+| 4️⃣ | **Let Claude plan it out** and review the plan |
+| 5️⃣ | If it looks good, **accept it** and let Claude **ask you for approval at each step** |
+| 6️⃣ | At the end, see **exactly what Claude did** and **how it reached its conclusions** |
+
+The prompt from the lesson:
+
+> *"My app needs a dark mode implemented across the entire app. Can you create a toggle switch on the header that allows a user to toggle between light mode and dark mode? I need you to find a good contrast color that works based on my existing light theme."*
+
+![Entering the dark mode prompt in Claude Code with plan mode on — the prompt is typed at the input, footer shows "plan mode on"](assets/L4-your-first-prompt/dark-mode-prompt-plan-mode.png)
+
+> 📌 *From the screenshot:* the prompt is typed into the input box while the footer reads `plan mode on (shift+tab to cycle)` — **plan mode is switched on before** the prompt is sent. The typed text in the video differs slightly from the lesson text (e.g. "My app need…", "betwee").
+
+#### 🔬 Why This Prompt Works
+
+*My breakdown, using the prompt framework from [Claude 101, Chapter 2](../claude-101/README.md) — not from the lesson text:*
+
+| Part of the prompt | What it gives Claude |
+|--------------------|-----------------------|
+| *"dark mode implemented across the **entire app**"* | The **goal and scope** |
+| *"create a **toggle switch on the header** … between light mode and dark mode"* | The **specific deliverable** and where it goes |
+| *"find a **good contrast color** … based on my **existing light theme**"* | A **constraint** — a design decision to research against what already exists |
+
+### 🔁 Recap
+
+When using Claude Code, try to be **as descriptive as possible** with your prompt. If you want to **stay in the loop at every step**, you can. Use **Plan Mode** to let Claude dig into the details of what you want to achieve **before executing any code**.
+
+### 📝 Quick Reference: Your First Prompt (for exam prep)
+
+| Mode | File edits | Commands | Best for |
+|------|-----------|----------|----------|
+| ✋ **Approval** | Ask each time | Ask each time | Staying in the loop at every step |
+| ⚡ **Auto-accept** | **Auto-approved** | **Still require permission** | Letting Claude work through edits without interruption |
+| 🗺️ **Plan mode** | Read-only tools while planning | Read-only tools while planning | Complex, multi-step changes; safe code review |
+
+> 🎓 **Memory tip:** **Shift + Tab = switch gears** — ✋ **ask** every time · ⚡ **auto-accept** edits · 🗺️ **plan** first (**look, don't touch**)
+
+**Key features for exam:**
+- **Shift + Tab** cycles between modes
+- **Auto-accept ≠ fully autonomous** — file edits are approved automatically, **commands still need permission**
+- **Plan mode = read-only tools** → analyzes the codebase, asks **clarifying questions**, returns a **detailed plan**
+- After you **accept the plan**, Claude can still **ask for approval at each step**
+- **No right or wrong mode** — choose what you're comfortable with
+- **Descriptive prompts** make Claude's work easier
 
 ---
 <!-- Add new chapters below this line -->
