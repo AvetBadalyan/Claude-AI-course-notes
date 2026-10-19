@@ -93,7 +93,7 @@ The lesson says agents can have access to **other AI agents**. In the demo below
 
 ![Claude Code spawning a code-reviewer subagent from the terminal](assets/L1-what-is-claude-code/subagent-code-reviewer.png)
 
-> 🔗 *Why you'd spawn a reviewer subagent is explained in [Chapter 5](#chapter-5-the-explore--plan--code--commit-workflow): it's the review step before you commit.*
+> 🔗 *Why you'd spawn a reviewer subagent is explained in [Chapter 5](#chapter-5-the-explore--plan--code--commit-workflow): it's the review step before you commit. Subagents themselves are covered in [Chapter 9](#chapter-9-subagents).*
 >
 > 📌 *Seen in the demo, not explained in this lesson:* `/remote-control` is shown as active (the session is reachable in the CLI or at a claude.ai/code session URL), and the footer shows `esc to interrupt`.
 
@@ -858,7 +858,7 @@ What the screenshot shows:
 - `/compact` is typed at the prompt, and the autocomplete menu lists it as: *"Clear conversation history but keep a summary in context. Optional:…"* (the text is cut off)
 - Above the prompt, a token list: **Custom agents · `/agents`** → `code-reviewer: 335 tokens`, and **Skills · `/skills`** → `doc-helper: 48`, `pr-description: 37`, `documentation: 36`, `commit-message: 32`, `debugging: 29` tokens
 
-> 📌 *Not explained in the lesson:* `/security-review` (the second item in the autocomplete menu) and `/agents` / `/skills`. *My observation:* each custom agent and skill appears with a **token count**, so they also take up (a small amount of) context. The skills here cost only **tens of tokens each**, which fits the lesson's tip that Skills don't load everything upfront.
+> 📌 *Not explained in the lesson:* `/security-review` (the second item in the autocomplete menu) and `/skills`. `/agents` is covered in [Chapter 9](#chapter-9-subagents). *My observation:* each custom agent and skill appears with a **token count**, so they also take up (a small amount of) context. The skills here cost only **tens of tokens each**, which fits the lesson's tip that Skills don't load everything upfront.
 
 #### 🧹 `/clear`
 
@@ -972,7 +972,7 @@ Before you push a PR, **ask Claude to use a subagent to review your changes.**
 
 > 🔗 You've seen this reviewer already: [Chapter 5](#chapter-5-the-explore--plan--code--commit-workflow) introduced it as the **review step before you commit** (the `code-reviewer` demo), and [Chapter 6](#chapter-6-context-management) explained why a subagent is useful: a **completely separate context window**.
 >
-> 📌 *My inference:* the `tools:` line in the [Chapter 2](#chapter-2-how-claude-code-works) screenshot (from what looks like an agent configuration) is probably the kind of setting used to limit a subagent's tools. The lesson doesn't say where the restriction is configured.
+> 🔗 [Chapter 9](#chapter-9-subagents) shows how to create a subagent with `/agents`, including **selecting the tools it has access to**. That's where you'd limit a reviewer to read-only tools (my mapping). The `tools:` line in the [Chapter 2](#chapter-2-how-claude-code-works) screenshot is probably the same setting in an agent's configuration (my inference).
 
 ### 🚀 The `/commit-push-pr` Skill
 
