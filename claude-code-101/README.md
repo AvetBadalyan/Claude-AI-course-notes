@@ -923,4 +923,112 @@ Managing context within Claude Code is crucial. Use **`/compact`** to summarize 
 - **Subagents** have a **completely separate context window** and return **just a summary** to the main agent
 
 ---
+
+## Chapter 7: Code Review
+
+> 🎬 **Video: Code Review** — Claude Code has a few **built-in features that make your git workflow faster**. This lesson covers three: a **subagent reviewer**, the **`/commit-push-pr` skill**, and **session linking with `--from-pr`**.
+
+### 🧠 Key Takeaways
+
+- **Before you push a PR, ask Claude to use a subagent to review your changes.** The subagent runs in **its own context window** with **fresh eyes**, so it **doesn't carry the bias** of the main agent that just wrote the code
+- **Restrict a code-reviewer subagent to read-only tools** — *a reviewer should flag issues, not edit files*
+- **Check the subagent configuration into your repo** so your **whole team uses the same reviewer**
+- **`/commit-push-pr`** handles **commit + push + PR creation in one step**
+- With a **Slack MCP server** configured and **channels listed in your `CLAUDE.md`**, it **automatically posts the PR link** to your team's channel
+- **Session linking:** when Claude creates a PR through **`gh pr create`**, the session is **linked to that PR automatically**
+- **Resume later with `claude --from-pr <PR_NUMBER>`** to pick up where you left off (e.g. address review comments or fix a failing build)
+
+### 🕵️ Review with a Subagent
+
+Before you push a PR, **ask Claude to use a subagent to review your changes.**
+
+| Why a subagent? | |
+|---|---|
+| 🪟 **Own context window** | The subagent runs in a **separate context window** from your main session |
+| 👀 **Fresh eyes** | It **doesn't carry the bias** of the main agent that just spent the session writing the code |
+
+#### 🛡️ Setting up a code-reviewer subagent
+
+| Best practice | Why |
+|---------------|-----|
+| 🔒 **Restrict it to read-only tools** | A reviewer should **flag issues, not edit files** |
+| 📂 **Check the subagent configuration into your repo** | So your **whole team uses the same reviewer** |
+
+> 🔗 You've seen this reviewer already: [Chapter 5](#chapter-5-the-explore--plan--code--commit-workflow) introduced it as the **review step before you commit** (the `code-reviewer` demo), and [Chapter 6](#chapter-6-context-management) explained why a subagent is useful: a **completely separate context window**.
+>
+> 📌 *My inference:* the `tools:` line in the [Chapter 2](#chapter-2-how-claude-code-works) screenshot (from what looks like an agent configuration) is probably the kind of setting used to limit a subagent's tools. The lesson doesn't say where the restriction is configured.
+
+### 🚀 The `/commit-push-pr` Skill
+
+The **`/commit-push-pr`** skill handles **three steps in one**:
+
+| Step | |
+|------|--|
+| 1️⃣ **Commit** | Your changes are committed |
+| 2️⃣ **Push** | The branch is pushed |
+| 3️⃣ **Create the PR** | The pull request is opened |
+
+Instead of doing each manually, **just run the skill** and Claude takes care of it.
+
+#### 💬 Bonus: Slack notification
+
+| Requirement | What happens |
+|-------------|---------------|
+| A **Slack MCP server** is configured | |
+| **Channels are listed in your `CLAUDE.md`** | The **PR link is posted automatically** to your team's channel |
+
+> 🔗 [Chapter 6](#chapter-6-context-management) covered what `CLAUDE.md` is for (lasting instructions across sessions) and noted that **MCP servers load their tools into context**. Here, `CLAUDE.md` tells Claude **which Slack channels to post to** (my link).
+>
+> 📌 *Not explained in this lesson:* how to set up an MCP server. MCP has its own course later on your path (*Introduction to MCP* in the [course index](../README.md)).
+
+### 🔗 Session Linking with `--from-pr`
+
+When Claude creates a PR through **`gh pr create`**, the **session is linked to that PR automatically**.
+
+If you need to come back later — maybe to **address review comments** or **fix a failing build** — run:
+
+```bash
+claude --from-pr <PR_NUMBER>
+```
+
+This **picks up right where you left off.**
+
+| Piece | Meaning |
+|-------|---------|
+| `claude` | Starts Claude Code |
+| `--from-pr` | Resumes the **session linked to a PR** |
+| `<PR_NUMBER>` | The number of the PR you want to return to |
+
+> 📌 *My note, not from the lesson:* `gh` is the **GitHub CLI**, so `gh pr create` is the GitHub command-line way to open a PR.
+>
+> 🔗 This follows the [Chapter 5](#chapter-5-the-explore--plan--code--commit-workflow) **Commit** step: **test → subagent reviewer → commit message → push**. `/commit-push-pr` covers the commit-to-PR part in one step (my mapping), and `--from-pr` covers coming back after review.
+
+### 🔁 Recap
+
+Use a **subagent for an unbiased code review** before pushing. Use **`/commit-push-pr`** to handle the **full commit-to-PR flow in one step**. And use **`--from-pr`** to **resume work on a PR later**. These are small features, but they **remove a lot of friction** from your daily workflow.
+
+### 📝 Quick Reference: Code Review (for exam prep)
+
+| Feature | What it does | Key point |
+|---------|---------------|-----------|
+| 🕵️ **Subagent code review** | Reviews your changes before you push a PR | **Own context window**, **fresh eyes**, **no bias** from the writing session |
+| 🔒 **Reviewer tools** | Tools the reviewer subagent may use | **Read-only** — flag issues, don't edit files |
+| 📂 **Subagent config** | The reviewer's setup | **Check it into your repo** so the whole team uses the same reviewer |
+| 🚀 **`/commit-push-pr`** | Commit + push + create PR | **One step** |
+| 💬 **Slack post** | Posts the PR link to your team's channel | Needs a **Slack MCP server** + **channels listed in `CLAUDE.md`** |
+| 🔗 **Session linking** | Links the session to a PR | Automatic when the PR is created via **`gh pr create`** |
+| ⏪ **`claude --from-pr <PR_NUMBER>`** | Resumes the linked session | For **review comments** or a **failing build** |
+
+> 🎓 **Memory tip:** **Review · Ship · Link** — 🕵️ **Review** with a subagent · 🚀 **Ship** with `/commit-push-pr` · 🔗 **Link** back with `--from-pr`
+
+**Key features for exam:**
+- A subagent review is **unbiased** because it has its **own context window** and didn't write the code
+- A code-reviewer subagent should be **read-only** (**flags issues, doesn't edit files**)
+- **Check the subagent configuration into your repo** → the **whole team** uses the same reviewer
+- **`/commit-push-pr`** = **commit + push + PR** in one step
+- Auto-posting the PR link to Slack needs a **Slack MCP server** and **channels in `CLAUDE.md`**
+- PRs created through **`gh pr create`** are **automatically linked** to the session
+- **`claude --from-pr <PR_NUMBER>`** resumes the session linked to that PR
+
+---
 <!-- Add new chapters below this line -->
