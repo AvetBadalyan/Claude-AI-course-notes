@@ -1445,6 +1445,235 @@ Skills let you **teach Claude something once** and have it applied **automatical
 - Explaining the same thing repeatedly → **write a skill**
 
 ---
+## Chapter 11: MCP
+
+> 🎬 **Video: MCP in Claude Code** — **Model Context Protocol (MCP)** is an **open standard** that lets Claude Code **connect to external tools and data sources**. When you ask a question, Claude **automatically understands when it should use those tools** to better handle your query.
+
+### 🧠 Key Takeaways
+
+- **MCP is an open standard** for connecting Claude Code to **external tools and data sources**. A lot of your context lives **outside your codebase** (databases, productivity apps, public repositories), and MCP **bridges that gap**
+- **Tools** give agents the ability to **perform actions**, unlike typical AI where you just get a **text response** back
+- **Examples:** a **Linear** MCP server brings in the details of your **issues**. A docs MCP server like **Context7** provides **up-to-date documentation** for a dependency
+- **Add servers with `claude mcp add`.** Two main types: **HTTP** (remote services, hosted by the provider, connect over the network) and **stdio** (local processes on your machine)
+- **Manage servers with `/mcp`** inside a session: see what's connected, check status, and **disable** servers you don't need
+- **Three scopes:** **Local** (current project, just you) · **User** (all your projects) · **Project** (`.mcp.json`, checked into version control so the whole team gets the same servers)
+- **Context cost:** MCP servers add **tool definitions to your context window, even when you're not using them**. Disable what you don't need
+- **Cheaper alternatives:** a **CLI** (like `gh` or `aws`) or a **Skill**
+- **Tool search mode:** if MCP tools exceed **10% of your context window**, Claude Code **switches to it automatically**. It discovers the right tools on demand, though this **may not work as reliably**
+
+### ❓ Why MCP?
+
+A lot of the context you need **isn't in your codebase**. MCP lets Claude reach it.
+
+| Your context lives in… | MCP example from the lesson |
+|-------------------------|------------------------------|
+| 📋 **A project management app** | A **Linear** MCP server brings in the details of your specific issues |
+| 📚 **Documentation for a dependency** | A docs MCP server like **Context7** provides up-to-date docs |
+| 🗄️ **Databases, other apps, public repositories** | A matching MCP server connects Claude Code to them |
+
+> 💡 **Tools, again:** tools let an agent **act** instead of only replying with text. Claude decides **when** a tool is useful for your request, so you don't have to name it.
+>
+> 📚 **Where to find servers:** the video says there are **hundreds of connectors** in a directory on claude.com (the transcript spells it "cloud.com/connectors").
+>
+> 📌 *Transcript note:* that URL comes from the auto-generated transcript, not the written lesson. Check it in the video.
+>
+> 🔗 This builds on **tools** from [Chapter 2](#chapter-2-how-claude-code-works) and on agents having access to **external services** ([Chapter 1](#chapter-1-what-is-claude-code)). MCP is how you add more of them. The **Slack MCP server** in [Chapter 7](#chapter-7-code-review) is one example: it let `/commit-push-pr` post the PR link to your team's channel (my link).
+
+### 🛠️ What Can You Do With It?
+
+#### 📋 Example 1: Linear (project management)
+
+The user asks: *"Can you make a plan off of the linear ticket: MEN-12"*
+
+![Claude Code in the terminal: /mcp reports "Authentication successful. Connected to linear-server.", then after the prompt about ticket MEN-12 it asks permission to run linear-server get_issue](assets/L11-mcp/linear-get-issue.png)
+
+What the screenshot shows:
+
+| Part of the screen | What it shows |
+|--------------------|----------------|
+| **Connection** | `/mcp` → *"Authentication successful. Connected to linear-server."*, then *"MCP dialog dismissed"* |
+| **Prompt** | *"Can you make a plan off of the linear ticket: MEN-12"* |
+| **Status** | `Querying linear-server…` |
+| **Tool use** | `linear-server - get_issue(id: "MEN-12", includeRelations: true) (MCP)`, described as retrieving detailed information about an issue by ID, including attachments and git branch name |
+| **Permission prompt** | *"Do you want to proceed?"* → **1. Yes** · **2. Yes, and don't ask again for `linear-server - get_issue` commands in `<project folder>`** · **3. No** |
+
+#### 📚 Example 2: Context7 (up-to-date docs)
+
+The user asks: *"Can you get the latest docs from shadcn ui and see if our implementation matches the newest standards?"*
+
+![Claude Code using the Context7 MCP server: it calls resolve-library-id for shadcn/ui and asks permission before running the tool](assets/L11-mcp/context7-shadcn-docs.png)
+
+What the screenshot shows:
+
+| Part of the screen | What it shows |
+|--------------------|----------------|
+| **Tool call** | `plugin:context7:context7 - resolve-library-id (MCP)` with `libraryName: "shadcn/ui"` and a query about installation, setup, configuration, components and latest standards |
+| **Local work** | `Searching for 1 pattern, reading 1 file…` → `package.json`. Claude also looks at the project itself |
+| **Tool description** | It **resolves a package or product name to a Context7-compatible library ID**. The text says to call it **before the "Query Documentation" tool**, unless you give a library ID |
+| **Permission prompt** | The same three options: **Yes** · **Yes, and don't ask again for `resolve-library-id` commands in `<project folder>`** · **No** |
+
+> 📌 *My reading, not stated in the lesson:*
+> - **MCP tool calls use the same permission prompt** as the bash command in [Chapter 1](#chapter-1-what-is-claude-code). Claude asks before using the tool, and you can approve once or for similar calls.
+> - The Context7 tool name starts with `plugin:`, so this server seems to come from a **plugin**. The lesson doesn't explain plugins.
+
+### ➕ Adding an MCP Server
+
+Add servers with the **`claude mcp add`** command. There are **two main types**:
+
+| Type | What it is | Example in the lesson |
+|------|-------------|------------------------|
+| 🌐 **HTTP** | For **remote services**. **Hosted by the service provider** and **connect over the network** | Linear |
+| 💻 **stdio** | For **local processes** that **run on your machine** | A Python script |
+
+#### 🌐 HTTP server
+
+![PowerShell terminal running claude mcp add --transport http linear-server https://mcp.linear.app/mcp](assets/L11-mcp/add-http-server.png)
+
+```bash
+claude mcp add --transport http linear-server https://mcp.linear.app/mcp
+```
+
+| Piece | Meaning (from the screenshot) |
+|-------|--------------------------------|
+| `claude mcp add` | Add an MCP server |
+| `--transport http` | It's a **remote HTTP** server |
+| `linear-server` | The **name** you give the server |
+| `https://mcp.linear.app/mcp` | The **URL** of the server |
+
+#### 💻 stdio server
+
+![PowerShell terminal running claude mcp add --transport stdio dev-utils -- python C:/Users/lewis/mcp-server/server.py](assets/L11-mcp/add-stdio-server.png)
+
+```bash
+claude mcp add --transport stdio dev-utils -- python C:/Users/lewis/mcp-server/server.py
+```
+
+| Piece | Meaning (from the screenshot) |
+|-------|--------------------------------|
+| `--transport stdio` | It's a **local process** |
+| `dev-utils` | The **name** you give the server |
+| `-- python C:/Users/lewis/mcp-server/server.py` | After the `--`, the **command that starts the server**: Python running a script on the machine |
+
+> 📌 *My reading, not stated in the lesson:* the `--` separates the options of `claude mcp add` from the command that launches the local server. The lesson doesn't explain this syntax.
+
+### 🎛️ Managing Servers with `/mcp`
+
+Inside a Claude Code session, **`/mcp`** lets you **see what's connected**, **check the status**, and **disable servers** you don't want to use.
+
+![The /mcp command in Claude Code showing "Manage MCP servers", 4 servers: a local linear-server that needs authentication, and built-in claude-in-chrome, context7 and figma](assets/L11-mcp/mcp-manage-servers.png)
+
+What the screenshot shows ("Manage MCP servers · 4 servers"):
+
+| Group | Server | Status |
+|-------|--------|--------|
+| **Local MCPs** (listed with a config file path and the project folder) | `linear-server` | ⚠️ **needs authentication** |
+| **Built-in MCPs** (*always available*) | `claude-in-chrome` | ✅ **connected** |
+| **Built-in MCPs** | `plugin:context7:context7` | ✅ **connected** |
+| **Built-in MCPs** | `plugin:figma:figma` | ⚠️ **needs authentication** |
+
+Navigation shown: `↑↓` to navigate · `Enter` to confirm · `Esc` to cancel.
+
+> 📌 *My reading, not stated in the lesson:*
+> - A freshly added HTTP server like Linear shows **needs authentication** until you sign in. In the Linear example above, `/mcp` then reported *"Authentication successful. Connected to linear-server."*
+> - `claude-in-chrome` is the **Claude in Chrome** extension from [Chapter 5](#chapter-5-the-explore--plan--code--commit-workflow), listed as a built-in MCP.
+> - The screen points to the official help page `https://code.claude.com/docs/en/mcp`.
+
+### 🎯 Scoping Servers
+
+MCP servers can be **scoped in three ways**:
+
+| Scope | Where it's available | Who gets it |
+|-------|------------------------|--------------|
+| 📁 **Local** | **Only in the current project** | **Just you** |
+| 👤 **User** | **Across all your projects** | **Just you** |
+| 👥 **Project** | Uses a **`.mcp.json`** file **checked into version control** | **Anyone working on the codebase** gets the **exact same servers automatically** |
+
+> 🔗 The same **project = team, user = me** pattern as `CLAUDE.md` in [Chapter 8](#chapter-8-the-claudemd-file) and skills in [Chapter 10](#chapter-10-skills) (my link).
+>
+> 📌 *Transcript note:* the auto-generated transcript spells the file "MCP.json". The written lesson says **`.mcp.json`**, which is what I used.
+>
+> 📌 *Not explained in the lesson:* how to choose a scope when you run `claude mcp add`. In the screenshots, the local servers are listed with a config file path and the project folder.
+
+### 💸 Context Costs
+
+> ⚠️ **MCP servers add tool definitions to your context window, even when you're not using them.** With a lot of servers configured, this **eats into your available context**.
+
+**What to do:** run **`/mcp`** to see what's connected and **disable anything you're not actively using** (or don't expect to use).
+
+![The /mcp detail view for the Dev-utils MCP Server: status connected, command python, args server.py, capabilities tools, 8 tools, with options View tools, Reconnect, and Disable](assets/L11-mcp/mcp-server-detail.png)
+
+What the screenshot shows (a server detail view):
+
+| Field | What it shows |
+|-------|----------------|
+| **Server** | `Dev-utils MCP Server` |
+| **Status** | ✅ **connected** |
+| **Command / Args** | `python` / `C:/Users/lewis/mcp-server/server.py` |
+| **Config location** | `C:\Users\lewis\.claude.json [project: C:\Users\lewis\scripter]` |
+| **Capabilities** | **tools** |
+| **Tools** | **8 tools** |
+| **Options** | **1. View tools** · **2. Reconnect** · **3. Disable** |
+
+> 📌 *My reading, not stated in the lesson:*
+> - The **8 tools** are the kind of definitions that sit in context. A server with many tools costs more than one with few.
+> - The line `File modified: …\.claude.json` at the top of the screenshot suggests that adding a server writes to that file.
+> - **Disable** is the action the lesson recommends for servers you aren't using.
+> - Compare the **System tools** row (14.6k tokens) in the `/context` screenshot from [Chapter 1](#chapter-1-what-is-claude-code). The lesson doesn't say how many tokens MCP tools use.
+
+#### 🔄 Lower-cost alternatives
+
+| Alternative | Why it can cost less context |
+|-------------|--------------------------------|
+| 🖥️ **A CLI equivalent** (like **`gh`** for GitHub or **`aws`** for AWS) | The CLI **doesn't add persistent tool definitions** |
+| 🧩 **A Skill** | A skill loads only its **name and description** into context, similar to MCP. Claude loads the **full skill** only when it decides it needs it. That's where you could put **instructions for CLI tools** |
+
+> 🔗 Matches the Chapter 6 tip ([Context Management](#chapter-6-context-management)): **MCP servers load all their tools by default**, and **Skills don't load everything upfront**. Skills are explained in [Chapter 10](#chapter-10-skills).
+
+#### 🔎 Tool search mode
+
+If your **MCP tools exceed 10% of your context window**, Claude Code **automatically switches to tool search mode**. It **discovers the right tools on demand**.
+
+> ⚠️ **Trade-off:** this **might not work as well**, since the tools **aren't in the context** up front (from the video).
+
+### 🔁 Recap
+
+**MCP connects Claude Code to your external tools and data sources.** **Add servers with `claude mcp add`.** **Scope them to your project with `.mcp.json`** so your team gets them automatically. And **keep an eye on context usage** by **disabling servers you're not actively using**.
+
+> 📚 *Not in this lesson:* the course has a separate **Introduction to MCP** (see the [course index](../README.md)), so this chapter covers only how to use MCP inside Claude Code.
+
+### 📝 Quick Reference: MCP (for exam prep)
+
+| Concept | Key point |
+|---------|-----------|
+| 🔌 **MCP** | **Model Context Protocol**: an **open standard** connecting Claude Code to **external tools and data sources** |
+| 🛠️ **Tools** | Let agents **perform actions**, not just return text |
+| ➕ **Add a server** | **`claude mcp add`** |
+| 🌐 **HTTP server** | **Remote** service, **hosted by the provider**, connects **over the network** |
+| 💻 **stdio server** | **Local process** on your machine |
+| 🎛️ **`/mcp`** | See **what's connected**, **status**, and **disable** servers |
+| 📁 **Local scope** | **Current project, just you** |
+| 👤 **User scope** | **All your projects** |
+| 👥 **Project scope** | **`.mcp.json`**, checked into version control, **whole team** |
+| 💸 **Context cost** | **Tool definitions load even when unused** |
+| 🖥️ **CLI alternative** | `gh`, `aws`: **no persistent tool definitions** |
+| 🧩 **Skill alternative** | Only **name + description** in context; full skill loads **on demand** |
+| 🔎 **Tool search mode** | **Automatic** when MCP tools exceed **10%** of the context window; discovers tools **on demand**, **may be less reliable** |
+
+> 🎓 **Memory tip:** **MCP = "plug in your tools"** and the three scopes go **L-U-P**: **L**ocal = **L**ittle (this project, just me) · **U**ser = **U**niversal (all my projects) · **P**roject = **P**ublished to the team (`.mcp.json`)
+
+**Key features for exam:**
+- **MCP** is an **open standard** for connecting Claude Code to **external tools and data sources**
+- Claude **decides automatically** when to use MCP tools for your query
+- Examples: **Linear** (issue details) · **Context7** (up-to-date docs)
+- **`claude mcp add`**: **HTTP** = remote, hosted by the provider · **stdio** = local process
+- **`/mcp`** shows what's connected, the status, and lets you **disable** servers
+- **Scopes:** **Local** (current project, you) · **User** (all projects) · **Project** (`.mcp.json` in version control, **team gets the same servers**)
+- **MCP servers add tool definitions to context even when unused**, so disable what you don't need
+- **CLI tools** (`gh`, `aws`) are **more context-efficient** than MCP because they add **no persistent tool definitions**
+- A **Skill** loads only **name + description** until needed
+- MCP tools over **10% of context** → **tool search mode** (automatic, on-demand discovery, **may not work as well**)
+
+---
 
 ## Chapter 12: Hooks
 
