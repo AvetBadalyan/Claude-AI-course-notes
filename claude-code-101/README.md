@@ -1445,4 +1445,186 @@ Skills let you **teach Claude something once** and have it applied **automatical
 - Explaining the same thing repeatedly → **write a skill**
 
 ---
+
+## Chapter 12: Hooks
+
+> 🎬 **Video: Hooks** — Hooks let you **run commands at specific points in Claude Code's lifecycle**. The key difference between hooks and everything else covered in this course is that **hooks are deterministic — they always run.**
+
+### 🧠 Key Takeaways
+
+- **Hooks are deterministic:** they **always run**. Instructions in a prompt or `CLAUDE.md` are followed *most of the time*, a hook makes it happen **every single time, no exceptions**
+- **Common use cases:** auto-formatting after file edits · logging all executed commands for compliance · blocking dangerous operations (e.g. modifying production files) · sending yourself a notification when Claude finishes
+- **Configured in `settings.json`:** pick an **event**, optionally set a **matcher** (which tools it applies to), and provide a **command** to run
+- **Five events:** `PreToolUse` · `PostToolUse` · `UserPromptSubmit` · `Stop` · `Notification`
+- **Configure with `/hooks`** inside Claude Code, or by **editing `settings.json` directly**
+- **`PostToolUse`** is used for **auto-formatting and logging**. **`PreToolUse`** is used to **block dangerous operations**
+- **Exit codes in `PreToolUse`:** **0** = proceed · **2** = block (stderr goes back to Claude as feedback) · **anything else** = non-blocking error shown to you
+- **Share with your team:** hooks in **`.claude/settings.json`** are **project-level** and can be **checked into your repo**. Use **`CLAUDE_PROJECT_DIR`** to reference scripts in your project
+- **Rule of thumb:** if something must happen **every time without fail**, **don't put it in a prompt — put it in a hook**
+
+### ❓ Why Use Hooks
+
+You can tell Claude in your `CLAUDE.md` to run Prettier after every file edit. **Most of the time it will. But sometimes it won't.** A hook makes it happen **every single time**.
+
+| | 📄 **Instruction (prompt / `CLAUDE.md`)** | 🪝 **Hook** |
+|---|---|---|
+| **Reliability** | Followed **most of the time**, but not perfect | **Deterministic**: always runs |
+| **Good for** | Guidance and preferences | Things that must be **guaranteed, not suggested** |
+
+> 🔗 [Chapter 8](#chapter-8-the-claudemd-file) showed `CLAUDE.md` as persistent instructions, and [Chapter 10](#chapter-10-skills) showed skills that Claude **decides** to apply. Hooks are different: **nothing is left to Claude's judgment** (my link).
+
+**Common use cases:**
+
+| Use case | Example |
+|----------|---------|
+| 🎨 **Auto-formatting** | Format files after Claude edits them |
+| 📋 **Compliance logging** | Log all executed commands |
+| 🛑 **Blocking dangerous operations** | Stop modifications to production files |
+| 🔔 **Notifications** | Get notified when Claude finishes a task |
+
+### ⚙️ How They Work
+
+Hooks are configured in your **`settings.json`**. You:
+1. Pick an **event**
+2. Optionally set a **matcher** for which tools it applies to
+3. Provide a **command** to run
+
+**The available events:**
+
+| Event | When it runs |
+|-------|---------------|
+| 🔧 **`PreToolUse`** | **Before** a tool call |
+| ✅ **`PostToolUse`** | **After** a tool call completes |
+| ⌨️ **`UserPromptSubmit`** | When you **submit a prompt**, **before Claude processes it** |
+| 🏁 **`Stop`** | When Claude **finishes responding** |
+| 🔔 **`Notification`** | When Claude **sends a notification** |
+
+**Two ways to configure them:**
+- The **`/hooks`** command inside Claude Code
+- Editing **`settings.json`** directly
+
+![VS Code Explorer showing a .claude folder that contains a hooks folder and a settings.json file, with settings.json open to a "hooks" section](assets/L12-hooks/claude-folder-settings-json.png)
+
+What the screenshot shows:
+
+| Part of the screen | What it shows |
+|--------------------|----------------|
+| **Folder** | A **`.claude`** folder in the project (`SCRIPTER`) containing a **`hooks`** folder and **`settings.json`** |
+| **Editor** | `settings.json` open, starting with a `"hooks"` key and a `"PreToolUse"` entry |
+
+> 📌 *My reading, not stated in the lesson:* the **`hooks`** folder next to `settings.json` is probably where the hook scripts are stored (the next screenshot points a command at `.claude/hooks/…`). The `M` next to `settings.json` is VS Code's "modified" marker, meaning the change isn't committed yet.
+
+### 🛠️ A Practical Example: Auto-Format After Edits
+
+The most common hook is **auto-formatting after edits**:
+
+| Piece | Value |
+|-------|-------|
+| **Event** | `PostToolUse` |
+| **Matcher** | `"Edit\|MultiEdit\|Write"`, so it fires **whenever Claude modifies a file** |
+| **Command** | Checks the **file extension** and runs the **appropriate formatter**: **Prettier** for TypeScript, **gofmt** for Go, whatever your project uses |
+
+> 📌 *Transcript note:* the video's auto-generated transcript also mentions a formatter for Python that it spells "rough". I read that as Ruff, but the written lesson doesn't list it, so check the video.
+
+### 🛑 Blocking with PreToolUse
+
+`PreToolUse` hooks can **block tool calls before they execute**. Your hook **receives the tool name and input as JSON on stdin**. The **exit code** decides what happens:
+
+| Exit code | What happens |
+|-----------|---------------|
+| ✅ **0** | **Proceed normally** |
+| 🛑 **2** | **Block the action.** The **stderr message is fed back to Claude** as feedback, so it knows **why** it was blocked and can **adjust** |
+| ⚠️ **Any other** | A **non-blocking error** that is **shown to you** but **doesn't stop anything** |
+
+**This is how you enforce hard rules**, such as:
+- Block writes to a **production config directory**
+- Block bash commands that contain **`rm -rf`**
+- Block **commits to `main`**
+- Whatever your team needs to be **guaranteed, not suggested**
+
+![settings.json in VS Code showing a hooks section with a PreToolUse entry (matcher Bash, a command hook running .claude/hooks/block-dangerous-commands.sh) and a PostToolUse entry starting with matcher Edit|Write](assets/L12-hooks/settings-json-pretooluse.png)
+
+What the screenshot shows (the part of `settings.json` that is visible):
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/block-dangerous-commands.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+| Part | What it is |
+|------|-------------|
+| `"hooks"` → `"PreToolUse"` | The **event** the hook listens to |
+| `"matcher": "Bash"` | The hook applies to the **Bash** tool |
+| `"type": "command"` | The hook **runs a command** |
+| `"command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/block-dangerous-commands.sh"` | A **script stored in the project**, referenced through **`CLAUDE_PROJECT_DIR`** |
+| `"PostToolUse"` (below) | A second event with matcher **`"Edit\|Write"`** (the rest is cut off) |
+
+> 📌 *My reading, not stated in the lesson:*
+> - The script name suggests it checks Bash commands for dangerous patterns, like the `rm -rf` example above. The script's contents aren't shown.
+> - The `Bash` matcher uses the same name as the `Bash` tool in [Chapter 2](#chapter-2-how-claude-code-works), so matchers appear to be **tool names**.
+> - This screenshot's `PostToolUse` matcher is `Edit|Write`, while the lesson's example is `Edit|MultiEdit|Write`. The matcher is up to you.
+> - The `M` markers in the gutter and "Uncommitted changes" show the file isn't committed yet. That is the step the next section covers.
+
+### 👥 Sharing Hooks with Your Team
+
+| Topic | What to know |
+|-------|---------------|
+| 📁 **Where** | Hooks in **`.claude/settings.json`** are **project-level** |
+| 📤 **Share** | They can be **checked into your repo**, so your **entire team gets the same hooks automatically** |
+| 📍 **Paths** | Use the **`CLAUDE_PROJECT_DIR`** environment variable in your commands to **reference scripts stored in your project**, so they work **regardless of Claude's current working directory** |
+
+> 🔗 Same team pattern as the **project-level `CLAUDE.md`** in [Chapter 8](#chapter-8-the-claudemd-file), the **project skills** in [Chapter 10](#chapter-10-skills), and the **reviewer subagent config** in [Chapter 7](#chapter-7-code-review): commit it, and everyone gets it (my link).
+
+### 🔁 Recap
+
+Hooks give you **deterministic control** over Claude Code's behavior. Use **`PostToolUse`** for **auto-formatting and logging**. Use **`PreToolUse`** to **block dangerous operations**. Configure them with **`/hooks`** or in **`settings.json`**. And **check them into your repo** so your team gets them too.
+
+> 💡 If something needs to happen **every time without fail**, **don't put it in a prompt. Put it in a hook.**
+
+### 📝 Quick Reference: Hooks (for exam prep)
+
+| Concept | Key point |
+|---------|-----------|
+| 🪝 **Hook** | A command that runs at a specific point in Claude Code's lifecycle |
+| ⚙️ **Deterministic** | **Always runs**, unlike prompt or `CLAUDE.md` instructions |
+| 📄 **Config** | **`settings.json`**: event + optional matcher + command |
+| ⌨️ **Configure via** | **`/hooks`** or edit **`settings.json`** |
+| 🔧 **`PreToolUse`** | Runs **before** a tool call; can **block** it |
+| ✅ **`PostToolUse`** | Runs **after** a tool call; auto-formatting, logging |
+| 💬 **`UserPromptSubmit`** | When you submit a prompt, **before Claude processes it** |
+| 🏁 **`Stop`** | When Claude **finishes responding** |
+| 🔔 **`Notification`** | When Claude **sends a notification** |
+| 📥 **Hook input** | **Tool name + input as JSON on stdin** |
+| ✅ **Exit 0** | Proceed |
+| 🛑 **Exit 2** | **Block**; stderr is **fed back to Claude** |
+| ⚠️ **Other exit code** | **Non-blocking error**, shown to you |
+| 👥 **Team sharing** | **`.claude/settings.json`** is project-level, **commit it**; use **`CLAUDE_PROJECT_DIR`** for script paths |
+
+> 🎓 **Memory tip:** **Prompt = "please" · Hook = "always"** — and for PreToolUse exit codes: **0 = go · 2 = stop · other = just a warning**
+
+**Key features for exam:**
+- Hooks are **deterministic**: they **always run**
+- Use a hook (not a prompt or `CLAUDE.md`) when something must happen **every time**
+- Configured in **`settings.json`** (event, optional matcher, command) or via **`/hooks`**
+- **Five events:** `PreToolUse`, `PostToolUse`, `UserPromptSubmit`, `Stop`, `Notification`
+- **`PostToolUse`** → auto-formatting and logging (e.g. matcher `Edit|MultiEdit|Write`)
+- **`PreToolUse`** → block dangerous operations; input arrives as **JSON on stdin**
+- **Exit 0** = proceed · **Exit 2** = block, and **stderr goes back to Claude** so it can adjust · **other** = non-blocking error shown to you
+- Hooks in **`.claude/settings.json`** are **project-level**, can be **checked into the repo**, and give the **whole team** the same hooks
+- Use **`CLAUDE_PROJECT_DIR`** to reference project scripts regardless of the **current working directory**
+
+---
 <!-- Add new chapters below this line -->
