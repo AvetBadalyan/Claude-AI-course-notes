@@ -4,7 +4,19 @@
 
 > Builds on [Claude 101](../claude-101/README.md) (Chapter 4 "Building software with Claude Code" and Chapter 12 "Other ways to work with Claude").
 
+### 🗺️ Course Map
+
+| Unit | Lessons | Status |
+|------|---------|:------:|
+| 🗂️ **Unit 1: What is Claude Code?** | [Ch 1: What is Claude Code?](#chapter-1-what-is-claude-code) · [Ch 2: How Claude Code Works](#chapter-2-how-claude-code-works) | ✅ |
+| 🗂️ **Unit 2: Your first prompt** | [Ch 3: Installing Claude Code](#chapter-3-installing-claude-code) · [Ch 4: Your First Prompt](#chapter-4-your-first-prompt) | ✅ |
+| 🗂️ **Unit 3: Daily workflows** | [Ch 5: Explore → Plan → Code → Commit](#chapter-5-the-explore--plan--code--commit-workflow) · [Ch 6: Context Management](#chapter-6-context-management) · [Ch 7: Code Review](#chapter-7-code-review) | ✅ |
+| 🗂️ **Unit 4: Customizing Claude Code** | Ch 8: The CLAUDE.md file · Ch 9: Subagents · Ch 10: Skills · Ch 11: MCP · Ch 12: Hooks | 🚧 |
+| 🗂️ **Quiz** | Course quiz | 🔲 |
+
 ---
+
+> 🗂️ **Unit 1: What is Claude Code?** · Chapters 1–2
 
 ## Chapter 1: What is Claude Code?
 
@@ -338,6 +350,8 @@ Claude Code combines several agentic concepts: an **agentic loop**, a **managed 
 
 ---
 
+> 🗂️ **Unit 2: Your first prompt** · Chapters 3–4
+
 ## Chapter 3: Installing Claude Code
 
 > 🎬 **Video: Installing Claude Code** — Claude Code is simple to install whether you want to use it in your **terminal, on the web, or in your IDE**.
@@ -612,6 +626,8 @@ When using Claude Code, try to be **as descriptive as possible** with your promp
 - **Descriptive prompts** make Claude's work easier
 
 ---
+
+> 🗂️ **Unit 3: Daily workflows** · Chapters 5–7
 
 ## Chapter 5: The Explore → Plan → Code → Commit Workflow
 
