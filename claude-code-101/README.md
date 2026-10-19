@@ -11,7 +11,7 @@
 | 🗂️ **Unit 1: What is Claude Code?** | [Ch 1: What is Claude Code?](#chapter-1-what-is-claude-code) · [Ch 2: How Claude Code Works](#chapter-2-how-claude-code-works) | ✅ |
 | 🗂️ **Unit 2: Your first prompt** | [Ch 3: Installing Claude Code](#chapter-3-installing-claude-code) · [Ch 4: Your First Prompt](#chapter-4-your-first-prompt) | ✅ |
 | 🗂️ **Unit 3: Daily workflows** | [Ch 5: Explore → Plan → Code → Commit](#chapter-5-the-explore--plan--code--commit-workflow) · [Ch 6: Context Management](#chapter-6-context-management) · [Ch 7: Code Review](#chapter-7-code-review) | ✅ |
-| 🗂️ **Unit 4: Customizing Claude Code** | [Ch 8: The CLAUDE.md File](#chapter-8-the-claudemd-file) · [Ch 9: Subagents](#chapter-9-subagents) · [Ch 10: Skills](#chapter-10-skills) · Ch 11: MCP · Ch 12: Hooks | 🚧 |
+| 🗂️ **Unit 4: Customizing Claude Code** | [Ch 8: The CLAUDE.md File](#chapter-8-the-claudemd-file) · [Ch 9: Subagents](#chapter-9-subagents) · [Ch 10: Skills](#chapter-10-skills) · [Ch 11: MCP](#chapter-11-mcp) · [Ch 12: Hooks](#chapter-12-hooks) | ✅ |
 | 🗂️ **Quiz** | Course quiz | 🔲 |
 
 ---
@@ -156,7 +156,7 @@ The `/context` command shows how the window is being used:
 - Notice that **before you've typed much, tools and the system prompt already use space** — the window is a finite budget
 - The tool also lists `SlashCommand Tool · 0 commands · Total: 864 tokens`
 
-> 📌 *`/context` is explained in [Chapter 6](#chapter-6-context-management). The lesson doesn't explain the autocompact buffer row; it most likely relates to the automatic compaction described in [Chapter 2](#chapter-2-how-claude-code-works) and Chapter 6 (my inference).*
+> 📌 *`/context` is explained in [Chapter 6](#chapter-6-context-management). The lesson doesn't explain the autocompact buffer row; it most likely relates to the automatic compaction described in [Chapter 2](#chapter-2-how-claude-code-works) and [Chapter 6](#chapter-6-context-management) (my inference).*
 
 #### 2️⃣ It Asks for Permission
 
@@ -299,7 +299,7 @@ What the screenshot shows (a `tools:` line, apparently from an agent's configura
 | `WebFetch`, `WebSearch` | Fetch a web page / search the web |
 | `TodoWrite` | Keep a task list |
 | `Skill`, `SlashCommand` | Invoke skills / slash commands |
-| `mcp__ide__getDiagnostics`, `mcp__ide__executeCode` | Tools exposed through an IDE connection (the `mcp__` prefix) |
+| `mcp__ide__getDiagnostics`, `mcp__ide__executeCode` | Tools exposed through an IDE connection (the `mcp__` prefix; MCP is covered in [Chapter 11](#chapter-11-mcp)) |
 
 > 📌 *This screenshot isn't explained in the lesson — the "what the name suggests" column is my reading of the tool names, not lesson content.*
 
@@ -904,7 +904,7 @@ What the screenshot shows (a `CLAUDE.md` file with **commands, important notes, 
 | Tip | Why |
 |-----|-----|
 | 🎯 **Be specific** | A vague prompt might seem smaller, but it **costs more context in the long run**. Without clear instructions, Claude is forced to **explore your codebase more and do its own reasoning**, which takes far more space than a detailed prompt |
-| 🔌 **Manage your MCP servers** | MCP servers **load all of their available tools into context by default**, even when you're not using them. If you have servers for things **unrelated to the current project**, consider **turning them off**. You can also try **Skills**: they work similarly to MCP servers but **don't load everything into context upfront** |
+| 🔌 **Manage your MCP servers** | MCP servers **load all of their available tools into context by default**, even when you're not using them. If you have servers for things **unrelated to the current project**, consider **turning them off**. You can also try **Skills**: they work similarly to MCP servers but **don't load everything into context upfront** (MCP servers are covered in [Chapter 11](#chapter-11-mcp)) |
 | 🤖 **Use subagents** | Subagents run **in parallel** with your main agent but have a **completely separate context window**. For tasks where you **only need the answer** (e.g. *"where are the authentication endpoints located?"*), a subagent does the work and **returns just a summary**, keeping your primary context clean |
 
 > 🔗 Subagents already appeared as the **code reviewer** in [Chapter 5](#chapter-5-the-explore--plan--code--commit-workflow) (fresh eyes). Here the benefit is a **separate context window** (my link).
@@ -924,7 +924,7 @@ Managing context within Claude Code is crucial. Use **`/compact`** to summarize 
 | 📊 **`/context`** | Overview of **size**, **biggest categories**, and a **visual breakdown** |
 | 📄 **`CLAUDE.md`** | Persistent memory **across sessions** |
 | 🎯 **Be specific** | Vague prompts → more exploring and reasoning → **more context used** |
-| 🔌 **MCP servers** | Load **all tools by default**; turn off unrelated ones; **Skills** don't load everything upfront |
+| 🔌 **MCP servers** | Load **all tools by default**; turn off unrelated ones; **Skills** don't load everything upfront (see [Chapter 11](#chapter-11-mcp)) |
 | 🤖 **Subagents** | **Separate context window**; return only a **summary** |
 
 > 🎓 **Memory tip:** **C-C-C** — **/C**ompact = **C**ontinue the same feature · **/C**lear = **C**lean slate for a new feature · **/C**ontext = **C**heck the usage
@@ -995,7 +995,7 @@ Instead of doing each manually, **just run the skill** and Claude takes care of 
 
 > 🔗 [Chapter 6](#chapter-6-context-management) covered what `CLAUDE.md` is for (lasting instructions across sessions) and noted that **MCP servers load their tools into context**. Here, `CLAUDE.md` tells Claude **which Slack channels to post to** (my link).
 >
-> 📌 *Not explained in this lesson:* how to set up an MCP server. MCP has its own course later on your path (*Introduction to MCP* in the [course index](../README.md)).
+> 🔗 How to add an MCP server is covered in [Chapter 11](#chapter-11-mcp). MCP also has its own course later on your path (*Introduction to MCP* in the [course index](../README.md)).
 
 ### 🔗 Session Linking with `--from-pr`
 
@@ -1445,6 +1445,7 @@ Skills let you **teach Claude something once** and have it applied **automatical
 - Explaining the same thing repeatedly → **write a skill**
 
 ---
+
 ## Chapter 11: MCP
 
 > 🎬 **Video: MCP in Claude Code** — **Model Context Protocol (MCP)** is an **open standard** that lets Claude Code **connect to external tools and data sources**. When you ask a question, Claude **automatically understands when it should use those tools** to better handle your query.
