@@ -1047,4 +1047,159 @@ Use a **subagent for an unbiased code review** before pushing. Use **`/commit-pu
 - **`claude --from-pr <PR_NUMBER>`** resumes the session linked to that PR
 
 ---
+
+> 🗂️ **Unit 4: Customizing Claude Code** · Chapters 8–12
+
+## Chapter 8: The CLAUDE.md File
+
+> 🎬 **Video: The CLAUDE.md File** — One of the most useful features in Claude Code. It gives Claude Code **persistent memory about your project**.
+
+### 🧠 Key Takeaways
+
+- **Without a `CLAUDE.md`, Claude Code starts fresh every time:** it re-explores your codebase, works out dependencies and existing features, and sometimes **makes assumptions** — which makes it **harder to steer**
+- **`CLAUDE.md` is a Markdown file in the root of your project.** Claude Code **reads it automatically every time you start a session**
+- Think of it as an **onboarding script for your codebase**. Its contents are **appended to your prompt**
+- **Commit it to version control** so your team benefits. There's a **hierarchy of memory files:** **project-level** (root, shared with the team) and **user-level** (your configuration folder, just for you, across all projects)
+- **Tips:** save repeated corrections to memory · reference project docs with **`@`** · **start without one**, then run **`/init`** to have Claude generate it
+
+### ❓ The Problem It Solves
+
+| Without a `CLAUDE.md` | With a `CLAUDE.md` |
+|------------------------|----------------------|
+| Claude Code **starts fresh every time** | Claude Code **reads the file automatically** at the start of every session |
+| It has to **re-explore your codebase** | It already has the project's **onboarding script** |
+| It must **figure out what dependencies are needed** and **what features are already implemented** | Stack, commands, and conventions are **written down** |
+| Sometimes it **makes assumptions**, so it's **harder to steer** in the right direction | Fewer assumptions to correct |
+
+> 🔗 [Chapter 6](#chapter-6-context-management) introduced `CLAUDE.md` as the place for things you want Claude to **remember across sessions** (so it doesn't have to rediscover them). This chapter explains how it works.
+
+### 📄 What It Is
+
+- A **Markdown file** you add to the **root of your project**
+- Claude Code **reads it automatically every time you start a session**
+- Think of it as an **onboarding script for your codebase**
+- **The contents are appended to your prompt**
+
+> 📌 *My inference, not stated in the lesson:* because the contents are **appended to your prompt**, a `CLAUDE.md` takes up space in the [context window](#chapter-6-context-management). That fits the lesson's advice to keep it **compact and focused on only the necessary information** (see "Start without one" below).
+
+### 🧪 An Example
+
+Here's what a typical `CLAUDE.md` looks like (from the lesson):
+
+```markdown
+# Project
+
+This is a Next.js 15 app using the App Router, Tailwind, and Drizzle ORM.
+
+# Commands
+- Dev server: `pnpm dev`
+- Run tests: `pnpm test`
+- Lint: `pnpm lint`
+
+# Code Style
+- Use 2-space indentation
+- Prefer named exports
+- All API routes go in app/api/
+- Use server actions instead of API routes where possible
+```
+
+| Section | What it tells Claude |
+|---------|------------------------|
+| `# Project` | The **stack**: Next.js 15, App Router, Tailwind, Drizzle ORM |
+| `# Commands` | How to **run the dev server, tests, and lint** |
+| `# Code Style` | **Conventions**: indentation, named exports, where API routes go, server actions over API routes |
+
+**Why it helps:** if you now ask Claude Code to create a React component, it **already knows to use Tailwind** for styling and to **follow your code conventions**.
+
+![A CLAUDE.md file open in VS Code with a # Project section (Next.js 15, App Router, Tailwind, Drizzle ORM), # Commands (pnpm dev, pnpm test, pnpm lint), and # Code Style rules](assets/L8-the-claude-md-file/claude-md-example-vscode.png)
+
+> 📌 *From the screenshot:* it shows the same file in VS Code, with small wording differences from the lesson text (e.g. "Dev Server", "2 space indentation", `app/api` without the trailing slash). Line 14 reads *"Use server actions instead of API routes where possible"*, and the file continues below the visible area.
+>
+> 🔗 Compare with the larger `CLAUDE.md` in [Chapter 6](#chapter-6-context-management), which had **Commands**, an **IMPORTANT** note, and **Architecture** sections. Both are plain Markdown; the section names are up to you (my observation).
+
+### 👥 CLAUDE.md Is for Teams
+
+You can (and **should**) **commit your `CLAUDE.md` to version control** so your team benefits from it. There's a **hierarchy of memory files** depending on who they're for:
+
+| Level | Where it lives | Who it's for |
+|-------|-----------------|--------------|
+| 📁 **Project-level** `CLAUDE.md` | The **root directory** of your project | **Shared with the team** |
+| 👤 **User-level** `CLAUDE.md` | Your **configuration folder** | **Just for you**; applies **across all your projects**. Put your **personal preferences** here |
+
+> 📌 *The lesson doesn't give the exact path of the user-level file, only "your configuration folder".*
+
+### 💡 Tips
+
+#### 1️⃣ Save corrections to memory
+
+If you find yourself **correcting Claude repeatedly** (for example, telling it to **always use server actions instead of API routes**), **explicitly ask Claude to save that rule to memory**. Next time you open the project, it will know.
+
+![Terminal: Claude explains there are no API routes (server actions in src/actions/persons.ts and entries.ts), then the user asks it to put in the CLAUDE.md file to only use server actions instead of API routes; Claude shows "Unravelling…"](assets/L8-the-claude-md-file/save-rule-to-claude-md.png)
+
+What the screenshot shows:
+
+| Part of the screen | What it shows |
+|--------------------|----------------|
+| **Claude's answer** | *"There are no API routes in this project. All data operations use server actions (`src/actions/persons.ts` and `entries.ts`) instead of API routes."* |
+| **Follow-up** | *"Where are the server actions"* → *"They're in `src/actions/`:"* · `persons.ts` — CRUD for people (get, create, delete) · `entries.ts` — CRUD for journal entries (get, create, delete) |
+| **Your request** | *"Ok, put in the CLAUDE.md file to only use server actions instead of API route…"* (cut off) |
+| **Status** | `* Unravelling…` while Claude works |
+| **Footer** | `accept edits on (shift+tab to cycle) · esc to interrupt` |
+
+> 📌 *My reading:* the top of the screenshot shows a line like *"Selected 1 lines from `src/components/entry-modal.tsx` in Visual Studio Co…"* (cut off), which looks like **editor selection context** shared from the IDE. This matches the "Selection context" feature in [Chapter 3](#chapter-3-installing-claude-code) (JetBrains table). The lesson doesn't explain it here. The footer is in **accept edits** mode ([Chapter 4](#chapter-4-your-first-prompt)), so the file edit to `CLAUDE.md` is approved automatically.
+>
+> 🔗 Same habit as the [Chapter 5](#chapter-5-the-explore--plan--code--commit-workflow) tip: when Claude **keeps running into the same issues**, ask it to **save the solution to its `CLAUDE.md` file**.
+
+#### 2️⃣ Reference project docs with `@`
+
+If you have **documentation in your project** that you want Claude to reference, use the **`@` symbol with the file path**:
+
+```markdown
+## README.md
+
+Please read if you need more info: @README.md
+```
+
+#### 3️⃣ Start without one
+
+| Recommendation | Why |
+|----------------|-----|
+| 🚫 **Start a project without a `CLAUDE.md`** | You can **see where you constantly have to course-correct** the model |
+| 🎯 **Keep it compact** | That keeps it **focused on only the necessary information** |
+| ⚙️ **When you're ready, run `/init`** | Claude **generates one for you** |
+
+> 🔗 You saw the `/init` hint in the welcome box in [Chapter 4](#chapter-4-your-first-prompt) and [Chapter 6](#chapter-6-context-management): *"Run /init to create a CLAUDE.md file w…"*. The web app's **"Write a CLAUDE.md"** starter prompt in [Chapter 3](#chapter-3-installing-claude-code) is a related idea (my link; the lesson doesn't connect them).
+
+### 🔁 Recap
+
+The difference between a **frustrating** Claude Code session and a **productive** one often comes down to **context**, and the **`CLAUDE.md` file is how you provide that context**. Start with **your stack, your preferences, and your commands**, then **build from there as you go**.
+
+### 📝 Quick Reference: The CLAUDE.md File (for exam prep)
+
+| Concept | Key point |
+|---------|-----------|
+| 📄 **What it is** | A **Markdown file** in the **root of your project**; **persistent memory** about your project |
+| 🔄 **When it's read** | **Automatically, every time you start a session** |
+| ➕ **How it's used** | Its contents are **appended to your prompt**; an **onboarding script** for your codebase |
+| ❓ **Problem solved** | Without it, Claude **starts fresh every time**, **re-explores**, and **makes assumptions** |
+| 📁 **Project-level** | In the **project root**; **shared with the team** (commit it) |
+| 👤 **User-level** | In your **configuration folder**; **just for you**, **all projects** |
+| 💾 **Save corrections** | **Explicitly ask Claude to save the rule** to memory |
+| 🔗 **`@path`** | **Reference project docs** (e.g. `@README.md`) |
+| ⚙️ **`/init`** | **Generates a `CLAUDE.md` for you**; best **after** starting without one |
+
+> 🎓 **Memory tip:** **CLAUDE.md = Claude's onboarding script** — **Root** file, read **every session**, **P**roject = **P**eople (team), **U**ser = **U**s-only (just you)... 🔑 **Start empty, `/init` later**
+
+**Key features for exam:**
+- `CLAUDE.md` gives Claude Code **persistent memory about your project**
+- Lives in the **root of your project**; read **automatically at session start**; contents are **appended to your prompt**
+- Without it, Claude Code **starts fresh every time** (re-explores, assumes)
+- **Commit it to version control** so the team benefits
+- **Project-level** = root, **shared with team** · **User-level** = config folder, **just you**, **across all projects**
+- Repeated corrections → **explicitly ask Claude to save the rule to memory**
+- **`@` + file path** references project docs
+- **Start without one** to see where you course-correct, keep it **compact**, then run **`/init`**
+- Start with **stack, preferences, commands**, then build from there
+
+---
 <!-- Add new chapters below this line -->
