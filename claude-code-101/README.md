@@ -11,7 +11,7 @@
 | 🗂️ **Unit 1: What is Claude Code?** | [Ch 1: What is Claude Code?](#chapter-1-what-is-claude-code) · [Ch 2: How Claude Code Works](#chapter-2-how-claude-code-works) | ✅ |
 | 🗂️ **Unit 2: Your first prompt** | [Ch 3: Installing Claude Code](#chapter-3-installing-claude-code) · [Ch 4: Your First Prompt](#chapter-4-your-first-prompt) | ✅ |
 | 🗂️ **Unit 3: Daily workflows** | [Ch 5: Explore → Plan → Code → Commit](#chapter-5-the-explore--plan--code--commit-workflow) · [Ch 6: Context Management](#chapter-6-context-management) · [Ch 7: Code Review](#chapter-7-code-review) | ✅ |
-| 🗂️ **Unit 4: Customizing Claude Code** | [Ch 8: The CLAUDE.md File](#chapter-8-the-claudemd-file) · Ch 9: Subagents · Ch 10: Skills · Ch 11: MCP · Ch 12: Hooks | 🚧 |
+| 🗂️ **Unit 4: Customizing Claude Code** | [Ch 8: The CLAUDE.md File](#chapter-8-the-claudemd-file) · [Ch 9: Subagents](#chapter-9-subagents) · [Ch 10: Skills](#chapter-10-skills) · Ch 11: MCP · Ch 12: Hooks | 🚧 |
 | 🗂️ **Quiz** | Course quiz | 🔲 |
 
 ---
@@ -1268,7 +1268,7 @@ Then select **"Create new agent."**
 
 > 📌 *My note:* the lesson says "the skill key" and doesn't show the exact frontmatter spelling. Check the official subagents docs before relying on it.
 >
-> 🔗 Compare with [Chapter 6](#chapter-6-context-management): in the **main** conversation, **Skills don't load everything upfront**. In a subagent, a **preloaded skill is loaded in full** (my link).
+> 🔗 Compare with [Chapter 6](#chapter-6-context-management): in the **main** conversation, **Skills don't load everything upfront**. In a subagent, a **preloaded skill is loaded in full** (my link). Skills themselves are explained in [Chapter 10](#chapter-10-skills).
 
 ### 🔁 Recap
 
@@ -1302,6 +1302,126 @@ Then select **"Create new agent."**
 - **Persistent memory** = remembers across conversations
 - **Preloaded skills:** the **whole skill** is loaded into context, **unlike** skills in the main conversation
 - Dedicated deeper course: **Introduction to subagents**
+
+---
+
+## Chapter 10: Skills
+
+> 🎬 **Video: Skills** — Every time you explain your team's coding standards, PR feedback format, or commit message style to Claude, you're repeating yourself. **Skills fix this.** A skill is a **Markdown file** that teaches Claude **how to do something once**, and Claude **applies that knowledge automatically** whenever it's relevant.
+
+### 🧠 Key Takeaways
+
+- **A skill is a Markdown file** that teaches Claude how to do something **once**. Claude **applies it automatically** whenever it's relevant
+- **Agent skills = folders of instructions, scripts, and resources** that Claude can **discover and use** to do things **more accurately and efficiently**
+- **The `SKILL.md` file's description is how Claude decides whether to use the skill** — it **matches your request against all available skill descriptions** and **activates the ones that match**
+- **Where skills live:** **personal skills** in `~/.claude/skills` (follow you across all projects) · **project skills** in `.claude/skills` in the repo root (anyone who clones the repo gets them)
+- **Skills vs other customizations:** skills are **automatic and task-specific** — `CLAUDE.md` loads into **every** conversation, slash commands **require you to type them**
+- **Skills load on demand:** only the **name and description** are loaded up front, so they **don't fill your context window**
+- **Best use cases:** **specialized knowledge for specific tasks** — code review standards, commit message formats, brand guidelines
+- **Rule of thumb:** explaining the same thing to Claude repeatedly? **That's a skill waiting to be written**
+
+### ❓ The Problem It Solves
+
+| Without skills | With skills |
+|----------------|-------------|
+| You **re-explain your team's coding standards** to Claude | Written down **once** in a skill |
+| Every PR review, you **redescribe how you want feedback structured** | Claude already knows the review format |
+| Every commit message, you **remind Claude of your preferred format** | Claude applies your format **automatically** |
+
+> 🔗 Same idea as [Chapter 8](#chapter-8-the-claudemd-file): stop repeating yourself. The difference is *when* the knowledge loads (see "Skills vs Other Customizations" below).
+
+### ⚙️ How Skills Work
+
+> **Agent skills** are **folders of instructions, scripts, and resources** that Claude can **discover and use** to do things **more accurately and efficiently**.
+
+In Claude Code, the core of a skill is its **`SKILL.md` file**:
+
+| Step | What happens |
+|------|---------------|
+| 1️⃣ **You make a request** | e.g. *"review this PR"* |
+| 2️⃣ **Claude compares** | It **matches your request against the descriptions** of all available skills |
+| 3️⃣ **Matching skills activate** | Claude **activates the ones that match** and uses their instructions |
+
+> 🔑 **The description is the trigger.** It's **how Claude decides whether to use the skill**, so a clear description matters.
+
+> 🔗 [Chapter 2](#chapter-2-how-claude-code-works) showed `Skill` in the tools list, and [Chapter 7](#chapter-7-code-review) introduced **`/commit-push-pr`** as a built-in skill (my link). In [Chapter 6](#chapter-6-context-management), the `/compact` screenshot listed skills like `commit-message`, `pr-description`, and `documentation` with **tens of tokens each**. That fits the idea that only the name and description are loaded up front (my observation).
+>
+> 📌 *Not explained in the lesson:* the exact **frontmatter fields** of `SKILL.md`, and what extra files (scripts, resources) a skill folder usually contains.
+
+### 🗂️ Storing and Organizing Skills
+
+Where you store a skill depends on **who needs it**:
+
+| Type | Location | Who it's for | What goes here |
+|------|----------|--------------|----------------|
+| 👤 **Personal skills** | `~/.claude/skills` (your home directory) | **Just you** — they **follow you across all your projects** | Your preferences: **commit message style**, **documentation format**, **how you like code explained** |
+| 👥 **Project skills** | `.claude/skills` inside the **root of your repository** | **Your team** — **anyone who clones the repo gets them automatically** | **Team standards**: your company's **brand guidelines**, **preferred fonts and colors** for web design |
+
+> 🔗 Same split as the `CLAUDE.md` hierarchy in [Chapter 8](#chapter-8-the-claudemd-file): **project-level = team**, **user-level = me** (my link).
+>
+> 📌 *Transcript note:* the auto-generated transcript garbles the folder names ("do.claw/skills", "directory.cloud/skills"). I wrote them as `.claude/skills`, matching the lesson context. Double-check against the video or official docs.
+
+### 🆚 Skills vs Other Customizations
+
+Claude Code has **several ways to customize behavior**. Skills are unique because they're **automatic and task-specific**.
+
+| | 📄 **`CLAUDE.md`** | 🧩 **Skills** | ⌨️ **Slash commands** |
+|---|---|---|---|
+| **When it loads** | **Into every conversation** | **On demand**, when it matches your request | When **you type it** |
+| **Who triggers it** | Automatic, always | **Claude**, automatically | **You**, manually |
+| **Context cost** | Always in context | Only **name + description** up front | Only when you run it (my reading) |
+| **Best for** | Things Claude should **always** do (e.g. *"always use TypeScript strict mode"*) | **Specialized knowledge** for **specific tasks** (e.g. a PR review checklist) | Commands you want to **invoke explicitly** |
+
+- **Example:** your **PR review checklist doesn't need to be in context while you're debugging**. It **loads when you actually ask for a review**
+- **Skills don't require you to type anything** — Claude **applies them when it recognizes the situation**
+
+> 🔗 This is the "**Skills don't load everything upfront**" tip from [Chapter 6](#chapter-6-context-management), now explained. Compare with [Chapter 9](#chapter-9-subagents): a subagent with **preloaded skills** loads the **entire** skill into context (my link).
+>
+> 📌 *My reading:* the "Context cost" for slash commands is my inference. The lesson only says they **require you to type them**.
+
+### 🎯 Best Use Cases
+
+Skills work best for **specialized knowledge that applies to specific tasks**:
+
+| Use case | Example |
+|----------|---------|
+| 🔍 **Code review standards** | The checklist and feedback structure your team follows |
+| 📝 **Commit message formats** | The format you prefer |
+| 🎨 **Brand guidelines** | Your organization's fonts, colors, and design rules |
+
+> 💡 **Rule of thumb:** if you find yourself **explaining the same thing to Claude repeatedly**, that's **a skill waiting to be written**.
+
+### 🔁 Recap
+
+Skills let you **teach Claude something once** and have it applied **automatically, only when relevant**. Store **personal** skills in `~/.claude/skills` and **team** skills in the repo's `.claude/skills`. Because only the **name and description** load up front, skills **keep your context window light**, unlike `CLAUDE.md`, which loads every time.
+
+### 📝 Quick Reference: Skills (for exam prep)
+
+| Concept | Key point |
+|---------|-----------|
+| 🧩 **Skill** | A **Markdown file** (`SKILL.md`) that teaches Claude how to do a task **once** |
+| 📦 **Agent skills** | **Folders** of **instructions, scripts, and resources** |
+| 🔑 **Description** | **How Claude decides** whether to use the skill; requests are matched against it |
+| ⚡ **Activation** | **Automatic** — Claude applies it when it recognizes the situation |
+| 🪶 **Loading** | **On demand**; only **name + description** up front |
+| 👤 **Personal skills** | `~/.claude/skills` — **follow you across all projects** |
+| 👥 **Project skills** | `.claude/skills` in the repo root — **shared with anyone who clones the repo** |
+| 📄 **`CLAUDE.md`** | Loads into **every** conversation (always-on rules) |
+| ⌨️ **Slash commands** | **You** have to type them |
+| 🎯 **Best for** | Code review standards, commit message formats, brand guidelines |
+
+> 🎓 **Memory tip:** **Skills = "teach once, apply when needed"** — **CLAUDE.md = always** · **Slash command = you ask** · **Skill = Claude decides**
+
+**Key features for exam:**
+- A skill is a **Markdown file** that teaches Claude how to do something **once**
+- Agent skills are **folders of instructions, scripts, and resources**
+- The **description** in `SKILL.md` is **how Claude decides** to use the skill
+- Claude **matches your request against all skill descriptions** and **activates the matching ones**
+- **Personal** = `~/.claude/skills` (all your projects) · **Project** = `.claude/skills` in repo root (**team gets it on clone**)
+- **`CLAUDE.md`** loads into **every conversation** · **Skills** load **on demand** (name + description only up front) · **Slash commands** need to be **typed**
+- Skills are **automatic and task-specific**
+- Best for **specialized, task-specific knowledge**: code review standards, commit message formats, brand guidelines
+- Explaining the same thing repeatedly → **write a skill**
 
 ---
 <!-- Add new chapters below this line -->
