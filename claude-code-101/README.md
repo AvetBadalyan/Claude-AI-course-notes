@@ -766,4 +766,161 @@ To be effective with Claude Code, follow the **Explore, Plan, Code, and Commit**
 - Commit: **test yourself** → **subagent code reviewer** (**fresh pair of eyes**, **no bias** from the session) → **commit message in your style**
 
 ---
+
+## Chapter 6: Context Management
+
+> 🎬 **Video: Context Management** — **Context is Claude's working memory.** Every file it reads, every command it runs, every message you send — it all takes up space in the context window.
+
+### 🧠 Key Takeaways
+
+- **Context window = the amount of space Claude can hold in its memory.** Prompts, file reads, tool calls, and tool call results all add to it
+- **Space is finite**, so it becomes important to **optimize how you use it**
+- **Near the limit, the context is automatically compacted:** details are summarized and unnecessary tool call results are removed — ⚠️ this can **lose details**
+- **Three commands:** `/compact` (summarize, keep a memory) · `/clear` (remove everything) · `/context` (inspect usage)
+- **Rule of thumb:** `/compact` to **continue the same feature** · `/clear` to **start a new feature**
+- **For things Claude should remember across sessions → `CLAUDE.md`**
+- **Three tips for saving space:** be **specific** · manage **MCP servers** · use **subagents**
+
+### 🪟 What is the Context Window?
+
+Think of the context window as **the amount of space Claude can hold in its memory.** Each of these adds to it:
+
+| What adds to the context | |
+|---|---|
+| ⌨️ | **Every prompt** you enter |
+| 📖 | **Every file** Claude reads |
+| 🛠️ | **Every tool call** it runs |
+| 📥 | **Every tool call result** it receives |
+
+Since the space is **finite**, it becomes important to **optimize how you use it**.
+
+![Diagram of the context window as a grid of token icons — a few are "Taken" (pink) and most are "Available" (grey), next to the pixel-art Claude mascot](assets/L6-context-management/context-window-diagram.png)
+
+> 📌 *My reading of the diagram:* the grid has 5 rows of 11 token icons (55 total), and **13 are shown as Taken** (11 in the first row plus 2 in the second). The numbers are only illustrative, not from the lesson.
+>
+> 🔗 Builds on the context window in [Chapter 1](#chapter-1-what-is-claude-code) (working memory) and the automatic compaction in [Chapter 2](#chapter-2-how-claude-code-works).
+
+### ⚠️ What Happens When Context Fills Up
+
+When you **approach the limit**, the context window is **automatically compacted**.
+
+| Compaction… | |
+|---|---|
+| ✅ **Summarizes** | The **important details** |
+| 🗑️ **Removes** | **Unnecessary tool call results** to free up space |
+| ⚠️ **Risk** | The process can **potentially lose details** |
+
+![Claude Code showing "Compacting conversation…" while the footer reads "accept edits on (shift+tab to cycle)"](assets/L6-context-management/compacting-conversation.png)
+
+![Claude Code displaying a "Compact summary" of the previous conversation — Primary Request and Intent, Key Technical Concepts, and Files and Code Sections](assets/L6-context-management/compact-summary.png)
+
+What the screenshots show:
+
+| Part of the screen | What it shows |
+|--------------------|----------------|
+| **Status line** | `Compacting conversation…` while Claude summarizes |
+| **Summary header** | *"This session is being continued from a previous conversation that ran out of context. The summary below covers the earlier portion of the conversation."* |
+| **1. Primary Request and Intent** | The user asked to review recent code changes with the **code-reviewer subagent**, **fix critical security issues**, and **commit those fixes**, then asked about remaining issues |
+| **2. Key Technical Concepts** | Path traversal prevention (`path.basename`, `path.resolve`, `startsWith` check) · file content validation using `sharp` metadata · race condition avoidance (async `unlink` vs sync `existsSync`/`unlinkSync`) · MIME type spoofing prevention · Express.js route security (CORS, input validation, error handling) · Multer file upload middleware · Sharp image processing library |
+| **3. Files and Code Sections** | Starts with `src/routes/auth.ts` (the list continues below the visible area) |
+
+> 📌 *My reading:* the summary is organized into **numbered sections** and carries the earlier request, key concepts, and files forward, so the session can continue. It also follows the **review → fix → commit** flow from [Chapter 5](#chapter-5-the-explore--plan--code--commit-workflow). The lesson doesn't describe the summary's format.
+
+### ⌨️ Commands
+
+| Command | What it does | Use it when |
+|---------|---------------|-------------|
+| 📦 **`/compact`** | Runs compaction **manually**. It compacts **everything up to that point** | You want to **free up context space while keeping a memory** of what you previously worked on |
+| 🧹 **`/clear`** | **Completely starts from scratch** with **no memory** of the previous session. **Removes everything** | You're starting something new |
+| 📊 **`/context`** | Shows the **state of your context**: a high-level overview of the **context size**, the **categories taking up the most space**, and a **visual graphic** of the breakdown | You want to see what is consuming your context |
+
+#### 📦 `/compact`
+
+![The /compact command in Claude Code's autocomplete menu — "Clear conversation history but keep a summary in context"](assets/L6-context-management/compact-command-menu.png)
+
+What the screenshot shows:
+- `/compact` is typed at the prompt, and the autocomplete menu lists it as: *"Clear conversation history but keep a summary in context. Optional:…"* (the text is cut off)
+- Above the prompt, a token list: **Custom agents · `/agents`** → `code-reviewer: 335 tokens`, and **Skills · `/skills`** → `doc-helper: 48`, `pr-description: 37`, `documentation: 36`, `commit-message: 32`, `debugging: 29` tokens
+
+> 📌 *Not explained in the lesson:* `/security-review` (the second item in the autocomplete menu) and `/agents` / `/skills`. *My observation:* each custom agent and skill appears with a **token count**, so they also take up (a small amount of) context. The skills here cost only **tens of tokens each**, which fits the lesson's tip that Skills don't load everything upfront.
+
+#### 🧹 `/clear`
+
+![Running /clear in Claude Code — the output shows "(no content)" on a fresh welcome screen](assets/L6-context-management/clear-command.png)
+
+> 📌 *From the screenshot:* after `/clear` the output shows **`(no content)`** under a fresh welcome box (Claude Code v2.1.72, Opus 4.6, Claude Max, `~/sample-project`). The welcome box still suggests *"Run /init to create a CLAUDE.md file w…"* (`/init` isn't explained in this lesson).
+
+#### 📊 `/context`
+
+![Output of the /context command — a Context Usage grid with 64k/200k tokens (32%), System prompt, System tools, Messages, Free space, Autocompact buffer, and SlashCommand Tool](assets/L6-context-management/context-command-output.png)
+
+> 🔗 This is the same `/context` output as in [Chapter 1](#chapter-1-what-is-claude-code) (64k / 200k tokens, 32%). The categories and numbers are in the table there.
+>
+> 📌 *Lesson wording vs. screen:* the lesson calls the graphic a "visual bar chart", but in the screenshot it's a **grid of icons**, one per slice of the window. The lesson doesn't explain the **Autocompact buffer** row (see my inference in Chapter 2).
+
+### 🧭 When to Use Which
+
+A general rule of thumb:
+
+| Situation | Use | Why |
+|-----------|-----|-----|
+| Working on a **specific feature**, running up against the context limit, but **need to continue** | 📦 **`/compact`** | Keeps the context **relevant to your current feature** |
+| Starting a **new feature** | 🧹 **`/clear`** | You **don't want the previous conversation to introduce bias** into something new |
+| Things you want Claude to **remember across sessions** | 📄 **`CLAUDE.md`** | So it **doesn't have to rediscover things from scratch** |
+
+![A CLAUDE.md file in the editor with Commands (Backend and Frontend), an IMPORTANT note, and an Architecture section](assets/L6-context-management/claude-md-example.png)
+
+What the screenshot shows (a `CLAUDE.md` file with **commands, important notes, and architecture sections**):
+
+| Section | Content |
+|---------|---------|
+| `## Commands` → `### Backend (root directory)` | `npm start` — run compiled backend · `npm run seed` — seed database with sample data |
+| `## Commands` → `### Frontend (web/ directory)` | `npm run dev` — Vite dev server · `npm run build` — TypeScript check + Vite build · `npm run lint` — ESLint |
+| `**IMPORTANT**` | *"Run the test suite EVERY TIME"* |
+| `## Architecture` | A section follows (not visible in the screenshot) |
+
+> 📌 *The line numbers skip, so only part of the file is visible.*
+>
+> 🔗 [Chapter 5](#chapter-5-the-explore--plan--code--commit-workflow) also tells you to **save solutions for recurring issues to `CLAUDE.md`**. The "run the test suite" note shows the same kind of lasting instruction (my link).
+
+### 💡 Tips for Saving Context Space
+
+| Tip | Why |
+|-----|-----|
+| 🎯 **Be specific** | A vague prompt might seem smaller, but it **costs more context in the long run**. Without clear instructions, Claude is forced to **explore your codebase more and do its own reasoning**, which takes far more space than a detailed prompt |
+| 🔌 **Manage your MCP servers** | MCP servers **load all of their available tools into context by default**, even when you're not using them. If you have servers for things **unrelated to the current project**, consider **turning them off**. You can also try **Skills**: they work similarly to MCP servers but **don't load everything into context upfront** |
+| 🤖 **Use subagents** | Subagents run **in parallel** with your main agent but have a **completely separate context window**. For tasks where you **only need the answer** (e.g. *"where are the authentication endpoints located?"*), a subagent does the work and **returns just a summary**, keeping your primary context clean |
+
+> 🔗 Subagents already appeared as the **code reviewer** in [Chapter 5](#chapter-5-the-explore--plan--code--commit-workflow) (fresh eyes). Here the benefit is a **separate context window** (my link).
+
+### 🔁 Recap
+
+Managing context within Claude Code is crucial. Use **`/compact`** to summarize long sessions and **`/clear`** to start fresh. To use your context window effectively: **be specific with your prompts**, **check what's consuming your current context**, and **use subagents** to delegate tasks where you only need the result.
+
+### 📝 Quick Reference: Context Management (for exam prep)
+
+| Concept | Key point |
+|---------|-----------|
+| 🪟 **Context window** | Claude's **working memory**; prompts, file reads, tool calls, and tool results all fill it |
+| 🔄 **Auto-compaction** | Triggered **near the limit**; summarizes important details, removes unnecessary tool results; **can lose details** |
+| 📦 **`/compact`** | **Manual** compaction of everything up to that point; **keeps a summary** |
+| 🧹 **`/clear`** | **Removes everything**; fresh start with **no memory** |
+| 📊 **`/context`** | Overview of **size**, **biggest categories**, and a **visual breakdown** |
+| 📄 **`CLAUDE.md`** | Persistent memory **across sessions** |
+| 🎯 **Be specific** | Vague prompts → more exploring and reasoning → **more context used** |
+| 🔌 **MCP servers** | Load **all tools by default**; turn off unrelated ones; **Skills** don't load everything upfront |
+| 🤖 **Subagents** | **Separate context window**; return only a **summary** |
+
+> 🎓 **Memory tip:** **C-C-C** — **/C**ompact = **C**ontinue the same feature · **/C**lear = **C**lean slate for a new feature · **/C**ontext = **C**heck the usage
+
+**Key features for exam:**
+- Compaction **summarizes** and **removes unnecessary tool call results**, and it **can lose details**
+- `/compact` = compacts **everything up to that point**, keeps a memory · `/clear` = **removes everything**
+- `/compact` → same feature, near the limit · `/clear` → new feature, so the old conversation **doesn't bias** it
+- Want Claude to remember across sessions? → **`CLAUDE.md`** (commands, important notes, architecture)
+- **Vague prompts cost more context** over time
+- **MCP servers load all their tools into context by default**, even unused ones · **Skills** don't
+- **Subagents** have a **completely separate context window** and return **just a summary** to the main agent
+
+---
 <!-- Add new chapters below this line -->
