@@ -11,7 +11,7 @@
 | 🗂️ **Unit 1: What is Claude Code?** | [Ch 1: What is Claude Code?](#chapter-1-what-is-claude-code) · [Ch 2: How Claude Code Works](#chapter-2-how-claude-code-works) | ✅ |
 | 🗂️ **Unit 2: Your first prompt** | [Ch 3: Installing Claude Code](#chapter-3-installing-claude-code) · [Ch 4: Your First Prompt](#chapter-4-your-first-prompt) | ✅ |
 | 🗂️ **Unit 3: Daily workflows** | [Ch 5: Explore → Plan → Code → Commit](#chapter-5-the-explore--plan--code--commit-workflow) · [Ch 6: Context Management](#chapter-6-context-management) · [Ch 7: Code Review](#chapter-7-code-review) | ✅ |
-| 🗂️ **Unit 4: Customizing Claude Code** | Ch 8: The CLAUDE.md file · Ch 9: Subagents · Ch 10: Skills · Ch 11: MCP · Ch 12: Hooks | 🚧 |
+| 🗂️ **Unit 4: Customizing Claude Code** | [Ch 8: The CLAUDE.md File](#chapter-8-the-claudemd-file) · Ch 9: Subagents · Ch 10: Skills · Ch 11: MCP · Ch 12: Hooks | 🚧 |
 | 🗂️ **Quiz** | Course quiz | 🔲 |
 
 ---
@@ -461,7 +461,7 @@ What the screenshot shows (plugin details):
 - Go to **claude.ai/code**, or click the **"Code"** label in the sidebar of the chat app
 - Works **similarly to the desktop app**, but you're **restricted to GitHub repositories**
 
-> 📌 *From the screenshot:* a **Select a repository** dropdown and starter prompts: **Write a CLAUDE.md**, **Explain this codebase**, **Review recent changes**. *The lesson doesn't explain these prompts.*
+> 📌 *From the screenshot:* a **Select a repository** dropdown and starter prompts: **Write a CLAUDE.md**, **Explain this codebase**, **Review recent changes**. *The lesson doesn't explain these prompts, but "Write a CLAUDE.md" connects to [Chapter 8](#chapter-8-the-claudemd-file).*
 
 ### 🧭 Which One Should I Use?
 
@@ -568,7 +568,7 @@ What the screenshot shows (the **status bar indicator** the lesson points to):
 | **Footer (left)** | **`plan mode on (shift+tab to cycle)`** |
 | **Footer (right)** | `In index.ts` and `medium · /effort` |
 
-> 📌 *Not explained in the lesson:* `/init` and `CLAUDE.md`, `/remote-control` (shown active again), `/effort`, and `In index.ts` (it appears to show the file open in the connected IDE — my reading).
+> 📌 `/init` and `CLAUDE.md` are covered in [Chapter 8](#chapter-8-the-claudemd-file). *Not explained in the lesson:* `/remote-control` (shown active again), `/effort`, and `In index.ts` (it appears to show the file open in the connected IDE — my reading).
 >
 > 🔗 You already saw plan mode working in [Chapter 1](#chapter-1-what-is-claude-code): the *Explore image upload pipeline* screenshot has the same `plan mode on` footer, and its read-only `ls`, `grep`, and `Read` calls are exactly the kind of work plan mode does.
 
@@ -864,7 +864,7 @@ What the screenshot shows:
 
 ![Running /clear in Claude Code — the output shows "(no content)" on a fresh welcome screen](assets/L6-context-management/clear-command.png)
 
-> 📌 *From the screenshot:* after `/clear` the output shows **`(no content)`** under a fresh welcome box (Claude Code v2.1.72, Opus 4.6, Claude Max, `~/sample-project`). The welcome box still suggests *"Run /init to create a CLAUDE.md file w…"* (`/init` isn't explained in this lesson).
+> 📌 *From the screenshot:* after `/clear` the output shows **`(no content)`** under a fresh welcome box (Claude Code v2.1.72, Opus 4.6, Claude Max, `~/sample-project`). The welcome box still suggests *"Run /init to create a CLAUDE.md file w…"* (`/init` is covered in [Chapter 8](#chapter-8-the-claudemd-file)).
 
 #### 📊 `/context`
 
@@ -1188,7 +1188,7 @@ The difference between a **frustrating** Claude Code session and a **productive*
 | 🔗 **`@path`** | **Reference project docs** (e.g. `@README.md`) |
 | ⚙️ **`/init`** | **Generates a `CLAUDE.md` for you**; best **after** starting without one |
 
-> 🎓 **Memory tip:** **CLAUDE.md = Claude's onboarding script** — **Root** file, read **every session**, **P**roject = **P**eople (team), **U**ser = **U**s-only (just you)... 🔑 **Start empty, `/init` later**
+> 🎓 **Memory tip:** **CLAUDE.md = Claude's onboarding script** — **Project-level = Team** · **User-level = Me** · **Start empty, then `/init`**
 
 **Key features for exam:**
 - `CLAUDE.md` gives Claude Code **persistent memory about your project**
