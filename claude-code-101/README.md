@@ -12,7 +12,7 @@
 | 🗂️ **Unit 2: Your first prompt** | [Ch 3: Installing Claude Code](#chapter-3-installing-claude-code) · [Ch 4: Your First Prompt](#chapter-4-your-first-prompt) | ✅ |
 | 🗂️ **Unit 3: Daily workflows** | [Ch 5: Explore → Plan → Code → Commit](#chapter-5-the-explore--plan--code--commit-workflow) · [Ch 6: Context Management](#chapter-6-context-management) · [Ch 7: Code Review](#chapter-7-code-review) | ✅ |
 | 🗂️ **Unit 4: Customizing Claude Code** | [Ch 8: The CLAUDE.md File](#chapter-8-the-claudemd-file) · [Ch 9: Subagents](#chapter-9-subagents) · [Ch 10: Skills](#chapter-10-skills) · [Ch 11: MCP](#chapter-11-mcp) · [Ch 12: Hooks](#chapter-12-hooks) | ✅ |
-| 🗂️ **Quiz** | Course quiz | 🔲 |
+| 🗂️ **Quiz** | Course quiz | ✅ |
 
 ---
 
@@ -1857,4 +1857,88 @@ Hooks give you **deterministic control** over Claude Code's behavior. Use **`Pos
 - Use **`CLAUDE_PROJECT_DIR`** to reference project scripts regardless of the **current working directory**
 
 ---
-<!-- Add new chapters below this line -->
+
+---
+
+## 📋 Course Quiz — Claude Code 101
+
+> 🎯 **Result: Passed!** — All 4 questions answered correctly.
+
+### Question 1: What is an AI agent? ✅
+
+Claude Code works as an AI agent. What is an AI agent?
+
+- ❌ A chatbot that responds to questions in real time
+- ❌ A code editor with built-in autocomplete features
+- ❌ A cloud service that hosts your development projects
+- ✅ **AI that takes action to complete goals**
+
+> 📌 *Core Concept:* Unlike passive chat assistants or autocomplete tools, an AI agent is software that can interact with its environment and perform actions to reach a defined goal.
+
+---
+
+### Question 2: Context Window Limit ✅
+
+What happens when Claude Code reaches its context window limit?
+
+- ❌ It switches to a smaller, faster model to save memory
+- ❌ It removes your oldest files to make room for new ones
+- ✅ **It automatically compacts your conversation to free up space**
+- ❌ It stops working and asks you to restart the session
+
+> 📌 *Core Concept:* When approaching the limit, Claude Code automatically compacts the conversation by summarizing details and removing unnecessary tool results (or you can trigger it manually with `/compact`).
+
+---
+
+### Question 3: Recommended Workflow ✅
+
+What is the recommended workflow for using Claude Code effectively?
+
+- ❌ Code → Test → Deploy → Monitor
+- ✅ **Explore → Plan → Code → Commit**
+- ❌ Write → Review → Merge → Ship
+- ❌ Prompt → Accept → Push → Repeat
+
+> 📌 *Core Concept:* The four-step workflow (**Explore, Plan, Code, Commit**) prevents jumping straight into writing code, minimizing costly course-correcting later on.
+
+---
+
+### Question 4: CLAUDE.md File ✅
+
+How does Claude Code use the `CLAUDE.md` file?
+
+- ❌ It reads it only after you run the `/init` command
+- ❌ It reads it once when you first create the project
+- ✅ **It reads it automatically at the start of every session**
+- ❌ It only reads it when you explicitly ask it to
+
+> 📌 *Core Concept:* `CLAUDE.md` acts as an onboarding script for your codebase. Claude Code reads it automatically every session, appending its instructions to your prompt for persistent memory.
+
+---
+
+## 📊 Quiz Summary
+
+| Topic | Question | Key Concept | Chapters Covered |
+|-------|----------|-------------|------------------|
+| **AI Agents** | Q1 | Definition of an AI agent (taking action to complete goals) | [Chapter 1](#chapter-1-what-is-claude-code) |
+| **Context Management** | Q2 | Automatic compaction when reaching context limits | [Chapter 6](#chapter-6-context-management) |
+| **Workflows** | Q3 | The Explore → Plan → Code → Commit methodology | [Chapter 5](#chapter-5-the-explore--plan--code--commit-workflow) |
+| **Project Memory** | Q4 | Automatic reading of `CLAUDE.md` at session start | [Chapter 8](#chapter-8-the-claudemd-file) |
+
+---
+
+## 🎯 Final Study Tips & Exam Prep
+
+**Top 5 Core Takeaways:**
+1. **Agent Loop:** Think → Act → Observe loop with direct tool and terminal access.
+2. **Context Window:** Finite memory managed via `/compact`, `/clear`, `/context`, and `CLAUDE.md`.
+3. **Workflow:** Always **Explore & Plan** (ideally in Plan Mode) *before* writing code.
+4. **Customization Hierarchy:**
+   - `CLAUDE.md` = always loaded (always-on rules)
+   - Skills = loaded on demand (task-specific, keyword-triggered)
+   - Subagents = isolated context windows running in parallel
+5. **Deterministic Control:** Use **Hooks** (`settings.json`) when actions must run *every time without fail* (e.g., auto-formatting or blocking dangerous commands).
+
+> 🎉 **Course Complete!** You have finished **Claude Code 101**. Review your notes regularly, practice using Plan Mode and subagents in your terminal, and you'll be fully prepared for your certification exam!
+
+<!-- End of Claude Code 101 Course -->
