@@ -1202,4 +1202,106 @@ The difference between a **frustrating** Claude Code session and a **productive*
 - Start with **stack, preferences, commands**, then build from there
 
 ---
+
+## Chapter 9: Subagents
+
+> 🎬 **Video: Subagents** — Claude can **delegate tasks to subagents** that break them down and **run component tasks in parallel**, improving your context management. **Each subagent operates in its own isolated context window.**
+
+### 🧠 Key Takeaways
+
+- **A subagent runs in parallel with its own, isolated context window.** It does the heavy work, then **summarizes its findings and returns just that summary** to Claude
+- **Why:** much of the context window is consumed by **exploration tool calls and web searches** that aren't always relevant to the feature you're building. A subagent keeps **the journey out of your main context**
+- **Subagents are defined in Markdown files with YAML frontmatter**
+- **Easiest way to create one:** run **`/agents`** → **"Create new agent"** and let Claude generate it
+- Setup steps: **scope**, **purpose**, **tools** the agent can access, and a **color**. Claude generates the **name, description, and prompt**
+- **Further customization:** **persistent memory** across conversations, and **preloading skills** (the **entire** skill is loaded into context)
+
+### ⚙️ How It Works
+
+| The problem | The subagent solution |
+|-------------|------------------------|
+| A lot of the context window is consumed by **tool calls exploring your codebase** or **web searches for research** | Claude **spawns a subagent** for tasks like *"explore this codebase for me"* |
+| What Claude discovers during exploration **isn't always relevant** to the main feature | The subagent runs **in parallel**, in **its own context window**, and does all the exploration |
+| Your main context gets **cluttered** | When it finishes, it **summarizes its findings** and **returns that summary** to Claude |
+
+> ✅ **The result:** you get the **answer you were looking for**, **without the entire journey** it took to get there **cluttering your main context**.
+
+| | 🧠 **Main agent** | 🤖 **Subagent** |
+|---|---|---|
+| **Context window** | Your main session's | **Its own, isolated** |
+| **Does the exploration** | ❌ Doesn't have to | ✅ Yes |
+| **What comes back** | — | **Just a summary** of its findings |
+
+> 🔗 This is the "use subagents" tip from [Chapter 6](#chapter-6-context-management) (a **separate context window**, returns **just a summary**) explained in more detail. The **explore subagent** and **code reviewer** from [Chapter 5](#chapter-5-the-explore--plan--code--commit-workflow) and [Chapter 7](#chapter-7-code-review) are both examples. Agents using other agents was introduced in [Chapter 1](#chapter-1-what-is-claude-code).
+
+### 🛠️ Creating Your Own Subagent
+
+Subagents are defined in **Markdown files with YAML frontmatter**. The **easiest way to get started** is to **let Claude generate one for you**. Run:
+
+```text
+/agents
+```
+
+Then select **"Create new agent."**
+
+| Step | What you decide |
+|------|------------------|
+| 1️⃣ **Scope** | The **scope** of the agent |
+| 2️⃣ **Purpose** | What the agent is **for** |
+| 3️⃣ **Tools** | The **tools it has access to** |
+| 4️⃣ **Color** | A **color** for it |
+
+**What Claude generates:** a **name**, a **description**, and a **prompt** for the subagent. This also **tells Claude when to call the subagent** based on the prompts you give it.
+
+> 🔗 [Chapter 6](#chapter-6-context-management) showed `/agents` in the screenshot (**Custom agents · /agents → `code-reviewer: 335 tokens`**), so a custom agent also costs a small amount of context (my observation).
+>
+> 🔗 **Selecting the tools** is how you'd create the **read-only code reviewer** from [Chapter 7](#chapter-7-code-review) (my mapping). The `tools:` line in the [Chapter 2](#chapter-2-how-claude-code-works) screenshot is probably the same setting inside an agent's file (my inference).
+>
+> 📌 *Not explained in the lesson:* the exact **frontmatter fields**, **where the file is saved**, and what each **scope** option means. The lesson only says the file is Markdown with YAML frontmatter.
+
+### 🎛️ Further Customization
+
+| Feature | What it does |
+|---------|---------------|
+| 🧠 **Persistent memory** | Lets your subagent **retain memory across conversations**. Great if you use it **consistently on the same projects** |
+| 🎓 **Preload skills** | Add the **skill key** and **list skills by name**. ⚠️ **Unlike skills in your main conversation, the entire skill is loaded into context** here |
+
+> 📌 *My note:* the lesson says "the skill key" and doesn't show the exact frontmatter spelling. Check the official subagents docs before relying on it.
+>
+> 🔗 Compare with [Chapter 6](#chapter-6-context-management): in the **main** conversation, **Skills don't load everything upfront**. In a subagent, a **preloaded skill is loaded in full** (my link).
+
+### 🔁 Recap
+
+**Keeping your context window clean** is one of the best ways to stay productive with Claude Code. With subagents, you can run an agent **in the background** to handle the **heavy lifting** and return **just the answer** to your main context window.
+
+> 📚 **Want to go deeper?** The lesson points to a dedicated course: ***Introduction to subagents***.
+>
+> 📌 *My observation:* that course isn't one of the 8 in your [course index](../README.md) path, so it looks like an optional extra.
+
+### 📝 Quick Reference: Subagents (for exam prep)
+
+| Concept | Key point |
+|---------|-----------|
+| 🤖 **Subagent** | A delegated agent that runs **in parallel** with **its own isolated context window** |
+| 🎯 **Purpose** | Keep **exploration and research** out of your main context |
+| 📨 **Output** | Returns **only a summary** of its findings |
+| 📄 **Definition** | **Markdown file with YAML frontmatter** |
+| ⌨️ **Create** | **`/agents`** → **"Create new agent"** (let Claude generate it) |
+| 🧩 **Setup** | **Scope**, **purpose**, **tools**, **color** → Claude generates **name, description, prompt** |
+| 🧠 **Persistent memory** | Retains memory **across conversations** |
+| 🎓 **Preloaded skills** | List skills by name; the **entire skill loads into context** |
+
+> 🎓 **Memory tip:** **Subagent = side quest** — it goes off in its **own context**, does the heavy lifting **in parallel**, and brings back **only the loot (the summary)**
+
+**Key features for exam:**
+- Subagents **run in parallel** and have **their own isolated context window**
+- They **summarize findings and return the summary** to the main agent, so the **exploration doesn't clutter your main context**
+- Typical task: *"explore this codebase for me"*
+- Defined in **Markdown with YAML frontmatter**; easiest to start with **`/agents` → "Create new agent"**
+- Creation covers **scope, purpose, tools, color**; Claude generates **name, description, prompt** (which also tells Claude **when to call it**)
+- **Persistent memory** = remembers across conversations
+- **Preloaded skills:** the **whole skill** is loaded into context, **unlike** skills in the main conversation
+- Dedicated deeper course: **Introduction to subagents**
+
+---
 <!-- Add new chapters below this line -->
