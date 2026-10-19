@@ -144,7 +144,7 @@ The `/context` command shows how the window is being used:
 - Notice that **before you've typed much, tools and the system prompt already use space** — the window is a finite budget
 - The tool also lists `SlashCommand Tool · 0 commands · Total: 864 tokens`
 
-> 📌 *`/context` is shown in the video but not explained; the autocompact buffer most likely relates to the automatic compaction described in [Chapter 2](#chapter-2-how-claude-code-works).*
+> 📌 *`/context` is explained in [Chapter 6](#chapter-6-context-management). The lesson doesn't explain the autocompact buffer row; it most likely relates to the automatic compaction described in [Chapter 2](#chapter-2-how-claude-code-works) and Chapter 6 (my inference).*
 
 #### 2️⃣ It Asks for Permission
 
@@ -262,7 +262,7 @@ Claude has a **context window** that determines how much of your **conversation,
 - Once you reach it, Claude Code **compacts** your conversation
 - It **automatically determines what it can remove or summarize** to bring the context window back down to a usable size
 
-> 🔗 In the `/context` screenshot from [Chapter 1](#chapter-1-what-is-claude-code), the **Autocompact buffer** row is most likely this mechanism (my inference — the lesson doesn't connect them explicitly).
+> 🔗 In the `/context` screenshot from [Chapter 1](#chapter-1-what-is-claude-code), the **Autocompact buffer** row is most likely this mechanism (my inference — the lesson doesn't connect them explicitly). Manual control of compaction (`/compact`, `/clear`, `/context`) is covered in [Chapter 6](#chapter-6-context-management).
 
 ### 🛠️ Tools
 
