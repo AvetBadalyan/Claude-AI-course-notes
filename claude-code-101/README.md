@@ -1345,8 +1345,28 @@ In Claude Code, the core of a skill is its **`SKILL.md` file**:
 > 🔑 **The description is the trigger.** It's **how Claude decides whether to use the skill**, so a clear description matters.
 
 > 🔗 [Chapter 2](#chapter-2-how-claude-code-works) showed `Skill` in the tools list, and [Chapter 7](#chapter-7-code-review) introduced **`/commit-push-pr`** as a built-in skill (my link). In [Chapter 6](#chapter-6-context-management), the `/compact` screenshot listed skills like `commit-message`, `pr-description`, and `documentation` with **tens of tokens each**. That fits the idea that only the name and description are loaded up front (my observation).
+
+#### 🖼️ What a Skill Looks Like
+
+![VS Code showing .claude/skills/pr-review/SKILL.md in a fastapi-project — the file starts with YAML frontmatter (name: pr-review, a description), followed by a Code Quality list and a FastAPI Specific section](assets/L10-skills/skill-md-pr-review.png)
+
+What the screenshot shows (a `pr-review` skill in a FastAPI project):
+
+| Part of the screen | What it shows |
+|--------------------|----------------|
+| **Folder** | `.claude/skills/pr-review/SKILL.md`. The `skills` folder also has a `commit-messa…` folder, so each skill sits in **its own folder** with a `SKILL.md` |
+| **Frontmatter (lines 1–4)** | Between two `---` lines: `name: pr-review` and `description: Reviews pull requests for code quality. Use when reviewing PRs or checking code changes.` |
+| **Body** | Plain Markdown instructions: *"When reviewing code in this FastAPI project, check for:"*, then a **Code Quality** list (readable and clear naming · consistent patterns · no hardcoded secrets) and a **FastAPI Specific** section (the first item is Pydantic schemas) |
+
+> 🔑 **The description is written like a trigger.** It says what the skill does (*reviews pull requests for code quality*) **and when to use it** (*when reviewing PRs or checking code changes*). This matches the lesson's *"review this PR"* example: Claude compares your request to this text.
 >
-> 📌 *Not explained in the lesson:* the exact **frontmatter fields** of `SKILL.md`, and what extra files (scripts, resources) a skill folder usually contains.
+> 📌 *My reading of the screenshot, not stated in the lesson:*
+> - `name` and `description` are the two frontmatter fields shown. This fits the lesson's point that only the **name and description** load up front.
+> - Everything below the frontmatter is the skill's instructions.
+> - The `U` next to `SKILL.md` is VS Code's "untracked" marker. The skill hasn't been committed yet, so for a team skill you'd commit it (see Storing and Organizing Skills below).
+> - A `.claude/agents` folder sits next to `skills`. It is probably where project subagents live ([Chapter 9](#chapter-9-subagents)), but the lesson doesn't say.
+>
+> 📌 *Still not explained in the lesson:* any other frontmatter fields, and what scripts or resource files a skill folder can contain.
 
 ### 🗂️ Storing and Organizing Skills
 
@@ -1359,7 +1379,7 @@ Where you store a skill depends on **who needs it**:
 
 > 🔗 Same split as the `CLAUDE.md` hierarchy in [Chapter 8](#chapter-8-the-claudemd-file): **project-level = team**, **user-level = me** (my link).
 >
-> 📌 *Transcript note:* the auto-generated transcript garbles the folder names ("do.claw/skills", "directory.cloud/skills"). I wrote them as `.claude/skills`, matching the lesson context. Double-check against the video or official docs.
+> 📌 *Transcript note:* the auto-generated transcript garbles the folder names ("do.claw/skills", "directory.cloud/skills"). I wrote them as `.claude/skills`, matching the lesson context. The screenshot in "How Skills Work" confirms the **project** path `.claude/skills/<skill-name>/SKILL.md`. It doesn't show the personal `~/.claude/skills` location, so double-check that one against the video or official docs.
 
 ### 🆚 Skills vs Other Customizations
 
@@ -1402,6 +1422,7 @@ Skills let you **teach Claude something once** and have it applied **automatical
 | 🧩 **Skill** | A **Markdown file** (`SKILL.md`) that teaches Claude how to do a task **once** |
 | 📦 **Agent skills** | **Folders** of **instructions, scripts, and resources** |
 | 🔑 **Description** | **How Claude decides** whether to use the skill; requests are matched against it |
+| 📄 **Frontmatter** | `name` + `description` between `---` lines at the top of `SKILL.md` (as shown in the demo); instructions follow in Markdown |
 | ⚡ **Activation** | **Automatic** — Claude applies it when it recognizes the situation |
 | 🪶 **Loading** | **On demand**; only **name + description** up front |
 | 👤 **Personal skills** | `~/.claude/skills` — **follow you across all projects** |
