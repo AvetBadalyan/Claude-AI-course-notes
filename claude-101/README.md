@@ -131,6 +131,8 @@ Here's that same prompt being entered into Claude.ai — note the toolbar below 
 
 ![Claude.ai home screen with the same prompt drafted and the model picker open, showing Opus 4.1 and Sonnet 4.5](assets/L2-first-conversation/model-selector-dropdown.png)
 
+> 💡 With tools like **web search** or connected sources (e.g. Google Drive) switched on, Claude chooses the right approach itself and pulls them in as needed.
+
 > 💡 **Want to go deeper?** This prompt framework is adapted from the **4D Framework for AI Fluency**, developed through research collaboration between Professor Rick Dakan (Ringling College of Art and Design) and Professor Joseph Feller (University College Cork). The framework identifies four core competencies — **Delegation, Description, Discernment, and Diligence** — that enable effective collaboration with AI. See [ai-fluency/README.md](../ai-fluency/README.md) for the full course notes.
 
 #### 🤖 Choosing a Model: Opus vs. Sonnet
@@ -145,6 +147,8 @@ The model picker (shown above) lets you choose which Claude model handles your r
 |-------|----------|-------|
 | 🔵 **Opus** | Most **complex** tasks | The largest scale model, with hybrid reasoning capabilities |
 | 🟢 **Sonnet** | **Everyday** tasks | Default mode — balances capabilities with cost-effectiveness |
+
+> 💡 Changing the model **starts a new chat**. Extended thinking **increases latency**, so for the fastest answers on simple tasks use Sonnet with thinking off, and turn it on only if needed.
 
 ![Opus vs. Sonnet — side-by-side comparison card](assets/L2-first-conversation/model-review-opus-vs-sonnet.png)
 
@@ -312,6 +316,10 @@ To evaluate how Claude might work with your data:
 ![Key takeaways — identify a specific analytical task to delegate; find past data where you already completed that analysis; work with AI to reproduce your past analysis and systematically evaluate the results; identify gaps, refine your delegation, and test again](assets/L3-better-results/data-analysis-video-key-takeaways.png)
 
 This kind of lightweight evaluation helps you develop intuition for how to work with Claude on tasks that matter to you — and where to focus your review and refinement energy.
+
+> 💡 **The Delegation–Diligence loop** (from the video): pick a task → find past data you already analyzed → have AI reproduce it → compare with your known results → refine and test again. If AI matches your results, you can trust it for similar tasks. If it still can't after several refinements, **don't delegate that task**.
+> - Not confident with data? Ask AI to suggest and explain solutions (Excel formulas, cleaning messy data) and keep asking for clarification.
+> - ⚠️ Validation builds confidence, but it **doesn't remove your responsibility**: you still check the results and stay transparent about AI's role.
 
 ### 📝 Quick Reference: 4D Framework (for exam prep)
 
@@ -570,6 +578,8 @@ You'll see a visual indicator when your project is RAG-enabled, but the experien
 ### 💬 Working Within Your Project
 
 Once your project is set up, you can start chatting with Claude. Each conversation within the project **automatically** has access to your knowledge base and follows your project instructions.
+
+> 💡 **Context isn't shared across separate chats** in a project unless it's added to the project knowledge. A file you upload **inside a chat** stays separate from the knowledge base — handy for one-off context without cluttering it.
 
 ### 🤝 Collaboration Features
 
@@ -1270,6 +1280,7 @@ When you have Google Workspace or other integrations connected, Research becomes
 - Can search **hundreds of sources** simultaneously
 - Provides **citations** for all claims
 - Requires **web search enabled**
+- Research typically takes about **5–45 minutes** (per the Chapter 2 video)
 - Ideal for: Market analysis, project planning, technical docs, briefings
 
 ### 🤔 Lesson Reflection
@@ -1453,6 +1464,8 @@ Claude is also available in several **specialized tools** designed to meet you w
 - 👋 **Onboard to a new team** and get help understanding ongoing projects by reviewing channel history
 - 🔄 **Hand off coding tasks** directly from a bug report or feature discussion — just tag Claude and it can spin up a Claude Code session using the surrounding context
 - ❓ **Get quick answers** about industry trends, technical concepts, or company information during a conversation
+
+> 🔒 **Access and memory (from the launch video):** Claude has **its own account and permissions**, and every credential use is **logged**. Access is scoped **per team and per channel** — in the legal channel it can see contracts but can't edit the codebase. **Memory follows the same boundaries**: what it learns in a private channel or DM stays there.
 
 ---
 
