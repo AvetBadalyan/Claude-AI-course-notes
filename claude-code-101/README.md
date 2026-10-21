@@ -14,6 +14,8 @@
 | 🗂️ **Unit 4: Customizing Claude Code** | [Ch 8: The CLAUDE.md File](#chapter-8-the-claudemd-file) · [Ch 9: Subagents](#chapter-9-subagents) · [Ch 10: Skills](#chapter-10-skills) · [Ch 11: MCP](#chapter-11-mcp) · [Ch 12: Hooks](#chapter-12-hooks) | ✅ |
 | 🗂️ **Quiz** | Course quiz | ✅ |
 
+> **Annotation guide for these notes:** 📌 = my own reading from screenshots/context — **not stated in the lesson text itself**. 🔗 = my cross-reference between chapters — **my mapping, not the lesson's wording**. For exam prep, focus on the **📝 Quick Reference** tables and **Key features for exam** bullet lists at the end of each chapter.
+
 ---
 
 > 🗂️ **Unit 1: What is Claude Code?** · Chapters 1–2
@@ -318,6 +320,8 @@ Claude Code has several **permission modes**:
 > 🔗 Related: [Claude 101, Chapter 4](../claude-101/README.md) lists the desktop Code tab settings *Manually approve / Accept edits / Plan* — they line up with Default / Auto-accept / Plan mode (my mapping).
 >
 > 🔗 The Chapter 1 plan-mode screenshot showed `plan mode on (shift+tab to cycle)` — **Shift + Tab** is how you switch modes (confirmed in [Chapter 4](#chapter-4-your-first-prompt)).
+
+> 📌 **Beyond the course (not on the exam):** the **course teaches these 3 modes**, and that's what the exam tests — **learn the 3 above**. For real-world use only, the current [Claude Code docs](https://code.claude.com/docs/en/permission-modes) list additional modes beyond these three (e.g. `auto`, `dontAsk`, `bypassPermissions`). Mentioned here just so the notes stay honest about the live product — **ignore it for exam prep**.
 
 > ⚠️ **Be cautious when skipping permissions.** Giving Claude Code free rein to run commands means **a mistake could be harder to catch before it happens.**
 

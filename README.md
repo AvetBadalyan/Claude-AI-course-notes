@@ -7,7 +7,7 @@ Notes and visual summaries from the **Anthropic Academy / Claude Certified Archi
 | Module | What it is | Status |
 |--------|------------|--------|
 | **Module 1** | Certification Workflow | ℹ️ Info |
-| **Module 2** | Self-Study Materials · ⏱️ 18 hr 31 min · 8 courses (see below) | 🚧 In progress (2 / 8 courses done) |
+| **Module 2** | Self-Study Materials · ⏱️ 18 hr 31 min · 8 courses (see below) | 🚧 In progress (3 / 8 courses done) |
 | — | Sessions to Help You Prepare for Certification *(optional)* | 🔲 Not started |
 | **Module 3** | Practice Exam | 🔲 Not started |
 | **Module 4** | Take the Certification Exam | 🔲 Not started |
@@ -18,7 +18,7 @@ Notes and visual summaries from the **Anthropic Academy / Claude Certified Archi
 |---|--------|----------|--------|-------|
 | 1 | AI Fluency: Framework & Foundations | 1 hr 10 min | ✅ Done | [ai-fluency/README.md](ai-fluency/README.md) · 🏆 **Certified (10/10)** |
 | 2 | Claude 101 | 3 hr 6 min | ✅ Done | [claude-101/README.md](claude-101/README.md) · 🏆 **Certified (10/10)** |
-| 3 | Claude Code 101 | 2 hr | 🚧 In progress | [claude-code-101/README.md](claude-code-101/README.md) |
+| 3 | Claude Code 101 | 2 hr | ✅ Done | [claude-code-101/README.md](claude-code-101/README.md) · 🏆 **Certified (100%)** |
 | 4 | Claude Code in Action | 1 hr | 🔲 Not started | — |
 | 5 | Introduction to Agent Skills | 1 hr | 🔲 Not started | — |
 | 6 | Introduction to MCP | 1 hr | 🔲 Not started | — |
