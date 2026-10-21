@@ -23,11 +23,13 @@ AI Fluency = developing **practical skills, knowledge, insights, and values** fo
 
 ![Three ways to interact with AI](assets/L1-L3-framework/three-ways-to-interact.png)
 
-| Mode | Description |
-|------|-------------|
-| ⚡ **Automation** | The AI completes specific tasks based on your instructions |
-| 🤝 **Augmentation** | You and AI collaborate as creative thinking and task execution partners |
-| 🧠 **Agency** | You configure AI to work independently on your behalf — establishing its knowledge and behavior patterns rather than just giving it specific tasks |
+| Mode | Description | Example (from the video) |
+|------|-------------|---------------------------|
+| ⚡ **Automation** | The AI completes specific tasks based on your instructions | Summarize a document, draft an email |
+| 🤝 **Augmentation** | You and AI collaborate as creative thinking and task execution partners | Brainstorm a story character together |
+| 🧠 **Agency** | You configure AI to work independently on your behalf — establishing its knowledge and behavior patterns rather than just giving it specific tasks | AI sorts incoming emails by urgency and drafts replies |
+
+> 💡 None of the three is "better" — you might use **all three in one project**.
 
 ### The 4D Framework — Overview
 
@@ -161,7 +163,7 @@ Using AI responsibly and ethically, with transparency and accountability.
 
 ![Behind the scenes of LLMs: Pre-training](assets/L4-generative-ai/pre-training-neural-network.png)
 
-**2. Fine-tuning** — Models are refined to follow instructions and align with human preferences.
+**2. Fine-tuning** — Models are refined to follow instructions and align with human preferences (using **human feedback** and **reinforcement learning** — rewards and penalties).
 
 ![Behind the scenes of LLMs: Fine-tuning](assets/L4-generative-ai/fine-tuning-neural-network.png)
 
@@ -229,10 +231,14 @@ The AI can only consider a limited amount of information at one time.
 
 ![AI context window](assets/L5-capabilities/context-window-2.png)
 
+> 🎙️ The context window is the AI's **working memory**. When it's full, the oldest information drops out (**first in, first out**).
+
 #### 🎲 Non-Deterministic Output
 The same prompt can produce different answers each time — AI responses are not fixed or predictable.
 
 ![Non-deterministic output](assets/L5-capabilities/non-deterministic-output.png)
+
+> 🎙️ The setting that controls this randomness is called **temperature**.
 
 #### 🧮 Reasoning Challenges
 LLMs can struggle with complex multi-step reasoning and math. This is being addressed by **extended thinking** — models that reason step-by-step before answering.
@@ -294,7 +300,7 @@ Effective delegation involves:
 
 - What does **"success"** look like?
 - What kind of thinking and work is needed to get there?
-- **AI fluency begins with and depends on your own expertise**
+- **AI fluency begins with and depends on your own expertise** — you're an **expert in your field first, an AI delegator second**
 
 ### Sub-Competency 2: 🖥️ Platform Awareness
 
@@ -428,6 +434,7 @@ Ask yourself:
 
 - **No examples** — the AI has to guess your desired tone/format from the instruction alone
 - **With two examples** — showing 2 before/after conversions ("jargon → plain language") lets the AI infer the exact pattern before applying it to your real request
+- 💡 **Try without examples first** — Claude may already get it right. Add examples when the style is easier to show than to explain
 
 #### 3. 📐 Specify Output Constraints
 
@@ -448,6 +455,7 @@ Ask yourself:
 ![Giving the AI thinking space](assets/L8-prompting/video-think-first.png)
 
 - Explicitly ask the AI to **think through the problem carefully** — consider factors, constraints, and approaches — *before* recommending a solution
+- Give the thinking space **before** the answer, **not after** — explaining afterwards isn't the same as thinking first
 
 #### 6. 🎭 Define Role, Style, or Tone
 
@@ -571,6 +579,8 @@ Some ways to refine your prompt:
 - Is the **response to feedback appropriate**?
 - Is the **interaction efficient**?
 
+> 🎙️ **Process vs. Performance:** **Process** = the work the AI is doing · **Performance** = how well it interacts with you while doing that work
+
 ### 🔁 Feedback and Correction
 
 ![Feedback and correction — effective feedback includes specifying, explaining, suggesting, revising](assets/L9-discernment/video-feedback-correction.png)
@@ -580,6 +590,8 @@ Some ways to refine your prompt:
 - **Clearly explaining why it is a problem**
 - **Providing concrete suggestions for improvement**
 - **Revising your instructions or examples**
+
+> 💡 If better Description doesn't fix it, **rethink your Delegation** — maybe you're using the wrong tool or approach.
 
 ### Key Takeaways
 
@@ -690,6 +702,7 @@ Some ways to refine your prompt:
 - **Ensure accuracy**
 - **Check for usage rights**
 - And so on...
+- **You — not the AI —** are responsible for what you share
 
 ### ⚖️ Ethical Frameworks
 
