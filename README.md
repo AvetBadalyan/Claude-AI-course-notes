@@ -19,7 +19,7 @@ Notes and visual summaries from the **Anthropic Academy / Claude Certified Archi
 | 1 | AI Fluency: Framework & Foundations | 1 hr 10 min | ✅ Done | [ai-fluency/README.md](ai-fluency/README.md) · 🏆 **Certified (10/10)** |
 | 2 | Claude 101 | 3 hr 6 min | ✅ Done | [claude-101/README.md](claude-101/README.md) · 🏆 **Certified (10/10)** |
 | 3 | Claude Code 101 | 2 hr | ✅ Done | [claude-code-101/README.md](claude-code-101/README.md) · 🏆 **Certified (100%)** |
-| 4 | Claude Code in Action | 1 hr | 🔲 Not started | — |
+| 4 | Claude Code in Action | 1 hr | 🚧 In progress | [claude-code-in-action/README.md](claude-code-in-action/README.md) · Ch 1 done |
 | 5 | Introduction to Agent Skills | 1 hr | 🔲 Not started | — |
 | 6 | Introduction to MCP | 1 hr | 🔲 Not started | — |
 | 7 | Building with the Claude API | 8 hr | 🔲 Not started | — |
