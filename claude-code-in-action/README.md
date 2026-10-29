@@ -9,7 +9,7 @@
 | Unit | Chapters | Status |
 |------|----------|:------:|
 | 🗂️ **Steer the Work** | [Ch 1: Steering Long Sessions](#chapter-1-steering-long-sessions) | ✅ |
-| 🗂️ **Configure Claude** | Ch 2: A CLAUDE.md That Follows · Ch 3: Verification Skills · Ch 4: Permission Modes · Ch 5: Hooks | 🔲 |
+| 🗂️ **Configure Claude** | [Ch 2: A CLAUDE.md That Follows](#chapter-2-a-claudemd-that-follows) · Ch 3: Verification Skills · Ch 4: Permission Modes · Ch 5: Hooks | 🚧 |
 | 🗂️ **Automate Repeat Work** | Ch 6: Routines and Headless · Ch 7: GitHub Actions and Code Review | 🔲 |
 | 🗂️ **Verify and Share** | Ch 8: Trust It — Verifying Unsupervised Runs · Ch 9: Plugins | 🔲 |
 | 🗂️ **Quiz** | Course quiz | 🔲 |
@@ -209,3 +209,168 @@ Do that, and you can trust a long run without babysitting every step.
 - **`/goal`** keeps working until a **fast evaluator** (which reads **only the transcript**) confirms the condition; cancel with **`/goal clear`**.
 - **`/loop`** runs on an interval to react to **external** state; stop with **Esc**.
 - **Worktrees** give each agent its **own file tree** (no conflicts); clean ones are **auto-removed**; **`.worktreeinclude`** lists git-ignored files to copy in.
+
+---
+
+> 🗂️ **Unit 2: Configure Claude** · Chapter 2
+
+## Chapter 2: A CLAUDE.md That Follows
+
+> 🎬 **Video: A CLAUDE.md That Follows.** The trap that catches almost everyone: your CLAUDE.md keeps growing — you hit a problem, you add a rule; you hit another, you add another. Before long it's one giant file and **Claude starts ignoring parts of it.** That's not a bug in Claude — it's how the file works.
+
+### 🎯 Learning Objectives
+
+- Understand that **CLAUDE.md is guidance, not enforced configuration**
+- Decide when a rule belongs in CLAUDE.md versus a **hook**
+- Know the **four CLAUDE.md locations** and how they load
+- Use **imports** to organize a long file (and what they do *not* do)
+- **Phrase rules** so Claude actually follows them, and keep the file under revision
+
+### 🧠 Key Takeaways
+
+- **CLAUDE.md is guidance, not enforced config.** Every line competes with every other line for Claude's attention — the longer the file, the less reliably any single rule is followed. **The leaner the file, the more of it Claude follows.**
+- **Hard rules belong in hooks, not CLAUDE.md.** A hook is code that runs *before* an action and can **block** it — real enforcement, not a polite request.
+- **Four locations** load together at launch and **stack** (nothing gets dropped): **managed policy · user · project · local**
+- **Imports** (`@path/to/file`) help you **organize** a long file, but Claude **expands them inline** at launch — they do **not** reduce the context it has to read
+- **Phrasing makes rules stick:** be **specific and checkable**, **name the replacement** (don't just ban), and treat **emphasis as a budget**
+- **Keep the file under revision** — treat a wrong action as a **bug report** against CLAUDE.md
+
+---
+
+### ⚖️ CLAUDE.md Is Guidance, Not Enforcement
+
+| | 📋 **CLAUDE.md** | 🪝 **Hook** |
+|---|---|---|
+| **What it is** | **Guidance** Claude reads | **Code that runs before an action** |
+| **Can it block an action?** | ❌ No — it's a request Claude usually honors | ✅ Yes — it can actually **stop** the action |
+| **Reliability** | "Most of the time" | **Real enforcement** |
+| **Use for** | Softer **conventions** | **Hard rules** that must never be crossed |
+
+- Every line **competes** with every other line for attention. The longer the file, the more it competes **with itself**.
+- So the goal isn't to write down everything — **keep the file tight.** The leaner it is, the more of it Claude actually follows.
+
+#### Example: "never push to main"
+
+> A rule like **"never push to `main`"** in CLAUDE.md is just *hoping* Claude reads and respects it. "Most of the time" isn't good enough for something that dangerous — it belongs in a **pre-tool-use hook** that **blocks** the push even if Claude tries it.
+
+> 🔗 Hooks were introduced in [Claude Code 101, Chapter 12](../claude-code-101/README.md). This chapter adds the decision rule: **hard line → hook; soft convention → CLAUDE.md.**
+
+---
+
+### 📍 The Four Locations
+
+CLAUDE.md isn't just one file in your project. There are **four places** it can live, and **Claude loads all of them together at launch**. **Nothing gets dropped, and they stack.**
+
+![Illustration of the four CLAUDE.md locations: Managed Policy (org-level, can't exclude), User (personal, across every project), Project (shared with your team), Local (git-ignored, personal notes for this repo)](assets/L2-claude-md-that-follows/four-locations.png)
+
+| Location | Who controls it | Scope | Notes |
+|----------|-----------------|-------|-------|
+| 🏢 **Managed policy** | Your **platform/org team** | Org-wide | **You can't exclude it** — org policy is always in play |
+| 👤 **User** | You | **Every project on your machine** | Personal preferences that follow you everywhere |
+| 📁 **Project** | Your team | This repo, **shared** | Checked into the repo |
+| 💻 **Local** | You | **This repo only** | **Ignored by git** — personal notes just for you |
+
+> 💡 **Local is easy to overlook but handy.** Refactoring on your own branch and want Claude to hold some architectural decisions in mind? That doesn't belong in the shared **project** file (it'd affect the whole team) — put it in **local**, where it's just yours for this repo.
+
+---
+
+### 🧩 Split a Big File with Imports
+
+When your project file gets long, break it into pieces with the **path-to-file import syntax** — instead of one wall of text, point to other files:
+
+```text
+@.claude/conventions/code-style.md
+@.claude/conventions/testing.md
+@.claude/conventions/workflow.md
+```
+
+![VS Code editing a CLAUDE.md "Project conventions" file that imports @.claude/conventions/code-style.md, testing.md, and workflow.md, then a "## Rules" section; the explorer shows .claude/conventions/, hooks/, rules/, settings.json](assets/L2-claude-md-that-follows/claude-md-with-imports.png)
+
+⚠️ **Know exactly what imports buy you — it's easy to get the wrong idea:**
+
+| Imports **do** | Imports **do NOT** |
+|----------------|--------------------|
+| Help you **organize** / keep things tidy | **Reduce** the context Claude has to read |
+| Split one file into topic files | Shrink the load |
+
+- When Claude launches, it **expands imported files inline**, right where you referenced them. **Everything still loads up front.**
+- **Use imports to organize, not to shrink the load.**
+
+> 📌 *From the screenshot:* the file itself says *"Split into topic files for readability — all still load at launch,"* and its Rules are already written in the specific/checkable style this lesson recommends (e.g. source in `src/`, tests in `src/**/*.test.ts`; use the `@/` path alias, never deep relative paths; never read `process.env` outside `src/config/env.ts`). The explorer also shows sibling `hooks/` and `rules/` folders (my reading — the lesson doesn't walk through this file).
+
+---
+
+### ✍️ Phrasing Is What Makes Rules Stick
+
+Once you've decided a rule belongs in CLAUDE.md, whether Claude obeys it comes down to **how you phrase it**. Most rules fail because they're **vague**.
+
+#### 1️⃣ Be specific and checkable
+
+If you can't check whether it was followed, neither can Claude.
+
+| ❌ Vague | ✅ Specific & checkable |
+|----------|------------------------|
+| "Follow best practices for API routes." | "Put new API routes in `src/api/handlers`, one per file." |
+
+The specific one is explicit — you can look at the result and **immediately tell if it was done right.** That's the bar every rule should clear.
+
+#### 2️⃣ Name the replacement, don't just ban something
+
+When you tell Claude not to do something, **say what to do instead** — otherwise you've left the door open.
+
+| ❌ Leaves it open | ✅ Closes it |
+|-------------------|-------------|
+| "Don't use default exports." (then what?) | "Use **named exports, not default exports**." |
+
+#### 3️⃣ Emphasis is a budget
+
+Words like **"IMPORTANT"** and **"YOU MUST"** do raise a rule's priority — **but only relative to everything quieter around it.** If every rule shouts, nothing stands out and the emphasis means nothing.
+
+- **Treat emphasis like a budget.** Spend it on the **two or three rules** that really hurt when broken; let the rest sit at normal volume.
+
+---
+
+### 🔄 Keep the File Under Revision
+
+Your CLAUDE.md is **never finished** — treat it like **living code** that keeps getting edited.
+
+- When Claude does the wrong thing, **don't just sigh and fix it by hand.** Treat it as a **bug report** against your CLAUDE.md.
+- You can tell Claude directly: **"add that to the CLAUDE.md file,"** and it'll write the rule for you.
+- That way the file gets **better every time something goes wrong.**
+
+---
+
+### 🔁 Recap (The Bottom Line)
+
+Treat your CLAUDE.md like **production code**: **if you can't justify a line, delete it.** To keep it lean and followable:
+
+1. **Move hard rules to hooks**, where they're actually enforced.
+2. **Organize long files with imports** (just remember they don't reduce context).
+3. **Make every rule specific and checkable, and name the replacement.**
+4. **Spend your emphasis budget** on the few rules that matter most.
+5. **Keep revising** the file whenever Claude gets something wrong.
+
+> The whole idea is simple: **the leaner the file, the more of it Claude follows.**
+
+### 📝 Quick Reference: A CLAUDE.md That Follows (for exam prep)
+
+| Concept | Key point |
+|---------|-----------|
+| 📋 **Nature** | **Guidance, not enforced config** — every line competes for attention; leaner = more followed |
+| 🪝 **Hard rules → hooks** | A **pre-tool-use hook** runs before an action and can **block** it; CLAUDE.md can't |
+| 📍 **Four locations** | **Managed policy** (org, can't exclude) · **User** (your machine) · **Project** (team/repo) · **Local** (git-ignored, this repo only) — all load together and **stack** |
+| 🧩 **Imports** | `@path/to/file` **organizes**; expanded **inline** at launch — **does NOT reduce context** |
+| 🎯 **Specific & checkable** | "Put new API routes in `src/api/handlers`, one per file" > "follow best practices" |
+| 🔁 **Name the replacement** | "Use named exports, not default exports" > "Don't use default exports" |
+| 📢 **Emphasis is a budget** | `IMPORTANT`/`YOU MUST` only work if **rare**; spend on 2–3 rules max |
+| 🔄 **Living document** | Treat wrong actions as **bug reports**; tell Claude "add that to CLAUDE.md" |
+
+> 🎓 **Memory tip:** **MUPL** = **M**anaged policy · **U**ser · **P**roject · **L**ocal (broad → narrow, all stack). And: **hard line → Hook, soft convention → CLAUDE.md.**
+
+**Key features for exam:**
+- CLAUDE.md is **guidance, not enforcement** — the **leaner the file, the more of it Claude follows**.
+- **Hard/dangerous rules** (e.g. "never push to main") belong in a **pre-tool-use hook** that can **block** the action.
+- **Four locations load together and stack; nothing is dropped.** Managed policy **can't be excluded**; local is **git-ignored** and scoped to **one repo**.
+- **Imports organize but do NOT reduce context** — files are **expanded inline** at launch.
+- Phrase rules **specific & checkable** and **name the replacement**; **emphasis is a budget** (spend on 2–3 rules).
+- Keep CLAUDE.md **under revision** — treat mistakes as bug reports and have Claude add the rule.
