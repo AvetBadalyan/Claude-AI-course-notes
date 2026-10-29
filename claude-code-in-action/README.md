@@ -9,7 +9,7 @@
 | Unit | Chapters | Status |
 |------|----------|:------:|
 | 🗂️ **Steer the Work** | [Ch 1: Steering Long Sessions](#chapter-1-steering-long-sessions) | ✅ |
-| 🗂️ **Configure Claude** | [Ch 2: A CLAUDE.md That Follows](#chapter-2-a-claudemd-that-follows) · Ch 3: Verification Skills · Ch 4: Permission Modes · Ch 5: Hooks | 🚧 |
+| 🗂️ **Configure Claude** | [Ch 2: A CLAUDE.md That Follows](#chapter-2-a-claudemd-that-follows) · [Ch 3: Verification Skills](#chapter-3-verification-skills) · Ch 4: Permission Modes · Ch 5: Hooks | 🚧 |
 | 🗂️ **Automate Repeat Work** | Ch 6: Routines and Headless · Ch 7: GitHub Actions and Code Review | 🔲 |
 | 🗂️ **Verify and Share** | Ch 8: Trust It — Verifying Unsupervised Runs · Ch 9: Plugins | 🔲 |
 | 🗂️ **Quiz** | Course quiz | 🔲 |
@@ -374,3 +374,128 @@ Treat your CLAUDE.md like **production code**: **if you can't justify a line, de
 - **Imports organize but do NOT reduce context** — files are **expanded inline** at launch.
 - Phrase rules **specific & checkable** and **name the replacement**; **emphasis is a budget** (spend on 2–3 rules).
 - Keep CLAUDE.md **under revision** — treat mistakes as bug reports and have Claude add the rule.
+
+---
+
+> 🗂️ **Unit 2: Configure Claude** · Chapter 3
+
+## Chapter 3: Verification Skills
+
+> 🎬 **Video: Verification Skills.** As your project grows, you notice the same work happening over and over. Skills are a good way to automate repeated work — this lesson looks at one job skills are great for: **verifying your own work.** **If there's one skill worth building first, this is it.**
+
+### 🎯 Learning Objectives
+
+- Understand why a **verification skill** is the first skill to build
+- See the **shape** of a verification skill and why "done" means **gates run and observed**
+- Use a skill **folder** (reference files + scripts) to keep `skill.md` lean
+- Pick the right **instruction surface**: CLAUDE.md vs skills vs hooks
+
+### 🧠 Key Takeaways
+
+- **Build a verification skill first.** It removes the dependency on *you remembering* to check Claude's work — the skill fires on its own when the change matches its description
+- **"Done" ≠ "the code looks right."** Done = **the gates are run and observed, with results stated explicitly** — including a check that **no test was weakened** just to pass
+- A skill is a **folder**, not just a file: drop a **`reference.md`** for depth (read only when needed) and **scripts** Claude executes (not loaded into context) — keep **`skill.md` lean**
+- **Only skill descriptions load into context** until a skill is actually needed, so there's **no cost** to packaging every repeated procedure
+- **Three instruction surfaces:** **CLAUDE.md** = always-on conventions · **Skills** = procedures/reference tied to a task · **Hooks** = rules that **must not be skippable**
+- **Rule of thumb:** if you've typed the **same multi-step instruction twice**, that's a skill
+- Check the skill into **`.claude/skills`** so the **whole team inherits** the same move
+
+---
+
+### 🥇 Why a Verification Skill Is the One to Build First
+
+Think about how you normally check Claude's work: it refactors something, finishes, and then **you have to remember** to double-check — run the tests, read the diff. **The checking depends on you remembering to ask.** Skip it once and bad code slips through.
+
+**A verification skill removes that dependency.** The change matches the skill's description, so **the skill fires on its own** and walks the same steps every time:
+
+| Step | What the skill does |
+|------|---------------------|
+| 1️⃣ | **Runs the test suite** |
+| 2️⃣ | **Reads the diff** |
+| 3️⃣ | **Checks that no test was weakened** just to make things pass |
+| 4️⃣ | **Reports pass or fail**, with the **evidence attached** |
+
+- The **description** on the skill is what **triggers** it; once triggered it runs the whole flow **without you asking**.
+
+![A terminal showing a refactor diff (formatClock replaced with hms(...)), then "Skill(verify-refactor) Successfully loaded skill", "Ran 2 shell commands", and a verification report; beside it a flow: Description matches → Skill fires → Runs the test suite → Reads the diff → Checks for weakened tests → Reports pass or fail](assets/L3-verification-skills/verify-refactor-flow.png)
+
+> 🧪 **The key check is the last one before reporting.** It's not enough to run the tests and see green — **a test can be quietly loosened** so it passes no matter what. So the skill **reads the diff and confirms tests weren't weakened.**
+>
+> ✅ **"Done" is the gates being run and observed, with the results stated explicitly** — not "the code looks right" from reading the diff alone.
+
+> 📌 *From the screenshot:* the report is `Skill: verify-refactor` → `Verification: PASS` with explicit evidence — *Tests: 74 passed (2 files) via `npx vitest run src/timeline`*, *Diff reviewed: yes*, *Tests weakened: no* — exactly the "evidence attached" the lesson describes (my reading).
+
+#### 🔁 The same shape fits any repeated procedure
+
+A release checklist · a migration recipe · a pre-PR check.
+
+> 📏 **Rule of thumb:** if you've typed the **same multi-step instruction twice**, that's a skill.
+
+---
+
+### 📁 A Skill Folder Can Hold More Than Instructions
+
+A skill isn't just a single `skill.md`. The **folder around it** can carry other things — and that's what makes skills powerful for verification.
+
+| What you add | How Claude uses it | Why it helps |
+|--------------|--------------------|--------------|
+| 📄 **`reference.md`** (linked from `skill.md`) | Read **only when it actually needs that depth** | Main file stays short |
+| 📜 **Scripts** (e.g. `check.sh`) | **Executes** them — doesn't load their contents into context | The skill carries its **own tooling** (e.g. runs all the gates) |
+
+> 💡 **The takeaway:** keep **`skill.md` itself lean.** Push the heavy material — long explanations and executable scripts — into **side files.** The lean file **describes what to do**; the side files hold the **depth and the tools.**
+
+> 🔗 This mirrors the CLAUDE.md lesson's advice to keep the main file lean and push depth into side files ([Chapter 2](#chapter-2-a-claudemd-that-follows)) — but note the difference: CLAUDE.md **imports expand inline** (they don't save context), whereas a skill's **reference files load only on demand** and **scripts are executed, not loaded** (my mapping).
+
+---
+
+### 🧭 Which Instruction Surface Owns Which Rule
+
+By now you have **three places** to put instructions — here's how to keep them straight.
+
+![Three stacked bars: "CLAUDE.md for conventions", "Skills for procedures tied to task", "Hooks for rules that can't be skipped"](assets/L3-verification-skills/three-surfaces.png)
+
+| Surface | Owns… | Because… |
+|---------|-------|----------|
+| 📋 **CLAUDE.md** | Conventions that apply **all the time** (naming rules, where files go) | Always-on guidance |
+| 🧰 **Skills** | **Procedures and reference** tied to a **particular kind of task** | Loaded when the task comes up |
+| 🪝 **Hooks** | A rule Claude **must not be able to skip** | CLAUDE.md and skills are **instructions Claude follows**; a **hook is code that actually runs** |
+
+> ⚠️ **If skipping the rule isn't acceptable, don't leave it up to instruction-following** — put it in a hook.
+
+> 🔗 This extends the Chapter 2 split (CLAUDE.md vs hooks) by adding **skills** as the middle surface for task-scoped procedures (my mapping).
+
+---
+
+### 🔁 Recap
+
+A skill is a **folder with a `skill.md`** inside it: a **name**, a **description that triggers it**, and the **procedure** itself. **Only the descriptions load into context** until a skill is actually needed — so there's **no cost** to packaging every procedure you repeat.
+
+**Start with verification.** Build the skill, check it into your project's **`.claude/skills`**, and the **whole team inherits the same move** — everyone's work gets checked the same way, automatically, without anyone having to remember to ask.
+
+> 📌 **Terminology (beyond the course — not on the exam):** the lesson writes **`skill.md`** in lowercase. The live [Agent Skills spec](https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills) requires the file to be named **`SKILL.md`** (uppercase) with YAML frontmatter containing **`name`** and **`description`**. Learn the course's wording for the exam; the uppercase filename is just how the real product discovers skills.
+
+### 📝 Quick Reference: Verification Skills (for exam prep)
+
+| Concept | Key point |
+|---------|-----------|
+| 🥇 **Build first** | A **verification skill** — removes the dependency on *you remembering* to check |
+| 🔫 **Trigger** | The skill's **description** fires it automatically when the change matches |
+| 🪜 **Verify flow** | Run tests → read diff → **check tests weren't weakened** → report pass/fail with **evidence** |
+| ✅ **"Done"** | **Gates run and observed, results stated explicitly** — not "the code looks right" |
+| 📁 **Folder** | `skill.md` + **`reference.md`** (read on demand) + **scripts** (executed, not loaded) |
+| 🪶 **Keep lean** | `skill.md` describes *what to do*; side files hold **depth and tools** |
+| 🧠 **Context cost** | **Only descriptions load** until a skill is needed — no cost to packaging many |
+| 🧭 **Surfaces** | **CLAUDE.md** = conventions · **Skills** = task procedures · **Hooks** = can't-be-skipped rules |
+| 📏 **Rule of thumb** | Typed the same multi-step instruction **twice** → make it a skill |
+| 👥 **Share** | Commit to **`.claude/skills`** so the whole team inherits it |
+
+> 🎓 **Memory tip:** **C-S-H** = **C**LAUDE.md (conventions, always) · **S**kills (task procedures, on demand) · **H**ooks (can't-be-skipped, actually runs). And verification's motto: **"run the gates, read the diff, prove tests weren't weakened."**
+
+**Key features for exam:**
+- The **first skill to build is a verification skill** — it fires on its own so checking doesn't depend on you remembering.
+- Verify flow: **run tests → read diff → confirm no test was weakened → report pass/fail with evidence.**
+- **"Done" = gates run and observed with explicit results**, not the diff merely looking right.
+- A skill is a **folder**: `reference.md` is read **only when needed**; **scripts are executed, not loaded into context**; keep `skill.md` lean.
+- **Only skill descriptions load** into context until needed → no cost to packaging every repeated procedure.
+- Three surfaces: **CLAUDE.md = conventions · Skills = task procedures · Hooks = rules that can't be skipped.**
+- Commit the skill to **`.claude/skills`** so the **whole team** inherits it.
