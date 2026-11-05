@@ -11,7 +11,7 @@
 | 🗂️ **Steer the Work** | [Ch 1: Steering Long Sessions](#chapter-1-steering-long-sessions) | ✅ |
 | 🗂️ **Configure Claude** | [Ch 2: A CLAUDE.md That Follows](#chapter-2-a-claudemd-that-follows) · [Ch 3: Verification Skills](#chapter-3-verification-skills) · [Ch 4: Permission Modes](#chapter-4-permission-modes) · [Ch 5: Hooks](#chapter-5-hooks) | ✅ |
 | 🗂️ **Automate Repeat Work** | [Ch 6: Routines and Headless](#chapter-6-routines-and-headless) · [Ch 7: GitHub Actions and Code Review](#chapter-7-github-actions-and-code-review) | ✅ |
-| 🗂️ **Verify and Share** | [Ch 8: Trust It — Verifying Unsupervised Runs](#chapter-8-trust-it--verifying-unsupervised-runs) · Ch 9: Plugins | � |
+| 🗂️ **Verify and Share** | [Ch 8: Trust It — Verifying Unsupervised Runs](#chapter-8-trust-it--verifying-unsupervised-runs) · [Ch 9: Plugins](#chapter-9-plugins) | ✅ |
 | 🗂️ **Quiz** | Course quiz | 🔲 |
 
 > **Annotation guide for these notes:** 📌 = my own reading from screenshots/context — **not stated in the lesson text itself**. 🔗 = my cross-reference between chapters — **my mapping, not the lesson's wording**. For exam prep, focus on the **📝 Quick Reference** tables and **Key features for exam** bullet lists at the end of each chapter.
@@ -1288,3 +1288,172 @@ The **sub-agent code review** you'd run before a pull request works here too —
 - **Gate on tests with a hook** (Stop hook refuses to end on failure; PostToolUse lints/type-checks); **exit 2 feeds the failure back** so Claude fixes it, on **every run**.
 - **Verify headless runs by their JSON result and exit code**.
 - **Get a cold second opinion** from a **fresh session/sub-agent** with no memory of how the code was built.
+
+---
+
+> 🗂️ **Unit 4: Verify and Share** · Chapter 9
+
+## Chapter 9: Plugins
+
+> 🎬 **Video: Plugins.** A setup you trust is worth far more once your **whole team** is running it — the problem is **moving it around.** You build a great `.claude` directory with skills, subagents, and hooks, then everyone copies files between machines and hopes they stay in sync. **Plugins fix that:** a plugin is how Claude Code **packages a setup and moves it from one person to the next.**
+
+### 🎯 Learning Objectives
+
+- Understand what a **plugin** bundles and how **marketplaces** distribute it
+- **Read before you install** — know why a plugin's code and hooks matter
+- Know how plugin **components run alongside** yours (stack / namespace / settings)
+- **Package your own** `.claude` as a plugin with a manifest
+
+### 🧠 Key Takeaways
+
+- A **plugin = one installable unit** bundling skills, subagents, hooks, MCP server configs (+ LSP servers, background monitors, themes, a slice of `settings.json`). **One version, one install**
+- Install directly by name (`/plugin install org@name`) or, for a team, **add a private marketplace once** (`/plugin marketplace add`) so every install resolves through it — central discovery, version tracking, updates
+- ⚠️ **Read before you install:** a plugin **runs code on your machine with your privileges**, and **its hooks fire on every matching tool call** — you get its PreToolUse/Stop hooks whether you read them or not
+- **Reviewed ≠ trusted:** automated review catches *some* things; install plugins / add marketplaces **only from sources you truly trust**
+- Plugin components **run alongside yours** (don't overwrite): **hooks stack**, skills/agents/commands are **namespaced**, and only **two `settings.json` keys** are honored
+- **Package your own** with the **same `.claude` shape** + an optional **`.claude-plugin/plugin.json`** manifest (only **`name`** is required)
+
+---
+
+### 📦 What a Plugin Is
+
+A plugin is **one installable unit.** It bundles everything you'd otherwise share by hand:
+
+| Core | Longer tail |
+|------|-------------|
+| **Skills** · **subagents** · **hooks** · **MCP server configs** | LSP (language server protocol) servers · background monitors · themes · a slice of `settings.json` |
+
+> **One version, one install.**
+
+**Where the plugin lives decides how you install it.** Inside a session, install one directly by name:
+
+```text
+/plugin install org-name@plugin-name
+```
+
+> Claude Code installs it and tells you to run **`/reload-plugins`** to apply the change.
+
+---
+
+### 🏪 Adding a Marketplace for Your Team
+
+For a team, the better move is to **add a private marketplace once.** A **marketplace** is a shared source that plugins resolve through:
+
+```text
+/plugin marketplace add your-org/claude-plugins
+```
+
+- Call it whatever you want. Once added, **every install after that resolves through it** → **centralized discovery, version tracking, and updates in one place** instead of scattered across everyone's laptops.
+- Browse what's available from the **Discover tab** — it lists the plugins on your marketplaces so you can search and pick.
+
+---
+
+### 🔍 Read Before You Install
+
+**The part that matters most.** A plugin **runs code on your machine, with your privileges.** Its **hooks fire on every matching tool call.** So if you install a plugin for its **skills**, you also get its **PreToolUse and Stop hooks** — whether you read them or not.
+
+> ⚠️ A community plugin could ship a **Stop hook that calls a network endpoint every time**, and nothing in your configuration would warn you. **That's not a reason to avoid plugins — it's a reason to look first.**
+
+**Before you install, check the plugin's details.** Claude Code shows:
+- **What it will install**
+- An **estimate of the context cost**
+- A plain warning that **Anthropic doesn't control what's inside third-party plugins**
+
+#### Where plugins come from
+
+| Source | How it's reviewed |
+|--------|-------------------|
+| 🧑‍🤝‍🧑 **Community marketplace** | The in-app **submission form** posts here **after Anthropic's automated review** |
+| ⭐ **Official marketplace** | **Curated on its own separate track** |
+
+> ⚠️ **But reviewed isn't the same as trusted.** Automated review catches some things, not everything. **The rule stands:** install plugins and add marketplaces **only from sources you truly trust**, and **check what a plugin actually does** before turning it on.
+
+---
+
+### 🧩 Components Run Alongside Yours
+
+A plugin **doesn't overwrite your configuration** — its components **run alongside your own.** Mostly good, but with consequences:
+
+| Behavior | What it means |
+|----------|---------------|
+| 🪝 **Hooks stack** | A plugin's PreToolUse and your own PreToolUse **both fire** on every tool call — **neither replaces the other** (exactly why you read the details first) |
+| 🏷️ **Namespaced** | Skills, agents, and commands are **namespaced under the plugin name**, so they **never clash** with yours |
+| ⚙️ **Narrow `settings.json`** | A plugin can ship a `settings.json`, but Claude Code honors **only two keys**: the **agent** and **subagent status line** keys |
+
+> ⚠️ **That `agent` key is worth a pause.** Setting it **promotes one of the plugin's subagents to the main thread** — along with its **system prompt, tool restrictions, and model.** In other words, enabling the plugin **can change how Claude Code behaves by default.** One of the main reasons to **look before you even turn it on.**
+
+> 💡 Once installed, you can **see everything a plugin added, manage it, and uninstall it** from the **plugin panel.**
+
+> 🔗 These components are the ones from earlier chapters/courses — skills ([Ch 3](#chapter-3-verification-skills)), hooks ([Ch 5](#chapter-5-hooks)), subagents & MCP ([Claude Code 101, Ch 9 & 11](../claude-code-101/README.md)) — now **bundled and shippable** (my mapping).
+
+---
+
+### 🛠️ Packaging Your Own Plugin
+
+Once you've built a `.claude` directory that works, **don't make your team copy-paste it — package it.** You **don't have to restructure anything**: a plugin uses the **same `.claude` shape you already use.**
+
+| Component | Where it lives |
+|-----------|----------------|
+| **Skills** | **One folder per skill** |
+| **Subagents** | **One markdown file per subagent** under `agents` |
+| **Hooks / MCP** | **`hooks/hooks.json`** and **`.mcp.json`** at the **plugin root** |
+
+> **The directory structure does most of the work** — Claude Code **discovers components by convention.**
+
+#### The manifest (optional)
+
+On top of that, an **optional manifest** at **`.claude-plugin/plugin.json`** holds the **name, version, description, and author:**
+
+```json
+{
+  "name": "svg-splitter-review",
+  "version": "0.1.0",
+  "description": "Reviews the SVG Splitter repo",
+  "author": {
+    "name": "Lewis Menelaws"
+  }
+}
+```
+
+- **Leave it out** and Claude Code **still discovers your components** by directory convention. But:
+
+| Field | Why it matters |
+|-------|----------------|
+| **`name`** | The **only required field.** It **namespaces your skills** as **`company-name:skill-name`**, keeping them from colliding with anyone else's |
+| **`version`** | Version it like any other dependency — that's what makes **updates and version tracking** work across your team |
+
+---
+
+### 🔁 Recap (The Takeaway)
+
+Two simple rules cover most of this:
+
+1. **When you use plugins — read before you install.** A plugin runs **code with your privileges**, so look at its **hooks, agents, and MCP servers** first.
+2. **When you build one — package your `.claude` the moment it works.** One manifest, one install.
+
+> **One installable unit, and the setup you trust reaches your entire team.**
+
+### 📝 Quick Reference: Plugins (for exam prep)
+
+| Concept | Key point |
+|---------|-----------|
+| 📦 **Plugin** | **One installable unit**: skills + subagents + hooks + MCP (+ LSP, monitors, themes, slice of `settings.json`) |
+| ⬇️ **Install** | `/plugin install org@name` → then **`/reload-plugins`** |
+| 🏪 **Marketplace** | `/plugin marketplace add org/repo` **once** → central discovery, versioning, updates; browse via **Discover tab** |
+| ⚠️ **Read first** | Runs **code with your privileges**; **hooks fire on every matching tool call** (you get its PreToolUse/Stop too) |
+| 🧐 **Before install** | Claude shows **what it installs**, **context-cost estimate**, and a **third-party warning** |
+| 🧑‍🤝‍🧑 **Sources** | Community marketplace = **submission form after automated review**; official = **curated separate track**; **reviewed ≠ trusted** |
+| 🪝 **Hooks stack** | Plugin's + yours both fire; neither replaces the other |
+| 🏷️ **Namespaced** | Skills/agents/commands namespaced under plugin name → **no clashes** |
+| ⚙️ **settings.json** | Only **two keys** honored: **agent** + **subagent status line**; the **`agent` key can change default behavior** |
+| 🛠️ **Build** | Same `.claude` shape (skill folders, `agents/*.md`, `hooks/hooks.json`, `.mcp.json`) — discovered by convention |
+| 📄 **Manifest** | `.claude-plugin/plugin.json` (optional); **`name` required** (namespaces as `company:skill`); **version** for updates |
+
+> 🎓 **Memory tip:** two rules — **"Read before you install · Package the moment it works."** Components **S-A-N**: **S**tack (hooks), **A**lias/namespace (skills/agents), **N**arrow settings (2 keys). Manifest lives at **`.claude-plugin/plugin.json`**, only **`name`** required.
+
+**Key features for exam:**
+- A **plugin = one installable unit** bundling skills, subagents, hooks, and MCP configs (plus LSP servers, monitors, themes, a slice of `settings.json`).
+- Install with **`/plugin install org@name`** (then **`/reload-plugins`**); for teams, **`/plugin marketplace add org/repo`** once → central discovery/versioning/updates; browse via the **Discover tab**.
+- **Read before you install:** a plugin **runs code with your privileges** and its **hooks fire on every matching tool call**; Claude shows what it installs, a **context-cost estimate**, and a **third-party warning**. **Reviewed ≠ trusted.**
+- Components **run alongside** yours: **hooks stack**, skills/agents/commands are **namespaced**, and only **two `settings.json` keys** are honored (**agent** + **subagent status line**) — the **`agent` key can change default behavior**.
+- **Package your own** with the **same `.claude` shape** (skill folders, `agents/*.md`, `hooks/hooks.json`, `.mcp.json`) + optional **`.claude-plugin/plugin.json`** manifest where **`name` is the only required field** (namespaces skills as `company:skill`) and **version** enables updates.
