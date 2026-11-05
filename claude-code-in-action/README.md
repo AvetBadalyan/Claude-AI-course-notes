@@ -12,7 +12,7 @@
 | 🗂️ **Configure Claude** | [Ch 2: A CLAUDE.md That Follows](#chapter-2-a-claudemd-that-follows) · [Ch 3: Verification Skills](#chapter-3-verification-skills) · [Ch 4: Permission Modes](#chapter-4-permission-modes) · [Ch 5: Hooks](#chapter-5-hooks) | ✅ |
 | 🗂️ **Automate Repeat Work** | [Ch 6: Routines and Headless](#chapter-6-routines-and-headless) · [Ch 7: GitHub Actions and Code Review](#chapter-7-github-actions-and-code-review) | ✅ |
 | 🗂️ **Verify and Share** | [Ch 8: Trust It — Verifying Unsupervised Runs](#chapter-8-trust-it--verifying-unsupervised-runs) · [Ch 9: Plugins](#chapter-9-plugins) | ✅ |
-| 🗂️ **Quiz** | Course quiz | 🔲 |
+| 🗂️ **Quiz** | Course quiz | ✅ |
 
 > **Annotation guide for these notes:** 📌 = my own reading from screenshots/context — **not stated in the lesson text itself**. 🔗 = my cross-reference between chapters — **my mapping, not the lesson's wording**. For exam prep, focus on the **📝 Quick Reference** tables and **Key features for exam** bullet lists at the end of each chapter.
 
