@@ -10,7 +10,7 @@
 |------|----------|:------:|
 | 🗂️ **Steer the Work** | [Ch 1: Steering Long Sessions](#chapter-1-steering-long-sessions) | ✅ |
 | 🗂️ **Configure Claude** | [Ch 2: A CLAUDE.md That Follows](#chapter-2-a-claudemd-that-follows) · [Ch 3: Verification Skills](#chapter-3-verification-skills) · [Ch 4: Permission Modes](#chapter-4-permission-modes) · [Ch 5: Hooks](#chapter-5-hooks) | ✅ |
-| 🗂️ **Automate Repeat Work** | [Ch 6: Routines and Headless](#chapter-6-routines-and-headless) · Ch 7: GitHub Actions and Code Review | � |
+| 🗂️ **Automate Repeat Work** | [Ch 6: Routines and Headless](#chapter-6-routines-and-headless) · [Ch 7: GitHub Actions and Code Review](#chapter-7-github-actions-and-code-review) | ✅ |
 | 🗂️ **Verify and Share** | Ch 8: Trust It — Verifying Unsupervised Runs · Ch 9: Plugins | 🔲 |
 | 🗂️ **Quiz** | Course quiz | 🔲 |
 
@@ -991,3 +991,173 @@ The last step on the spectrum. A **library** that embeds Claude Code inside your
 - **Structured output:** `--output-format json` + `--json-schema`; result lands in **`structured_output`**.
 - **`--resume "<session_id>"`** chains multi-step runs; **`--bare`** gives **deterministic** CI output.
 - **Agent SDK** (TS/Python) embeds Claude Code via a **`query`** function with the **same primitives as the CLI**.
+
+---
+
+> 🗂️ **Unit 3: Automate Repeat Work** · Chapter 7
+
+## Chapter 7: GitHub Actions and Code Review
+
+> 🎬 **Video: GitHub Actions and Code Review.** The best place to hand off repetitive work is the **pull request** — where review happens, changes land, and busywork lives. Two ways to put Claude to work here, solving different problems: a **managed service you turn on** (Code Review) and a **GitHub Action you wire up yourself**.
+
+### 🎯 Learning Objectives
+
+- Enable the managed **Code Review** service and know its boundaries
+- Apply a finding locally with **`/code-review --fix`**
+- Set up and tune the **GitHub Action** (`anthropics/claude-code-action@v1`)
+- Write workflows for **`@claude` mentions** and **cron**, and know **which path to pick**
+
+### 🧠 Key Takeaways
+
+- **Two paths at the PR:** **Code Review** (managed, Anthropic-hosted) vs the **GitHub Action** (DIY custom CI)
+- **Code Review** posts findings as **inline comments** on the exact lines, **tagged by severity**, with a **summary table** — reviews the diff against your **full codebase**, then **dedupes and ranks**
+- Code Review **never approves or blocks** the PR (a human decides), **has no managed autofix**, and is a **research preview** (team + enterprise)
+- Apply a finding locally: **`/code-review`** reviews a diff; its **`--fix`** flag applies findings to your working tree
+- The **GitHub Action** = `anthropics/claude-code-action@v1`; set it up with **`/install-github-app`** (needs **repo admin**)
+- Action **triggers:** `@claude` mentions (default `trigger_phrase`), scheduled jobs, any GitHub event
+- All run **tuning lives in `claude_args`** (e.g. `--max-turns`, permission mode, allowed tools)
+
+---
+
+### 🅰️ The Managed Path: Code Review
+
+The simplest option. An **Anthropic-hosted service** that reviews your PRs through the **Claude GitHub app** — **nothing to build or host.** Turn it on and it posts findings as **inline comments** on the lines that matter.
+
+#### 🔧 Enabling it
+
+An **organization admin** enables it from **Claude Code admin settings** → a **Code review** section with a **Configure** button. From there the admin:
+
+| Step | Detail |
+|------|--------|
+| 1️⃣ | **Installs the Claude GitHub app** |
+| 2️⃣ | **Picks which repos** it watches |
+| 3️⃣ | **Decides when it runs** (timing below) |
+
+![The "Add a repository" modal in Code Review settings — a repo picker (lewisatant/batch-render checked, lewisatant/svg-splitter listed) with Cancel and Continue, warning that enabling review can increase spend](assets/L7-github-actions-code-review/code-review-add-repo.png)
+
+**When it runs:**
+
+| Timing | |
+|--------|--|
+| 🆕 **Once when a PR opens** | |
+| 🔁 **On every push to the PR** | |
+| 💬 **Only when someone comments `@claude review`** | |
+
+> 📌 *From the screenshot:* the repo picker warns that **enabling code review for repositories can significantly increase spend** — a cost note worth remembering, though not stressed in the lesson text (my reading).
+
+#### ⚙️ How it works
+
+Once on, everything runs on **Anthropic's infrastructure.** A set of **review agents** analyzes the diff **against your full codebase** (not just the changed lines in isolation), then posts findings as **inline comments** on the specific lines, **tagged by severity**, with a **summary table** in the check run.
+
+> 💡 **It dedupes and ranks** the findings — so instead of a wall of nitpicks, you read a **handful of real issues** worth your attention. Each finding lands as a comment from Claude, right on the line, with a **clear explanation and a suggested fix.**
+
+#### 🚧 What Code Review will and won't do
+
+| ❌ Won't | Detail |
+|---------|--------|
+| **Approve or block** the PR | The **judgment call stays with a human** — Claude flags, you decide |
+| **Managed autofix** | The service **posts findings only** |
+| **Stable** | It's a **research preview** (team + enterprise) — behavior keeps moving |
+
+#### 🩹 Applying a finding (local move)
+
+Since there's **no autofix in the service**, applying a finding is **local**:
+
+| Command | What it does |
+|---------|--------------|
+| **`/code-review`** | Reviews a diff **from your own terminal** |
+| **`/code-review --fix`** | **Applies the findings to your working tree** |
+
+> 🔁 **The flow:** Claude **finds** it in the PR → you **pull it down and fix** it locally with `--fix`.
+
+---
+
+### 🅱️ The Do-It-Yourself Path: the GitHub Action
+
+When the job goes **beyond review**, reach for the **GitHub Action** — custom CI: implementing changes from a comment, running scheduled reports, anything you'd write a workflow for. It runs the agent on **PR comments, scheduled jobs, and any GitHub event.**
+
+#### 🔧 Setup
+
+Starts **inside Claude Code**: run **`/install-github-app`** (needs **repo admin**). The slash command walks you through installing the GitHub app and **setting the Anthropic API key secret** on the repo.
+
+#### 📥 The action and its inputs
+
+The action is **`anthropics/claude-code-action@v1`**. Inputs you'll actually use:
+
+| Input | Purpose |
+|-------|---------|
+| `anthropic_api_key` | Optional |
+| `github_token` | Defaults to `secrets.GITHUB_TOKEN` |
+| `trigger_phrase` | What it listens for in comments — **defaults to `@claude`** |
+| `use_bedrock` / `use_vertex` | Switch to those providers if you're on Bedrock or Vertex |
+| `prompt` | The instruction for the run |
+| `claude_args` | A string of **CLI arguments passed straight through** to Claude Code |
+
+![A YAML snippet using anthropics/claude-code-action@v1 with inputs anthropic_api_key, github_token, trigger_phrase "@claude", use_bedrock/use_vertex "true", prompt, claude_args "--max-turns 5 --model claude-sonnet-5", plugin_marketplaces, and plugins "code-review@claude-code-plugins"](assets/L7-github-actions-code-review/action-workflow-yaml.png)
+
+> 📌 *From the screenshot:* the demo `with:` block also shows **`plugin_marketplaces`** and **`plugins: "code-review@claude-code-plugins"`** inputs (not covered in the lesson text) — tying the action to **plugins**, covered in [Chapter 9](#chapter-9-plugins) (my reading / cross-reference).
+
+#### 💬 A workflow that responds to `@claude`
+
+Drop a workflow into **`.github/workflows/claude.yaml`** and it listens for **`@claude`** on PR and issue comments. The core step:
+
+```yaml
+- uses: anthropics/claude-code-action@v1
+  with:
+    anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+    trigger_phrase: "@claude"
+    prompt: "Your instructions here"
+    claude_args: "--max-turns 5 --model claude-sonnet-5"
+```
+
+> Someone writes **`@claude implement the spec in the linked Linear issue`** on a PR → the action picks it up, **pushes commits**, and **posts comments** describing what it did.
+
+#### ⏰ A workflow that runs on a schedule
+
+The same action works for a **daily rollup**: a **cron** trigger fires at e.g. `9:00 UTC`, the action runs, and Claude **posts the results.** Add a **`workflow_dispatch`** trigger to also kick it off **manually from the Actions tab**. You can **watch it work through the steps** in the Actions tab like any GitHub workflow.
+
+#### 🎛️ Tuning the run with `claude_args`
+
+| Knob | What it does |
+|------|--------------|
+| `--max-turns 5` | **Hard cap** on the agent loop — it can't run forever |
+| **Permission mode** | For an unattended job, set it to **not stop and ask** (no one's there to answer) — see [Ch 4](#chapter-4-permission-modes) |
+| **Allowed tools** | Give the job **exactly what it needs and nothing more** — for a report, **read-only** |
+
+---
+
+### 🔁 Recap (Which One Should You Use?)
+
+| Path | Reach for it when… |
+|------|--------------------|
+| 🅰️ **Code Review (managed)** | **PR reviews** — enable it, let the GitHub app post inline findings, apply fixes locally with **`/code-review --fix`** |
+| 🅱️ **GitHub Action** | The job is **more than review** — `/install-github-app` to set up, one workflow for `@claude`, one for cron, all tuning in **`claude_args`** |
+
+> **Start with the managed service. Move to the action the moment you need Claude to actually *do* something in CI, not just comment on it.**
+
+### 📝 Quick Reference: GitHub Actions and Code Review (for exam prep)
+
+| Concept | Key point |
+|---------|-----------|
+| 🅰️ **Code Review** | Managed, **Anthropic-hosted**; reviews PRs via the **Claude GitHub app**; nothing to host |
+| 💬 **Output** | **Inline comments** on exact lines, **tagged by severity**, **summary table**; reviews diff vs **full codebase**; **dedupes + ranks** |
+| 🔧 **Enable** | **Org admin** → Claude Code admin settings → **Code review → Configure** → install app, pick repos, set timing |
+| ⏰ **Timing** | PR open · every push · `@claude review` comment |
+| 🚫 **Won't** | **Never approves/blocks** (human decides) · **no managed autofix** · **research preview** (team + enterprise) |
+| 🩹 **Local fix** | **`/code-review`** reviews a diff; **`--fix`** applies findings to your working tree |
+| 🅱️ **Action** | **`anthropics/claude-code-action@v1`**; setup via **`/install-github-app`** (repo admin) |
+| 📥 **Key inputs** | `trigger_phrase` (default `@claude`) · `prompt` · `claude_args` · `github_token` (default `GITHUB_TOKEN`) · `use_bedrock`/`use_vertex` |
+| 📄 **Workflows** | `.github/workflows/claude.yaml` for `@claude`; **cron** for rollups; `workflow_dispatch` for manual |
+| 🎛️ **`claude_args`** | `--max-turns` (cap loop) · permission mode (don't-ask for unattended) · allowed tools (read-only for reports) |
+
+> 🎓 **Memory tip:** **Review = managed** (`/code-review --fix` is the only fix, and it's local). **More-than-review = Action** (`@claude` + cron, tuned by `claude_args`). Code Review's three "won'ts": **no approve/block · no autofix · preview-only.**
+
+**Key features for exam:**
+- **Code Review** is **managed/Anthropic-hosted**, posts **inline comments by severity** with a **summary table**, reviews against the **full codebase**, and **dedupes + ranks** findings.
+- Code Review **never approves or blocks** (human decides), has **no managed autofix**, and is a **research preview** on **team + enterprise**.
+- Apply findings **locally** with **`/code-review --fix`** (the service only comments).
+- The **GitHub Action** is **`anthropics/claude-code-action@v1`**, set up via **`/install-github-app`** (needs repo admin).
+- Action inputs: **`trigger_phrase`** (default `@claude`), **`prompt`**, **`claude_args`**, `github_token` (default `GITHUB_TOKEN`), `use_bedrock`/`use_vertex`.
+- Workflows: **`@claude`** mentions in `.github/workflows/claude.yaml`, **cron** for scheduled rollups, **`workflow_dispatch`** for manual runs.
+- **Tune in `claude_args`:** `--max-turns` caps the loop, set a **don't-ask permission mode** for unattended jobs, and grant **only the tools needed** (read-only for reports).
