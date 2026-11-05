@@ -9,7 +9,7 @@
 | Unit | Chapters | Status |
 |------|----------|:------:|
 | 🗂️ **Steer the Work** | [Ch 1: Steering Long Sessions](#chapter-1-steering-long-sessions) | ✅ |
-| 🗂️ **Configure Claude** | [Ch 2: A CLAUDE.md That Follows](#chapter-2-a-claudemd-that-follows) · [Ch 3: Verification Skills](#chapter-3-verification-skills) · Ch 4: Permission Modes · Ch 5: Hooks | 🚧 |
+| 🗂️ **Configure Claude** | [Ch 2: A CLAUDE.md That Follows](#chapter-2-a-claudemd-that-follows) · [Ch 3: Verification Skills](#chapter-3-verification-skills) · [Ch 4: Permission Modes](#chapter-4-permission-modes) · Ch 5: Hooks | 🚧 |
 | 🗂️ **Automate Repeat Work** | Ch 6: Routines and Headless · Ch 7: GitHub Actions and Code Review | 🔲 |
 | 🗂️ **Verify and Share** | Ch 8: Trust It — Verifying Unsupervised Runs · Ch 9: Plugins | 🔲 |
 | 🗂️ **Quiz** | Course quiz | 🔲 |
@@ -499,3 +499,133 @@ A skill is a **folder with a `skill.md`** inside it: a **name**, a **description
 - **Only skill descriptions load** into context until needed → no cost to packaging every repeated procedure.
 - Three surfaces: **CLAUDE.md = conventions · Skills = task procedures · Hooks = rules that can't be skipped.**
 - Commit the skill to **`.claude/skills`** so the **whole team** inherits it.
+
+---
+
+> 🗂️ **Unit 2: Configure Claude** · Chapter 4
+
+## Chapter 4: Permission Modes
+
+> 🎬 **Video: Permission Modes.** Permission modes let you **decide once** what Claude is allowed to run without stopping to ask. Instead of approving every action one prompt at a time, you pick a **mode that matches the job** and let Claude work at the level of trust you're comfortable with.
+
+### 🎯 Learning Objectives
+
+- Know the **six permission modes** and the line each one draws
+- Cycle the everyday modes with **Shift + Tab** and read the status bar
+- Understand how **auto mode** works and what its **classifier** can and can't do
+- Pair auto mode with a **stop hook**, and pick **don't ask** for unattended runs
+
+### 🧠 Key Takeaways
+
+- A permission mode **decides once** what runs freely vs. what needs your sign-off
+- **Six modes:** `manual` · `acceptEdits` · `plan` · `auto` · `dontAsk` · `bypassPermissions`
+- **Shift + Tab cycles the everyday ones:** manual → accept edits → plan → **auto**; the **status bar** always shows the current mode
+- **Auto** is the hands-off mode: a **separate classifier model reviews each action before it runs**, guarding **intent** (blocking escalation beyond what you asked)
+- The **classifier checks intent, not correctness** — it won't catch broken code, because *broken isn't dangerous*. So **pair auto with a stop hook that runs your tests**
+- **Don't ask** is for **unattended runs** (CI, scheduled jobs, overnight batches): only pre-approved tools run, everything else is **auto-denied with no prompt**
+- **Bypass permissions** skips all checks (= the `--dangerously-skip-permissions` flag) — **only inside an isolated container or VM**
+
+---
+
+### 🎛️ The Six Permission Modes
+
+Each mode draws a different line between what runs freely and what needs your sign-off.
+
+![Six-mode grid illustration labeled manual, acceptEdits, plan, auto, dontAsk, bypassPermissions — bypassPermissions shown with a red stop sign](assets/L4-permission-modes/six-permission-modes.png)
+
+| Mode | What runs without asking | Everything else |
+|------|--------------------------|-----------------|
+| ✋ **`manual`** | **Reads only**, without prompting | **Asks first** |
+| ⚡ **`acceptEdits`** | Reads, **file edits**, and **common file-system bash commands** | For iterating on code you **review after the fact** |
+| 🔵 **`plan`** | **Reads only** — researches and **proposes** changes without editing | — |
+| 🤖 **`auto`** | **Accepts everything**, but a **separate classifier model reviews each action** before it runs | Classifier may block |
+| 🔕 **`dontAsk`** | Only **pre-approved tools** | Everything else is **auto-denied, no prompt** |
+| ☠️ **`bypassPermissions`** | **Skips all checks** (= `--dangerously-skip-permissions`) | ⚠️ **Only inside an isolated container / VM** |
+
+> 🔗 You've already met the first three — `manual`, `acceptEdits`, and `plan` — as the everyday hands-on modes ([Claude Code 101, Ch 2 & 4](../claude-code-101/README.md), where they were called **Default / Auto-accept / Plan**). The remaining three (`auto`, `dontAsk`, `bypassPermissions`) are where **hands-off Claude Code** lives, and the one to reach for there is **`auto`** (my mapping — this is the course that finally names all six).
+
+---
+
+### 🔀 Cycling with Shift + Tab
+
+You don't need to memorize a command for each mode. **Press Shift + Tab** to cycle through the everyday ones:
+
+```text
+manual  →  accept edits  →  plan  →  auto
+```
+
+- The **status bar at the bottom always shows which mode you're in** — glance down and you know exactly what Claude is allowed to do.
+
+---
+
+### 🤖 How Auto Mode Works
+
+**Auto** is the hands-off mode. Claude runs on its own, but **before each action executes, a separate classifier model reviews it.** The classifier **guards intent** — it watches for moves that **escalate beyond what you actually asked for.**
+
+![A small and a large crab beside a list of actions the auto-mode classifier is designed to block: Production deploys, Migrations, Force pushing, Piping downloaded code, Sending sensitive data, Destroying files](assets/L4-permission-modes/auto-classifier-blocks.png)
+
+| 🚫 Classifier is designed to **block** | ✅ Classifier **waves through** |
+|---------------------------------------|--------------------------------|
+| Production **deploys** and **migrations** | **Local edits** in your project |
+| **Force pushing**, or piping downloaded code straight into a shell | Installing dependencies **from your lock file** |
+| Sending **sensitive data** to external endpoints | **Read-only** requests |
+| **Destroying files** that exist for the session | Pushing to **your own branch** |
+
+> ⚠️ **Auto mode's guardrails are still evolving** — check the docs for the current **block and allow lists.**
+
+#### 🧩 What the classifier can't do — pair it with a stop hook
+
+The classifier checks **intent, not correctness.** It won't catch whether the code actually **works**: ask Claude to refactor authentication and it writes **broken** auth, the classifier **waves it through** — because *broken isn't dangerous.*
+
+That's why you **pair auto mode with a stop hook that runs your tests:**
+
+| Guardrail | When | Guards |
+|-----------|------|--------|
+| 🤖 **Auto mode classifier** | **Before** each action, while Claude runs | **Intent** |
+| 🛑 **Stop hook** (runs your tests) | **After** Claude finishes | **Correctness** |
+
+> 🔗 One guards intent **before** each action, the other guards correctness **after** — the same "verify with gates" idea as the verification skill in [Chapter 3](#chapter-3-verification-skills), here enforced by a **hook** so it can't be skipped ([Chapter 2](#chapter-2-a-claudemd-that-follows)). Stop hooks: [Claude Code 101, Ch 12](../claude-code-101/README.md) (my mapping).
+
+---
+
+### 🔕 Don't Ask — for Unattended Runs
+
+**`dontAsk`** is the right move whenever **no human is around to approve prompts**: CI pipelines, scheduled jobs, overnight batches.
+
+- Only **pre-approved tools** are allowed; anything off that list is **auto-denied with no prompt.**
+- **That's the whole point:** your pipeline **keeps moving** instead of hanging on an approval no one is there to give.
+
+---
+
+### 🔁 Recap (Match the Mode to the Job)
+
+There are several permission modes, and you reach the everyday ones by cycling **Shift + Tab**. To sum it up:
+
+- **`auto`** is the hands-off mode — the **classifier checks intent before** each action, and a **stop hook checks correctness after.**
+- **`dontAsk`** covers **unattended pipelines** where no one is there to approve.
+- **`bypassPermissions`** belongs **only inside isolated containers and VMs.**
+
+> Pick the mode that fits what you're doing, and let Claude run at that level.
+
+### 📝 Quick Reference: Permission Modes (for exam prep)
+
+| Mode | One-liner |
+|------|-----------|
+| ✋ **`manual`** | Reads only without prompting; **everything else asks first** |
+| ⚡ **`acceptEdits`** | Auto-runs reads + **file edits** + common FS bash commands; review after |
+| 🔵 **`plan`** | **Reads only** — proposes changes, edits nothing |
+| 🤖 **`auto`** | Accepts everything, but a **classifier reviews each action** (guards **intent**) |
+| 🔕 **`dontAsk`** | Only **pre-approved tools**; everything else **auto-denied, no prompt** (unattended runs) |
+| ☠️ **`bypassPermissions`** | Skips **all** checks (= `--dangerously-skip-permissions`); **container/VM only** |
+| 🔀 **Shift + Tab** | Cycles the everyday four: manual → accept edits → plan → auto; **status bar shows current mode** |
+| 🧩 **Classifier limit** | Checks **intent, not correctness** → pair auto with a **stop hook** that runs tests |
+
+> 🎓 **Memory tip:** order = **M-A-P-A-D-B** (**M**anual, **A**cceptEdits, **P**lan, **A**uto, **D**ontAsk, **B**ypassPermissions). First four cycle on **Shift + Tab**. Auto = **intent before, stop-hook correctness after.**
+
+**Key features for exam:**
+- **Six modes:** `manual`, `acceptEdits`, `plan`, `auto`, `dontAsk`, `bypassPermissions`.
+- **Shift + Tab** cycles the everyday four (manual → accept edits → plan → auto); the **status bar** shows the current mode.
+- **Auto mode:** a **separate classifier model reviews each action before it runs**, guarding **intent** (blocks deploys, migrations, force pushes, piping downloaded code to a shell, exfiltrating data, destroying session files).
+- The classifier checks **intent, not correctness** → **pair auto with a stop hook** that runs your tests (intent before / correctness after).
+- **`dontAsk`** = unattended pipelines: only pre-approved tools, everything else **auto-denied with no prompt**.
+- **`bypassPermissions`** = `--dangerously-skip-permissions`; **only in an isolated container/VM**.
