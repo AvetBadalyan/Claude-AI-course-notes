@@ -10,7 +10,7 @@
 |------|----------|:------:|
 | 🗂️ **Steer the Work** | [Ch 1: Steering Long Sessions](#chapter-1-steering-long-sessions) | ✅ |
 | 🗂️ **Configure Claude** | [Ch 2: A CLAUDE.md That Follows](#chapter-2-a-claudemd-that-follows) · [Ch 3: Verification Skills](#chapter-3-verification-skills) · [Ch 4: Permission Modes](#chapter-4-permission-modes) · [Ch 5: Hooks](#chapter-5-hooks) | ✅ |
-| 🗂️ **Automate Repeat Work** | Ch 6: Routines and Headless · Ch 7: GitHub Actions and Code Review | 🔲 |
+| 🗂️ **Automate Repeat Work** | [Ch 6: Routines and Headless](#chapter-6-routines-and-headless) · Ch 7: GitHub Actions and Code Review | � |
 | 🗂️ **Verify and Share** | Ch 8: Trust It — Verifying Unsupervised Runs · Ch 9: Plugins | 🔲 |
 | 🗂️ **Quiz** | Course quiz | 🔲 |
 
@@ -804,3 +804,190 @@ Hooks turn a rule Claude **usually** follows into one it **always** follows. Rea
 - **Exit 0 plain-text reaches context only on SessionStart / UserPromptSubmit / UserPromptExpansion** (the state-preserver trick).
 - **PostToolUse is too late to stop a call**; **Notification & SessionStart ignore blocking**.
 - **Re-inject context after compaction with SessionStart + `compact` matcher**, NOT PostCompact.
+
+---
+
+> 🗂️ **Unit 3: Automate Repeat Work** · Chapter 6
+
+## Chapter 6: Routines and Headless
+
+> 🎬 **Video: Routines and Headless.** Once you **trust** Claude to do a task, the next move is to **stop doing it by hand.** If it's the **same prompt on a recurring trigger**, you shouldn't have to kick it off yourself every time. Two ways to hand that work off: **routines** (you build nothing) and **headless mode** (full control from your own scripts).
+
+### 🎯 Learning Objectives
+
+- Place automation options on a **spectrum** from "build nothing" to "full control"
+- Create and rely on **routines** (and know their three limits)
+- Run **headless mode** with `-p`, get **structured output**, and chain **sessions**
+- Pick between **routines · headless `-p` · `--bare` · the Agent SDK**
+
+### 🧠 Key Takeaways
+
+- Think of it as a **spectrum**: **routines** (Anthropic's managed infra) → **headless mode / Agent SDK** (run from your own code). **Start where you build the least.**
+- A **routine** = a saved **prompt + repo + connectors** that runs **in the cloud** on a **schedule**. No script, no server, nothing of yours to host
+- **Triggers:** a **cron schedule** · an **HTTP POST** to its API · a **GitHub event**
+- **Create a routine** two ways: the web (**claude.ai/code/routines**) or **`/schedule`** inside Claude Code
+- **Three limits:** **research preview** · **at most hourly** · each run starts from a **fresh clone of the default branch** and can only push to **`claude/`-prefixed branches** (unless loosened per repo)
+- **Headless mode** = the **`-p` / `--print`** flag: a **one-shot**, non-interactive run that **pipes** like any shell tool. `-p` **skips auto-discovery** of hooks/skills/plugins/MCP/CLAUDE.md → faster startup
+- **Structured output:** `--output-format json` + `--json-schema` → the object lands in **`structured_output`**
+- **`--bare`** = **deterministic mode** for CI (repeatable output); the **Agent SDK** embeds Claude Code in your own TS/Python app
+
+---
+
+### 📈 The Spectrum: Build the Least First
+
+| | 🟪 **Routines** | 🟦 **Headless `-p`** | 🟩 **`--bare`** | 🟫 **Agent SDK** |
+|---|---|---|---|---|
+| **Runs on** | **Anthropic's** infra (cloud) | Your pipeline | Your CI | Inside your product |
+| **You host** | Nothing | A script | A pipeline | Your app |
+| **Reach for when** | **Default** for repeat work | Job needs your env / pipe data through a script | CI needs the **same results every run** | Work belongs **inside your own product** |
+
+> 💡 **Start with routines. Drop down the spectrum only when the job actually needs the extra control.**
+
+---
+
+### ☁️ Routines: A Saved Prompt That Runs in the Cloud
+
+A routine is the **most direct** way to automate a task — **no script, no server.** It bundles **three things** and runs them in the cloud whenever triggered:
+
+| Bundled | |
+|---------|--|
+| 📝 **A prompt** | What Claude should do each session |
+| 📁 **The repository** | What it works on |
+| 🔌 **Connectors** | Anything the job needs |
+
+- **The infrastructure is Anthropic's** — no machine of yours staying on overnight, no workflow file to maintain. **You describe the job once and it just runs.**
+
+#### ⏰ Triggers
+
+| Trigger | Example |
+|---------|---------|
+| 🕘 **Cron schedule** | Every morning at 9am |
+| 🌐 **HTTP POST** to its API endpoint | Your own code kicks it off |
+| 🐙 **GitHub event** | A new pull request landing |
+
+> **Good fits** (same prompt on a recurring trigger): a **morning dependency audit** · a **PR triager** that fires on a new PR · a **daily Sentry scan** to find the most urgent tickets.
+
+> 🧠 **Mental model** — a routine ties together: **prompt + repo + connectors + schedule.**
+
+#### 🛠️ Two Ways to Create One
+
+| Entry point | How |
+|-------------|-----|
+| 🌐 **Web** | **claude.ai/code/routines** — name it, write instructions, pick a repository, choose a trigger |
+| ⌨️ **In Claude Code** | Run **`/schedule`** and describe it in plain language |
+
+```text
+/schedule daily dependency audit at 9am
+```
+
+![A /schedule illustration with six hand-drawn icons — plane, code window with a check, grid, stopwatch, globe, lightning — around the word "/schedule"](assets/L6-routines-headless/schedule-triggers.png)
+
+![Claude Code terminal with "/schedule daily ... audit at 9am" typed at the input, footer "accept edits on"](assets/L6-routines-headless/schedule-command.png)
+
+> 💡 **Same idea, either entry point** — pick whichever fits your flow.
+
+#### ⚠️ Three Things to Know Before You Rely on Routines
+
+![Three stacked bars: "Routines are in research preview", "Routines are maxed at 1 hourly", "Can only push to branches with the claude/ prefix"](assets/L6-routines-headless/routine-limits.png)
+
+| Limit | Detail |
+|-------|--------|
+| 🔬 **Research preview** | Behavior and limits will keep moving — don't be surprised if things change |
+| ⏱️ **At most hourly** | A recurring schedule runs **at most hourly**; need more frequent → routines aren't the tool |
+| 🌿 **`claude/` branches only** | Each run starts from a **fresh clone of your default branch** and can only push to **`claude/`-prefixed branches** (unless loosened per repo) — the guardrail that keeps an autonomous run from **rewriting `main`** |
+
+---
+
+### 🖥️ Headless Mode: When You Need Your Own Environment
+
+Routines are great when the work fits in the cloud. When the job needs **your environment**, or **logic wrapped around the run**, drop to **headless mode.**
+
+The core is the **`-p`** flag (short for **`--print`**). It runs Claude Code as a **one-shot command with no interactive UI** — reads **stdin**, writes **stdout**, so it **pipes like any other shell tool:**
+
+```bash
+claude -p "summarize the changes in this diff"
+```
+
+> ⚡ **Worth knowing:** `-p` **skips auto-discovery** of hooks, skills, plugins, MCP servers, and the CLAUDE.md file. You get **Claude plus the tools you allow explicitly**, and nothing the local environment happens to load — **startup is much faster** this way.
+
+#### 📦 Getting Structured Output Back
+
+Pair a **JSON schema** with the **JSON output format** and Claude constrains its output to match. The matching object lands in the **`structured_output`** field — pull it out with `jq`:
+
+```bash
+claude -p "Extract the exported function names from src/core/style.js" \
+  --output-format json \
+  --json-schema '{"type":"object","properties":{"functions":{"type":"array","items":{"type":"string"}}},"required":["functions"]}' \
+  | jq '.structured_output.functions'
+```
+
+#### 🔗 Multi-Step Automation with Sessions
+
+For work across multiple steps, **capture the session's ID** from the JSON output and **resume** it later:
+
+```bash
+claude --resume "$(jq -r .session_id /tmp/plan.json)"
+```
+
+- **One script kicks off the work; another resumes it later with full context.** Handy when the first pass produces a **plan** and a second pass **carries it out.**
+
+#### 🔁 Deterministic Runs for CI
+
+> **`--bare`** gives you **deterministic mode** — the right choice inside a pipeline when you want **repeatable, predictable output** rather than anything that varies run to run.
+
+---
+
+### 🧰 The Agent SDK: Claude Code Inside Your Own App
+
+The last step on the spectrum. A **library** that embeds Claude Code inside your own **TypeScript or Python** applications.
+
+- Both languages expose a **`query`** function and the **same primitives as the CLI.** You pass a **prompt + options:**
+
+| Option | Controls |
+|--------|----------|
+| `allowedTools` | What Claude can do |
+| a **system prompt** | How it behaves |
+| a **permission mode** | Its level of autonomy ([Ch 4](#chapter-4-permission-modes)) |
+
+- Then you **iterate over the messages** Claude streams back and handle them however your app needs. **Same engine as the CLI, callable from inside your product.**
+
+---
+
+### 🔁 Recap (Which One Should You Reach For?)
+
+| Tool | Reach for it when… |
+|------|--------------------|
+| ☁️ **Routines** | **Default** for repeat work — Anthropic's infra, nothing to host |
+| 🖥️ **Headless `-p`** | The job needs **your pipeline** and you want to **pipe data** through a script |
+| 🔁 **`--bare`** | **CI needs the same results every single run** |
+| 🧰 **Agent SDK** | The work belongs **inside your own product** |
+
+> **Start with routines. Drop down the spectrum only when the job actually needs the extra control.**
+
+> 📌 **Terminology (beyond the course — not on the exam):** the live [Claude Code docs](https://code.claude.com/docs/en/routines) have since **renamed "routines" to "cloud scheduled tasks."** The course teaches **"routines"** — learn that wording for the exam; the rename is just how the current product labels the same feature.
+
+### 📝 Quick Reference: Routines and Headless (for exam prep)
+
+| Concept | Key point |
+|---------|-----------|
+| 📈 **Spectrum** | Routines (managed) → headless `-p` → `--bare` → Agent SDK (your code) |
+| ☁️ **Routine** | Saved **prompt + repo + connectors**, runs **in the cloud** on a **schedule** |
+| ⏰ **Triggers** | **cron** · **HTTP POST** to API · **GitHub event** |
+| 🛠️ **Create** | Web **claude.ai/code/routines** or **`/schedule`** in Claude Code |
+| ⚠️ **3 limits** | **research preview** · **≤ hourly** · **`claude/` branches only** (fresh clone of default branch) |
+| 🖥️ **Headless** | **`-p` / `--print`** = one-shot, no UI, **pipes**; **skips auto-discovery** (hooks/skills/plugins/MCP/CLAUDE.md) → faster |
+| 📦 **Structured output** | `--output-format json` + `--json-schema` → object in **`structured_output`** (grab with `jq`) |
+| 🔗 **Sessions** | Capture **`session_id`**, later `claude --resume "<id>"` |
+| 🔁 **`--bare`** | **Deterministic** mode for CI |
+| 🧰 **Agent SDK** | TS/Python **`query`** + options (`allowedTools`, system prompt, permission mode); stream messages |
+
+> 🎓 **Memory tip:** spectrum = **R-H-B-S** (**R**outines → **H**eadless `-p` → `--**B**are` → Agent **S**DK) = managed → your-code. Routine limits = **"Preview · Hourly · `claude/` only."** Headless mantra: **`-p` prints, skips discovery, pipes.**
+
+**Key features for exam:**
+- **Routine** = cloud-run **prompt + repo + connectors + schedule**; **no script/server to host**.
+- Routine **triggers:** cron schedule · HTTP POST to its API · GitHub event. Create via **claude.ai/code/routines** or **`/schedule`**.
+- **Three routine limits:** research preview · **at most hourly** · pushes only to **`claude/`-prefixed branches** (fresh clone of default branch, protects `main`).
+- **Headless `-p` / `--print`:** one-shot, non-interactive, **pipes stdin/stdout**; **skips auto-discovery** of hooks/skills/plugins/MCP/CLAUDE.md (faster startup).
+- **Structured output:** `--output-format json` + `--json-schema`; result lands in **`structured_output`**.
+- **`--resume "<session_id>"`** chains multi-step runs; **`--bare`** gives **deterministic** CI output.
+- **Agent SDK** (TS/Python) embeds Claude Code via a **`query`** function with the **same primitives as the CLI**.
