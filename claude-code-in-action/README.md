@@ -338,6 +338,8 @@ Your CLAUDE.md is **never finished** — treat it like **living code** that keep
 - You can tell Claude directly: **"add that to the CLAUDE.md file,"** and it'll write the rule for you.
 - That way the file gets **better every time something goes wrong.**
 
+> 💡 **Scope past always-on conventions into rules.** Beyond the four CLAUDE.md locations, a task-specific rule can live in a **`rules/`** file that **loads only when it applies** — so it doesn't take up context on every session (the video's closing maintenance tip; the `rules/` folder is visible in the Ch-2 screenshot).
+
 ---
 
 ### 🔁 Recap (The Bottom Line)
@@ -729,11 +731,13 @@ Not every hook needs JSON. For simpler hooks, **exit codes do the job.** Three n
 | **anything else** | **Non-blocking** | stderr is **logged**, Claude **carries on** |
 
 > ⚠️ **The one that catches people out: exit code `1`.** It *feels* like an error, but it **does NOT block** — Claude runs the command anyway. **To stop something, exit `2`, not `1`.**
+>
+> ⚠️ **The lone exception: `WorktreeCreate`.** Unlike every other event, `WorktreeCreate` **aborts on *any* non-zero exit** (not just `2`) — so a failing worktree hook stops the worktree from being created.
 
 **A couple more wrinkles:**
 - Exit `2` can even **block Stop** — that's how you tell Claude it's not done.
 - **PostToolUse fires after the tool already ran**, so blocking there is **too late to stop the call** — though it can still feed text back to Claude.
-- A few events **ignore blocking entirely** (e.g. **Notification** and **SessionStart**) — they show your stderr and carry on regardless.
+- A few events **ignore blocking entirely** (**Notification**, **SessionStart**, and **FileChanged**) — they show your stderr and carry on regardless.
 
 ![A terminal where a PostToolUse:Edit hook returns a blocking error and runs "python3 -m py_compile textkit/slug.py && echo compiles OK", with the footer "auto mode on"; beside it three bars labeled Notification, SessionStart, FileChanged](assets/L5-hooks/posttooluse-exit2.png)
 
@@ -793,6 +797,7 @@ Hooks turn a rule Claude **usually** follows into one it **always** follows. Rea
 | 0️⃣ **Exit 0** | Success; JSON parsed; plain text → context **only** on SessionStart / UserPromptSubmit / UserPromptExpansion |
 | 2️⃣ **Exit 2** | **Blocking** error; stderr → Claude; can even block **Stop** |
 | 1️⃣ **Exit 1** | ⚠️ **Does NOT block** — Claude runs anyway |
+| 🌳 **`WorktreeCreate`** | **Exception:** aborts on **any non-zero** exit (not just 2) |
 
 > 🎓 **Memory tip:** **"0 ok · 2 block · 1 is a lie."** Enforcement verbs: PreToolUse **guards**, Stop **gates**, SessionStart+compact **remembers**. Decisions: **A-D-A** = allow / deny / ask.
 
@@ -800,7 +805,8 @@ Hooks turn a rule Claude **usually** follows into one it **always** follows. Rea
 - A hook is **deterministic code at a fixed loop point** → a rule Claude **can't skip** (vs CLAUDE.md = request).
 - **PreToolUse** can **block before** a call; returns **JSON + exit 0** with `permissionDecision` = **allow / deny / ask** (rare **defer**).
 - **`updatedInput`** rewrites a call (e.g. redact `sk_live_` secrets) and **replaces the whole input** — echo back unchanged fields.
-- **Exit codes:** `0` success · `2` **blocking** (stderr → Claude, can block **Stop**) · **everything else non-blocking** — and **exit 1 does NOT block**.
+- **Exit codes:** `0` success · `2` **blocking** (stderr → Claude, can block **Stop**) · **everything else non-blocking** — and **exit 1 does NOT block**. **Exception: `WorktreeCreate` aborts on any non-zero exit.**
+- **Blocking-ignore events:** **Notification**, **SessionStart**, and **FileChanged** show stderr and carry on regardless.
 - **Exit 0 plain-text reaches context only on SessionStart / UserPromptSubmit / UserPromptExpansion** (the state-preserver trick).
 - **PostToolUse is too late to stop a call**; **Notification & SessionStart ignore blocking**.
 - **Re-inject context after compaction with SessionStart + `compact` matcher**, NOT PostCompact.
