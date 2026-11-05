@@ -9,7 +9,7 @@
 | Unit | Chapters | Status |
 |------|----------|:------:|
 | 🗂️ **Steer the Work** | [Ch 1: Steering Long Sessions](#chapter-1-steering-long-sessions) | ✅ |
-| 🗂️ **Configure Claude** | [Ch 2: A CLAUDE.md That Follows](#chapter-2-a-claudemd-that-follows) · [Ch 3: Verification Skills](#chapter-3-verification-skills) · [Ch 4: Permission Modes](#chapter-4-permission-modes) · Ch 5: Hooks | 🚧 |
+| 🗂️ **Configure Claude** | [Ch 2: A CLAUDE.md That Follows](#chapter-2-a-claudemd-that-follows) · [Ch 3: Verification Skills](#chapter-3-verification-skills) · [Ch 4: Permission Modes](#chapter-4-permission-modes) · [Ch 5: Hooks](#chapter-5-hooks) | ✅ |
 | 🗂️ **Automate Repeat Work** | Ch 6: Routines and Headless · Ch 7: GitHub Actions and Code Review | 🔲 |
 | 🗂️ **Verify and Share** | Ch 8: Trust It — Verifying Unsupervised Runs · Ch 9: Plugins | 🔲 |
 | 🗂️ **Quiz** | Course quiz | 🔲 |
@@ -629,3 +629,178 @@ There are several permission modes, and you reach the everyday ones by cycling *
 - The classifier checks **intent, not correctness** → **pair auto with a stop hook** that runs your tests (intent before / correctness after).
 - **`dontAsk`** = unattended pipelines: only pre-approved tools, everything else **auto-denied with no prompt**.
 - **`bypassPermissions`** = `--dangerously-skip-permissions`; **only in an isolated container/VM**.
+
+---
+
+> 🗂️ **Unit 2: Configure Claude** · Chapter 5
+
+## Chapter 5: Hooks
+
+> 🎬 **Video: Hooks.** The problem with telling Claude to do something in a CLAUDE.md file: **it's a request, not a guarantee.** Write "always format after editing" and Claude *usually* listens — but on a long run you're not watching, and "usually" isn't good enough. **A hook is deterministic code that runs at a fixed point in the loop**, so it can **guarantee** behavior instead of hoping for it. It turns a rule from *"Claude usually listens"* into *"Claude can't skip it."*
+
+### 🎯 Learning Objectives
+
+- Know the **hook events** worth reaching for and where they sit in the agentic loop
+- Use **PreToolUse** to return a **JSON decision** (allow / deny / ask) or **rewrite** a call
+- Read **exit codes** for hooks that don't return JSON (and the exit-1 gotcha)
+- Build a **redact-instead-of-block** guardrail and a **state-preserver across compaction**
+
+### 🧠 Key Takeaways
+
+- A hook is **deterministic code at a fixed point** in the loop → turns a rule into one Claude **can't skip**
+- Claude Code fires **~30 hook events**; you only need a small handful
+- **PreToolUse** is the **enforcement primitive** — it can **stop a call before it happens**
+- PreToolUse talks back via **JSON + exit 0**; `permissionDecision` = **allow / deny / ask** (rare 4th: **defer**)
+- **`updatedInput` rewrites the call** (e.g. redact a secret) — but it **replaces the whole input**, so echo back fields you aren't changing
+- **Exit codes:** `0` = success · `2` = **blocking error** (stderr → Claude) · **anything else = non-blocking**. ⚠️ **Exit 1 does NOT block**
+- To **re-inject context after compaction**, use **SessionStart with the `compact` matcher** — **not** PostCompact
+
+---
+
+### 🎣 The Hook Events
+
+Claude Code fires **around 30 hook events** over a session — you don't need them all. A small handful recur, and they line up with points in the **agentic loop** where you'd want to step in: a session starts, prompts come in, tools get called, and the turn eventually ends.
+
+![The agentic loop with hook points — Session Start → UserPromptSubmit → PreToolUse → PermissionRequest → [tool executes] → PostToolUse — plus a side list describing PreToolUse, PostToolUse, Stop, Pre/Post Compact, InstructionsLoaded, and SessionStart](assets/L5-hooks/hook-events-loop.png)
+
+**The ones worth knowing:**
+
+| Event | Fires… | Use it for |
+|-------|--------|-----------|
+| 🛑 **PreToolUse** | **Before** a tool call | **Enforcement primitive** — the one that can **stop something before it happens** |
+| 🧹 **PostToolUse** | **After** a successful tool call | Usually **auto-formatting / auto-lint** |
+| ✋ **Stop** | When Claude wants to **end its turn** | Refuse — *"no, you're not done yet"* if a condition isn't met (matching **SubagentStop** for sub-agents) |
+| 🗜️ **PreCompact / PostCompact** | **Before / after** compaction | — |
+| 📄 **InstructionsLoaded** | When a **CLAUDE.md or rule file loads** | **Auditing** what actually made it into context |
+| 🚀 **SessionStart** | At the **start**; primes the environment | Use the **`startup` source** to only run on fresh starts |
+
+> ⚠️ **The gotcha:** to **re-inject context after compaction, don't use PostCompact** — use **SessionStart with the `compact` matcher.** That's the one whose output actually gets back into the conversation.
+
+> 🔗 These hang off the same **agentic loop** from [Claude Code 101, Ch 2](../claude-code-101/README.md) (gather context → act → verify). Hooks were introduced in [Claude Code 101, Ch 12](../claude-code-101/README.md); this chapter is the deep dive.
+
+---
+
+### 🚦 PreToolUse: Returning a Decision as JSON
+
+PreToolUse is where the real power is — it can **block a tool call before it runs.** You talk back to Claude by **printing JSON and exiting 0.** The key field is **`permissionDecision`**:
+
+| Value | Effect |
+|-------|--------|
+| ✅ **`allow`** | Let the call through |
+| ⛔ **`deny`** | Stop the call |
+| 🙋 **`ask`** | Hand it back to the **user** to decide |
+| ⏸️ **`defer`** *(rare)* | Only for non-interactive `-p` runs where a calling process pauses the tool and resumes it later |
+
+![The word "PreToolUse" beside a dark panel showing the JSON shape: hookSpecificOutput with hookEventName "PreToolUse", permissionDecision "allow", permissionDecisionReason, and updatedInput with a command field](assets/L5-hooks/pretooluse-json.png)
+
+The shape:
+
+```json
+{
+  "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "deny",
+    "permissionDecisionReason": "...",
+    "updatedInput": {
+      "command": "..."
+    }
+  }
+}
+```
+
+> 🔑 **Notice `updatedInput`.** Instead of blocking a call, you can **rewrite** it — e.g. redact a secret out of a bash command and still let it run.
+>
+> ⚠️ **One catch:** `updatedInput` **replaces the whole input object**, so you must **echo back the fields you aren't changing**, or you'll lose them.
+
+> 🔗 This is the same `permissionDecision: "ask"` mechanism Kiro's own PreToolUse hooks use (my cross-reference to the hooks you've seen in this IDE — not course wording).
+
+---
+
+### 🔢 Exit Codes — for Hooks That Don't Return JSON
+
+Not every hook needs JSON. For simpler hooks, **exit codes do the job.** Three numbers matter:
+
+![A crab above three exit-code numbers: 0 (green), 1 (yellow), 2 (red)](assets/L5-hooks/exit-codes.png)
+
+| Exit code | Meaning | stdout / stderr behavior |
+|-----------|---------|--------------------------|
+| **`0`** | **Success** | If stdout is **JSON**, Claude parses it. **Plain text is ignored on most events** — but on **SessionStart, UserPromptSubmit, and UserPromptExpansion**, plain text is **added to context** (this is what makes a **state-preserver** hook work) |
+| **`2`** | **Blocking error** | **stderr is fed back to Claude as context.** The blocking exit code almost everywhere |
+| **anything else** | **Non-blocking** | stderr is **logged**, Claude **carries on** |
+
+> ⚠️ **The one that catches people out: exit code `1`.** It *feels* like an error, but it **does NOT block** — Claude runs the command anyway. **To stop something, exit `2`, not `1`.**
+
+**A couple more wrinkles:**
+- Exit `2` can even **block Stop** — that's how you tell Claude it's not done.
+- **PostToolUse fires after the tool already ran**, so blocking there is **too late to stop the call** — though it can still feed text back to Claude.
+- A few events **ignore blocking entirely** (e.g. **Notification** and **SessionStart**) — they show your stderr and carry on regardless.
+
+![A terminal where a PostToolUse:Edit hook returns a blocking error and runs "python3 -m py_compile textkit/slug.py && echo compiles OK", with the footer "auto mode on"; beside it three bars labeled Notification, SessionStart, FileChanged](assets/L5-hooks/posttooluse-exit2.png)
+
+> 📌 *From the screenshot:* a `PostToolUse:Edit` hook returns a **blocking error** and runs `python3 -m py_compile … && echo "compiles OK"` — i.e. a post-edit gate that makes sure the file **compiles before moving on** (my reading; the footer shows `auto mode on`, tying hooks to the [Ch 4](#chapter-4-permission-modes) auto-mode + stop-hook pairing). The side bars **Notification / SessionStart / FileChanged** are events that **ignore blocking**.
+
+---
+
+### 🛡️ A Real Guardrail: Redact Instead of Block
+
+A **PreToolUse guardrail on the Bash tool.** The **matcher** picks the tool to watch; an optional **`if` clause** can narrow it to a specific command.
+
+| Move | What it does |
+|------|--------------|
+| ⛔ **Return `deny`** | Stop a dangerous call (good) |
+| ✏️ **Return `updatedInput`** | **Rewrite** the call — the lesser-known, more interesting move |
+
+**The redact example:** Claude is asked to run a command that includes a live-looking secret. The hook intercepts it, spots the **`sk_live_`** pattern, and **swaps it for a placeholder** before the command ever executes.
+
+> ✅ **The command still ran. The work still got done. But the secret never made it through.** That's the difference between **blocking** and **redacting** — and a hook can enforce it **every single time.**
+
+---
+
+### 💾 Preserving State Across a Compact
+
+When Claude compacts a long conversation, it drops a lot of detail. Set up a **SessionStart hook with the `compact` matcher** — it runs **right after compaction.**
+
+- Have it **print a short summary** of the files you've been working on.
+- That summary **goes back into context** (because SessionStart stdout is added to context), so Claude **picks up where it left off** instead of starting cold.
+
+> 🔗 Complements the manual, steerable `/compact` from [Chapter 1](#chapter-1-steering-long-sessions): there you steer *what the summary keeps*; here a hook **automatically re-injects** state after every compaction (my mapping).
+
+---
+
+### 🔁 Recap
+
+Hooks turn a rule Claude **usually** follows into one it **always** follows. Reach past auto-formatting:
+
+- **Guard tools with PreToolUse** (allow / deny / ask, or rewrite with `updatedInput`)
+- **Gate the turn with Stop** (exit 2 = "not done yet")
+- **Preserve state across a compact** (SessionStart + `compact` matcher)
+
+> The setup takes a little effort up front, but it pays back the **first time it catches something on a run you weren't even watching.**
+
+### 📝 Quick Reference: Hooks (for exam prep)
+
+| Concept | Key point |
+|---------|-----------|
+| 🎯 **Why a hook** | **Deterministic code at a fixed point** → guarantees behavior ("can't skip it"), vs CLAUDE.md's request |
+| 🔢 **Event count** | Claude Code fires **~30** hook events; know the handful below |
+| 🛑 **PreToolUse** | **Before** a tool call — the **enforcement primitive**; can **block** |
+| 🧹 **PostToolUse** | **After** a successful call — auto-format/lint; **too late to block the call** |
+| ✋ **Stop** | Claude ends its turn — refuse to say "not done" (**SubagentStop** for sub-agents) |
+| 📄 **InstructionsLoaded** | CLAUDE.md/rule file loads — audit what entered context |
+| 🚀 **SessionStart** | Primes environment; **`startup` source** = fresh starts; **`compact` matcher** = re-inject after compaction |
+| 🚦 **permissionDecision** | **allow / deny / ask** (+ rare **defer** for `-p` runs) — print **JSON, exit 0** |
+| ✏️ **updatedInput** | **Rewrites** the call (redact secrets); **replaces whole input** → echo back unchanged fields |
+| 0️⃣ **Exit 0** | Success; JSON parsed; plain text → context **only** on SessionStart / UserPromptSubmit / UserPromptExpansion |
+| 2️⃣ **Exit 2** | **Blocking** error; stderr → Claude; can even block **Stop** |
+| 1️⃣ **Exit 1** | ⚠️ **Does NOT block** — Claude runs anyway |
+
+> 🎓 **Memory tip:** **"0 ok · 2 block · 1 is a lie."** Enforcement verbs: PreToolUse **guards**, Stop **gates**, SessionStart+compact **remembers**. Decisions: **A-D-A** = allow / deny / ask.
+
+**Key features for exam:**
+- A hook is **deterministic code at a fixed loop point** → a rule Claude **can't skip** (vs CLAUDE.md = request).
+- **PreToolUse** can **block before** a call; returns **JSON + exit 0** with `permissionDecision` = **allow / deny / ask** (rare **defer**).
+- **`updatedInput`** rewrites a call (e.g. redact `sk_live_` secrets) and **replaces the whole input** — echo back unchanged fields.
+- **Exit codes:** `0` success · `2` **blocking** (stderr → Claude, can block **Stop**) · **everything else non-blocking** — and **exit 1 does NOT block**.
+- **Exit 0 plain-text reaches context only on SessionStart / UserPromptSubmit / UserPromptExpansion** (the state-preserver trick).
+- **PostToolUse is too late to stop a call**; **Notification & SessionStart ignore blocking**.
+- **Re-inject context after compaction with SessionStart + `compact` matcher**, NOT PostCompact.
