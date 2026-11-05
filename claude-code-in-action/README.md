@@ -11,7 +11,7 @@
 | 🗂️ **Steer the Work** | [Ch 1: Steering Long Sessions](#chapter-1-steering-long-sessions) | ✅ |
 | 🗂️ **Configure Claude** | [Ch 2: A CLAUDE.md That Follows](#chapter-2-a-claudemd-that-follows) · [Ch 3: Verification Skills](#chapter-3-verification-skills) · [Ch 4: Permission Modes](#chapter-4-permission-modes) · [Ch 5: Hooks](#chapter-5-hooks) | ✅ |
 | 🗂️ **Automate Repeat Work** | [Ch 6: Routines and Headless](#chapter-6-routines-and-headless) · [Ch 7: GitHub Actions and Code Review](#chapter-7-github-actions-and-code-review) | ✅ |
-| 🗂️ **Verify and Share** | Ch 8: Trust It — Verifying Unsupervised Runs · Ch 9: Plugins | 🔲 |
+| 🗂️ **Verify and Share** | [Ch 8: Trust It — Verifying Unsupervised Runs](#chapter-8-trust-it--verifying-unsupervised-runs) · Ch 9: Plugins | � |
 | 🗂️ **Quiz** | Course quiz | 🔲 |
 
 > **Annotation guide for these notes:** 📌 = my own reading from screenshots/context — **not stated in the lesson text itself**. 🔗 = my cross-reference between chapters — **my mapping, not the lesson's wording**. For exam prep, focus on the **📝 Quick Reference** tables and **Key features for exam** bullet lists at the end of each chapter.
@@ -1161,3 +1161,130 @@ The same action works for a **daily rollup**: a **cron** trigger fires at e.g. `
 - Action inputs: **`trigger_phrase`** (default `@claude`), **`prompt`**, **`claude_args`**, `github_token` (default `GITHUB_TOKEN`), `use_bedrock`/`use_vertex`.
 - Workflows: **`@claude`** mentions in `.github/workflows/claude.yaml`, **cron** for scheduled rollups, **`workflow_dispatch`** for manual runs.
 - **Tune in `claude_args`:** `--max-turns` caps the loop, set a **don't-ask permission mode** for unattended jobs, and grant **only the tools needed** (read-only for reports).
+
+---
+
+> 🗂️ **Unit 4: Verify and Share** · Chapter 8
+
+## Chapter 8: Trust It — Verifying Unsupervised Runs
+
+> 🎬 **Video: Trust It — Verifying Unsupervised Runs.** You handed Claude a task and let it run **without watching every step.** Now it says it's done. Before you ship, you need a way to **check something you didn't supervise.** That check is what makes **hands-off Claude Code safe to rely on.**
+
+### 🎯 Learning Objectives
+
+- **Verify in proportion** to how unsupervised the run was
+- Keep unattended runs in **auto mode** and know what its classifier does *not* do
+- Start verification from the **diff**, gate on **tests via a hook**, and get a **cold second opinion**
+
+### 🧠 Key Takeaways
+
+- **Verify in proportion to how much rope you gave the run.** Short, watched session → a glance. Unattended / CI run with nobody in the loop → a **real check**. **The less you watched, the more you verify.**
+- Keep unattended runs in **auto mode, not bypass permissions** — the **classifier still reviews each action for danger** (a safety net worth keeping). But it **never judges whether the code is correct**, so your verification bar stays where it was
+- **Start with the diff, not Claude's summary** — a tidy summary can read fine while the real diff touched a file you didn't expect
+- **Turn tests into a gate, not a promise:** wire them as a **hook** (so Claude can't skip), and use **exit 2** to feed the failure back so Claude fixes it
+- **Get a cold second opinion:** a **fresh session / sub-agent** reviews the changed code **with no memory of how it was built** — it catches what the original run rationalized away
+
+---
+
+### ⚖️ Verify in Proportion to the Rope
+
+The idea is simple: **verify in proportion to how much rope you gave the run.**
+
+| How the run went | Verification |
+|------------------|--------------|
+| You **watched** the messages scroll by (short session) | A **quick glance** is enough |
+| **Unattended** run, or a **CI job with nobody in the loop** | A **real check** — no one saw what happened, so you **reconstruct it after the fact** |
+
+> 📊 **The less you watched, the more you verify.** Set your verification bar based on **how unsupervised the run was.**
+
+---
+
+### 🤖 Keep Unattended Runs in Auto Mode
+
+When a run goes unattended **at work**, keep it in **auto mode** rather than **bypass permissions.**
+
+- In auto mode, the **classifier still reviews each action for danger** — a safety net worth keeping.
+- ⚠️ **Be clear what the net does and doesn't do:** the classifier **never judges whether the code is actually correct.** It only **flags dangerous actions.** So your **verification bar stays exactly where it was.**
+
+> 🔗 Same classifier from [Chapter 4](#chapter-4-permission-modes): it guards **intent, not correctness**. That's why the steps below (diff → test gate → cold review) still matter even with auto mode on.
+
+---
+
+### 🔍 Start with the Diff, Not the Summary
+
+**Don't start with Claude's summary of what it did. Start with the diff itself.**
+
+| Step | Do this |
+|------|---------|
+| 1️⃣ | Run **`/code-review`** to walk the changes and flag issues |
+| 2️⃣ | Then put **your own eyes on `git diff`** |
+
+> ⚠️ **The trap:** a tidy summary that reads perfectly fine, while the actual diff **touched a file you honestly didn't expect.** The summary won't tell you that — **the diff will.**
+
+- **Read what changed.** Read the files that were **part of the plan first**, then look for **anything outside it.**
+
+> 💡 **A clean write-up is not proof of clean code.**
+
+> 🔗 `/code-review` is the same local review command from [Chapter 7](#chapter-7-github-actions-and-code-review) (with `--fix` to apply findings) — here used to inspect an unsupervised run.
+
+---
+
+### 🧪 Turn Tests into a Gate, Not a Promise
+
+The real gate on an unsupervised run: **did the tests pass, and did Claude actually run them or only claim to?** **Don't leave that to trust — wire it as a hook** so Claude can't skip it.
+
+| Hook | What it does |
+|------|--------------|
+| 🛑 **Stop hook** | Runs your tests and **refuses to end the turn on a failure** |
+| 🧹 **PostToolUse hook** | **Lints and type-checks after every edit** |
+
+> 🔑 **The key detail is the exit code.** A hook that **exits with `2`** feeds the failure **straight back to Claude** — Claude reads it and **fixes it without you asking.** Best of all, the check **fires on every run**, whether or not you remember to ask.
+
+> 🔗 Exit-2 semantics and the Stop / PostToolUse hooks are from [Chapter 5](#chapter-5-hooks); the "tests as a gate" idea is the verification skill of [Chapter 3](#chapter-3-verification-skills) made **unskippable** by a hook (my mapping).
+
+---
+
+### 🧊 Get a Cold Second Opinion
+
+The **sub-agent code review** you'd run before a pull request works here too — point it at an unsupervised run.
+
+- Open a **fresh session or sub-agent** and have it **review the changed code with no memory of how the code was built.**
+- Because it has **no stake in the approach**, it catches the things the original run **talked itself past.**
+
+> 💡 **A second reviewer with fresh eyes finds what the author rationalized away.**
+
+> 🔗 Sub-agent code review: [Claude Code 101, Ch 5 & 9](../claude-code-101/README.md).
+
+---
+
+### 🔁 Recap (Putting It Together)
+
+**Make the check as serious as the run was unsupervised:**
+
+1. **Read the diff yourself.**
+2. **Turn the tests into a hook** that gates the turn.
+3. **Verify headless runs by their JSON result and exit code.**
+4. **Get a cold second opinion** on anything that matters.
+
+> Do that, and *"Claude did it while I wasn't looking"* **no longer takes faith.**
+
+### 📝 Quick Reference: Verifying Unsupervised Runs (for exam prep)
+
+| Principle | Key point |
+|-----------|-----------|
+| ⚖️ **Proportional verification** | **The less you watched, the more you verify**; set the bar by how unsupervised the run was |
+| 🤖 **Auto, not bypass** | Keep unattended runs in **auto mode** — classifier guards **danger**, **not correctness** |
+| 🔍 **Diff first** | Start with **`/code-review` + `git diff`**, not the summary; plan files first, then anything outside the plan |
+| 🧪 **Tests as a gate** | **Hook** it (Stop + PostToolUse); **exit 2** feeds failures back; fires **every run** |
+| 📦 **Headless** | Verify by **JSON result + exit code** ([Ch 6](#chapter-6-routines-and-headless)) |
+| 🧊 **Cold review** | **Fresh session/sub-agent** with **no memory** of how the code was built |
+
+> 🎓 **Memory tip:** **D-T-H-C** — **D**iff first · **T**ests as a gate (hook, exit 2) · **H**eadless by JSON + exit code · **C**old second opinion. And the rule: **less watched → more verified.**
+
+**Key features for exam:**
+- **Verify in proportion** to how unsupervised the run was — **the less you watched, the more you verify**.
+- Keep unattended runs in **auto mode (not bypass permissions)**; the classifier flags **danger only, never correctness**.
+- **Start with the diff** (`/code-review` + `git diff`), not Claude's summary — a clean write-up isn't proof of clean code.
+- **Gate on tests with a hook** (Stop hook refuses to end on failure; PostToolUse lints/type-checks); **exit 2 feeds the failure back** so Claude fixes it, on **every run**.
+- **Verify headless runs by their JSON result and exit code**.
+- **Get a cold second opinion** from a **fresh session/sub-agent** with no memory of how the code was built.
