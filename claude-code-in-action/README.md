@@ -1333,6 +1333,10 @@ A plugin is **one installable unit.** It bundles everything you'd otherwise shar
 
 > Claude Code installs it and tells you to run **`/reload-plugins`** to apply the change.
 
+![A terminal showing "/plugin marketplace add anthropics/claude-plugins-community" with "Successfully added marketplace: claude-community", then "/plugin install claude-community@" typed at the input](assets/L9-plugins/marketplace-add-install.png)
+
+> 📌 *From the screenshot:* adding the marketplace prints **"Successfully added marketplace: claude-community"**, and installs then resolve as **`/plugin install claude-community@…`** — showing the marketplace name becomes the right-hand side of the `@` in an install (my reading).
+
 ---
 
 ### 🏪 Adding a Marketplace for Your Team
@@ -1345,6 +1349,10 @@ For a team, the better move is to **add a private marketplace once.** A **market
 
 - Call it whatever you want. Once added, **every install after that resolves through it** → **centralized discovery, version tracking, and updates in one place** instead of scattered across everyone's laptops.
 - Browse what's available from the **Discover tab** — it lists the plugins on your marketplaces so you can search and pick.
+
+![The Discover tab after "/plugin marketplace add anthropics/claude-plugins-community" — tabs Plugins / Discover / Installed / Marketplaces / Errors, a search box, and an "Install Plugins (7/2198)" list showing 10x-team, 16minds, 42crunch-api-security-testing, 8-habit-ai-dev, a11y-fixer](assets/L9-plugins/discover-marketplace.png)
+
+> 📌 *From the screenshot:* the Discover tab shows **"Install Plugins (7/2198)"** — a large community catalog — with search and per-plugin descriptions, and footer hints *"Type to search · Space to toggle · Enter to view · Esc to go back"* (my reading).
 
 ---
 
@@ -1380,6 +1388,12 @@ A plugin **doesn't overwrite your configuration** — its components **run along
 | 🏷️ **Namespaced** | Skills, agents, and commands are **namespaced under the plugin name**, so they **never clash** with yours |
 | ⚙️ **Narrow `settings.json`** | A plugin can ship a `settings.json`, but Claude Code honors **only two keys**: the **agent** and **subagent status line** keys |
 
+![Illustration: "Your hooks", "Plugin A hooks", and "Plugin B hooks" each paired with a green "PreToolUse" label — showing all three fire on the same event](assets/L9-plugins/hooks-stack.png)
+
+![VS Code editing a plugin settings.json containing only { "agent": "svg-splitter-reviewer" }, with the explorer showing .claude-plugin, plugin.json, agents, commands, hooks, and skills/verify/SKILL.md](assets/L9-plugins/plugin-settings-agent.png)
+
+> 📌 *From the screenshots:* the hooks illustration shows **your PreToolUse and each plugin's PreToolUse all firing** (stacking), and the `settings.json` holds **just the `agent` key** (`"svg-splitter-reviewer"`) — the narrow slice Claude Code honors, promoting that subagent to the main thread (my reading).
+
 > ⚠️ **That `agent` key is worth a pause.** Setting it **promotes one of the plugin's subagents to the main thread** — along with its **system prompt, tool restrictions, and model.** In other words, enabling the plugin **can change how Claude Code behaves by default.** One of the main reasons to **look before you even turn it on.**
 
 > 💡 Once installed, you can **see everything a plugin added, manage it, and uninstall it** from the **plugin panel.**
@@ -1414,6 +1428,10 @@ On top of that, an **optional manifest** at **`.claude-plugin/plugin.json`** hol
   }
 }
 ```
+
+![VS Code showing .claude-plugin/plugin.json with name "svg-splitter-review", version "0.1.0", a description, and author name "Lewis Menelaws"; the explorer shows the plugin's agents, commands, hooks, and skills folders](assets/L9-plugins/plugin-manifest.png)
+
+> 📌 *From the screenshot:* the plugin keeps the familiar layout — **`.claude-plugin/plugin.json`** beside **`agents/`, `commands/`, `hooks/`, and `skills/`** folders — i.e. the same `.claude` shape, discovered by convention (my reading).
 
 - **Leave it out** and Claude Code **still discovers your components** by directory convention. But:
 
