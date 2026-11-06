@@ -64,11 +64,6 @@ Claude is the intelligence—the AI assistant you're learning to work with throu
 
 > 🎓 **Memory tip:** Remember the **3 H's** (Helpful, Honest, Harmless) + **Constitutional AI** = Claude's core design principles
 
-### 🤔 Lesson Reflection
-
-- What tasks in your current work might benefit from having Claude as a thinking partner?
-- Take a look at your calendar (or better yet, ask Claude to) and identify a few tasks you might want to use Claude to support.
-
 ---
 
 ## Chapter 2: Your First Conversation with Claude
@@ -218,10 +213,6 @@ Two features help Claude work better for you over time, increasing the power of 
 
 > 🎓 **Memory tip:** **Stage → Task → Rules** = Complete prompt structure (adapted from 4D Framework's **Description** competency)
 
-### 🤔 Put It Into Practice
-
-Before moving on, try prompting Claude with a question or task. If you need an idea to get started, feel free to explore the [use-case gallery](https://claude.com/resources/use-cases).
-
 ---
 
 ## Chapter 3: Getting Better Results
@@ -331,12 +322,6 @@ This kind of lightweight evaluation helps you develop intuition for how to work 
 | 🛡️ **Diligence** | How do we ensure responsible AI use? | Choose systems thoughtfully, maintain transparency, verify outputs |
 
 > 🎓 **Memory tip:** The **4 Ds** work together in a continuous loop — Delegation → Description → Discernment → Diligence → (back to Delegation)
-
-### 🤔 Lesson Reflection
-
-- Which of the common challenges have you already encountered? What techniques might you try next time?
-- Where in your work would a simple eval help you understand if Claude is a good fit for a recurring task?
-- How might the 4D Framework help you think about your collaboration with Claude?
 
 ---
 
@@ -468,11 +453,6 @@ You won't pick a tab first — you'll notice what kind of work is in front of yo
 - A deck or doc alone → **artifact** in any conversation, no hand-off needed
 - **Computer use** = research preview on Pro and Max; asks permission before each app
 - **Code tab:** Local or Cloud environment · Manually approve / Accept edits / Plan
-
-### 🤔 Lesson Reflection
-
-- Think about how you used Claude this week. Which requests were turn-by-turn thinking, and which were really whole tasks you fed in one question at a time because that's the habit?
-- Take the task you'd most like off your plate. Is it multi-step, does it need files saved and organized on your computer, does it span your tools? If yes to any, it's a hand-off — write down the outcome you'd describe to Claude, not the first question you'd ask.
 
 ---
 
@@ -648,12 +628,6 @@ More ideas from the video — projects aren't just for work:
 - Can expand capacity **up to 10x** with automatic searching
 - **Team/Enterprise** users can share projects with permission levels (View, Edit, Owner)
 
-### 🤔 Lesson Reflection
-
-- What ongoing work could benefit from having a dedicated project with persistent context?
-- What documents do you expect you'll be re-uploading or re-explaining to Claude on a regular basis?
-- If you're on a team, are there projects that would benefit from shared knowledge and instructions?
-
 ---
 
 ## Chapter 6: Creating with Artifacts
@@ -754,12 +728,6 @@ To publish, click the **"Share"** or **"Publish"** button in the upper right cor
 - Artifacts are created when content is **significant (15+ lines)** and **self-contained**
 - Can be **shared** within org (Team/Enterprise) or **published publicly** (Free/Pro/Max)
 - Published artifacts are **not indexed** by search engines
-
-### 🤔 Lesson Reflection
-
-- What recurring work could benefit from having an interactive artifact you can reuse?
-- Are there processes in your work that would be clearer as a flowchart or diagram?
-- What prototype or tool would help you test an idea quickly?
 
 ---
 
@@ -883,12 +851,6 @@ The two features **complement each other**. A skill can reference knowledge stor
 - **Custom Skills** = You create for specialized workflows
 - Skills are available on **all plans** and require **Code execution and file creation** enabled
 - Can create skills by **chatting with Claude** (no manual coding needed)
-
-### 🤔 Lesson Reflection
-
-- What types of documents do you create regularly that could benefit from Claude's built-in Skills?
-- Are there repetitive workflows in your work that might be good candidates for custom Skills?
-- How might Skills change the way you think about document creation and data analysis?
 
 ---
 
@@ -1015,12 +977,6 @@ When you connect Claude to external services, you're granting it access to read�
 - Directory at **claude.ai/directory**
 - Only install connectors from **trusted sources**
 
-### 🤔 Lesson Reflection
-
-- Which of your daily work tools would be most valuable to connect to Claude?
-- What tasks currently require you to copy and paste information that connectors could handle automatically?
-- Are there workflows where combining data from multiple connected sources would save you significant time?
-
 ---
 
 ## Chapter 9: Enterprise Search
@@ -1137,12 +1093,6 @@ In short, **yes**. Here's why:
 - **Permission-based:** Only shows what you already have access to
 - **Not indexed separately:** Data stays in original tools
 - **Ideal for:** Onboarding, policy questions, cross-team research
-
-### 🤔 Lesson Reflection
-
-- What questions do you frequently ask colleagues that could be answered by searching your organization's documents and communications?
-- Are there onboarding or training scenarios where Enterprise Search could help new team members get up to speed faster?
-- Which data sources would be most valuable to connect for your specific role?
 
 ---
 
@@ -1282,12 +1232,6 @@ When you have Google Workspace or other integrations connected, Research becomes
 - Requires **web search enabled**
 - Research typically takes about **5–45 minutes** (per the Chapter 2 video)
 - Ideal for: Market analysis, project planning, technical docs, briefings
-
-### 🤔 Lesson Reflection
-
-- What research tasks in your work typically require gathering information from multiple sources?
-- How might combining Research with your connected integrations (like Google Workspace) change your workflow?
-- What's a complex question you've been putting off because it would take too much research time?
 
 ---
 
@@ -1602,23 +1546,11 @@ Claude integrates directly into Microsoft Office applications as a sidebar, brin
 - **Microsoft 365** = Sidebar in Excel, PowerPoint, Word, Outlook (Outlook = beta, separate install)
 - **Claude in Chrome** = Browser sidebar, low-risk tasks on trusted sites; asks permission for high-risk actions; finance/adult sites blocked by default
 
-### 🤔 Lesson Reflection
-
-- Which Claude tool would most directly improve your daily workflow?
-- Are there tasks you currently switch between multiple applications to complete that Claude could streamline?
-- How might using Claude in your existing tools (Slack, Microsoft 365, Chrome) change the way you work?
-
 ---
 
 ## Chapter 13: Conclusion & Certificate
 
 > 🎓 **Course Wrap-Up** · You've completed Claude 101!
-
-### 🎉 What's Next?
-
-**Congratulations on completing Claude 101!** You've built a solid foundation for working with Claude effectively. Let's recap what you've learned and point you toward resources for continued growth.
-
----
 
 ## 📚 What You've Learned
 
@@ -1650,49 +1582,6 @@ Claude integrates directly into Microsoft Office applications as a sidebar, brin
 
 - **Claude applies across roles** — sales, marketing, finance, HR, legal, research, and beyond
 - **Beyond claude.ai**, you can work with Claude through Claude Code, Claude Tag in Slack, Claude for Microsoft 365, and Claude in Chrome
-
----
-
-## 📖 Additional Resources
-
-### 🎓 Learn More About AI and Claude
-
-| Resource | What it offers |
-|----------|----------------|
-| 🧠 **AI Fluency courses** | Free courses on effective AI collaboration |
-| 📊 **AI Capabilities and Limitations** | Free introductory course on what AI can and can't do |
-| 💼 **Use Case Gallery** | Step-by-step guides and prompts for powerful workflows |
-| 📚 **Anthropic Help Center** | Detailed documentation and troubleshooting |
-| ✍️ **Prompting documentation** | Comprehensive guide to getting the best results |
-
-### 🛠️ Product-Specific Resources
-
-| Resource | What it covers |
-|----------|----------------|
-| 💻 **Claude Code in Action** | Free course on using Claude for development workflows |
-| 🤝 **Introduction to Claude Cowork** | Free course on how to use Claude's desktop companion for multi-step work |
-| 🔗 **Connector Directory** | Browse and connect your tools at claude.ai/directory |
-
----
-
-## 💪 A Word of Encouragement
-
-The most important thing you can do now is **just get started!** The skills you've learned here will sharpen with practice, and you'll develop intuition for when and how Claude can help.
-
-### 🎯 Start Simple
-
-Pick **one recurring task** from your work this week and try it with Claude. Maybe it's:
-- 📧 Drafting an email
-- 📝 Summarizing meeting notes
-- 📊 Analyzing a spreadsheet
-
-See what happens. **Iterate.** Learn what works for your specific needs.
-
-### 🤝 Remember: Claude is a Collaborator
-
-Claude is designed to be a **collaborator, not a replacement**. The best results come when you bring your expertise, context, and judgment to the conversation.
-
-> **You now have the foundation. The rest comes from doing the work.**
 
 ---
 
@@ -1731,42 +1620,6 @@ Claude is designed to be a **collaborator, not a replacement**. The best results
 - **Claude Design** = Sketch → prototype
 - **Claude for M365** = Excel, PowerPoint, Word, Outlook sidebars
 - **Claude in Chrome** = Browser sidebar
-
----
-
-## 🏆 Next Steps
-
-### ✅ Complete Your Certification
-
-1. **Take the quiz** to test your knowledge
-2. **Earn your completion badge** to share on LinkedIn and with your team
-3. **Download your certificate** as proof of completion
-
-### 🚀 Continue Learning
-
-- Explore the **Use Case Gallery** for role-specific workflows
-- Try **Claude Code in Action** if you're a developer
-- Experiment with **Projects** and **Skills** in your daily work
-- Connect your **most-used tools** via the Connector Directory
-
-### 💬 Join the Community
-
-- Share your certification on LinkedIn with **#ClaudeCertified**
-- Connect with other Claude users
-- Share your use cases and learnings
-
----
-
-## 🎓 Congratulations!
-
-You've completed **Claude 101** and are now equipped to:
-- ✅ Work effectively with Claude across multiple platforms
-- ✅ Apply the 4D AI Fluency Framework to your work
-- ✅ Organize knowledge with Projects and automate workflows with Skills
-- ✅ Extend Claude's capabilities with Connectors and Research
-- ✅ Choose the right Claude tool for your specific needs
-
-**Thank you for investing in your AI fluency. Now go build something amazing!** 🚀
 
 ---
 
@@ -1883,21 +1736,6 @@ You've completed **Claude 101** and are now equipped to:
 - ❌ Claude for Excel
 
 ---
-
-## 📊 Quiz Summary
-
-| Topic | Question | Key Concept |
-|-------|----------|-------------|
-| **Capabilities** | Q1 | Claude = writing, research, coding, problem-solving assistant |
-| **Prompting** | Q2 | Effective prompts = Stage + Task + Rules |
-| **Iteration** | Q3 | Generic response → Add audience/role/constraints |
-| **Projects** | Q4 | RAG expands capacity 10x via smart retrieval |
-| **Artifacts** | Q5 | Published = shareable link, no Claude account needed |
-| **Organization** | Q6 | Projects store knowledge · Skills perform tasks |
-| **Connectors** | Q7 | Permission-based access only |
-| **Enterprise** | Q8 | Owner/admin completes initial setup |
-| **Research** | Q9 | Best for: comprehensive multi-source analysis |
-| **Tools** | Q10 | Claude Code = codebase navigation + automation |
 
 ### 🎯 Study Tips for Exam
 

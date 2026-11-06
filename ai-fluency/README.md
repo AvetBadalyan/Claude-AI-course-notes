@@ -25,9 +25,9 @@ AI Fluency = developing **practical skills, knowledge, insights, and values** fo
 
 | Mode | Description | Example (from the video) |
 |------|-------------|---------------------------|
-| ⚡ **Automation** | The AI completes specific tasks based on your instructions | Summarize a document, draft an email |
-| 🤝 **Augmentation** | You and AI collaborate as creative thinking and task execution partners | Brainstorm a story character together |
-| 🧠 **Agency** | You configure AI to work independently on your behalf — establishing its knowledge and behavior patterns rather than just giving it specific tasks | AI sorts incoming emails by urgency and drafts replies |
+| ⚡ **Automation** | AI performs specific tasks based on specific human instructions — the human defines what needs to be done, the AI executes | Summarize a document, draft an email |
+| 🤝 **Augmentation** | Humans and AI collaborate as thinking partners; iterative back-and-forth where both contribute to the outcome | Brainstorm a story character together |
+| 🧠 **Agency** | Humans configure AI to work independently on their behalf, **including interacting with other humans or AI** — establishing knowledge and behavior patterns rather than specifying exact actions | AI sorts incoming emails by urgency and drafts replies |
 
 > 💡 None of the three is "better" — you might use **all three in one project**.
 
@@ -81,53 +81,6 @@ Using AI responsibly and ethically, with transparency and accountability.
 - The 4Ds are **interconnected with each other** — they influence one another in all directions, not a one-way sequence
 - Each D has **three sub-competencies** that make the framework practical and actionable
 - Developing these competencies **prepares you for evolving AI capabilities** — lasting skills, not just today's tools
-
----
-
-## 📖 Reference: Key Terminology Cheat Sheet
-
-> Official Anthropic course reference — useful for quick revision before the exam.
-
-### 🔄 Human-AI Interaction Modes (Full Definitions)
-
-| Mode | Full Definition |
-|------|-----------------|
-| ⚡ **Automation** | AI performs specific tasks based on specific human instructions. The human defines what needs to be done, and the AI executes it. |
-| 🤝 **Augmentation** | Humans and AI collaborate as thinking partners to complete tasks together. Involves iterative back-and-forth where both contribute to the outcome. |
-| 🧠 **Agency** | Humans configure AI to work independently on their behalf, including interacting with other humans or AI. The human establishes the AI's knowledge and behavior patterns rather than specifying exact actions. |
-
-### AI Technical Concepts
-
-| Term | Definition |
-|------|------------|
-| **Generative AI** | AI systems that can create new content (text, images, code, etc.) rather than just analyzing existing data |
-| **Large Language Models (LLMs)** | Generative AI systems trained on vast amounts of text data to understand and generate human language |
-| **Claude** | Anthropic's family of large language models |
-| **Parameters** | Mathematical values within an AI model that determine how it processes information; modern LLMs contain billions |
-| **Neural networks** | Computing systems composed of interconnected nodes organized in layers that learn patterns from data through training |
-| **Transformer architecture** | Breakthrough AI design from 2017 that enables LLMs to process text in parallel while attending to relationships between words across long passages |
-| **Scaling laws** | As models grow larger with more data and compute, performance improves in consistent patterns; new capabilities can emerge at certain scale thresholds |
-| **Pre-training** | Initial training phase where AI learns patterns from vast text data, building foundational language understanding |
-| **Fine-tuning** | Additional training after pre-training to follow instructions, give helpful responses, and avoid harmful content |
-| **Context window** | The amount of information an AI can consider at one time (conversation history + shared documents); has a maximum limit |
-| **Hallucination** | When AI confidently states something that sounds plausible but is actually incorrect |
-| **Knowledge cutoff date** | The point after which an AI model has no built-in knowledge, based on when training ended |
-| **Reasoning / thinking models** | AI models designed to think step-by-step through complex problems for improved logical reasoning |
-| **Temperature** | Controls how random AI responses are — higher = more creative/varied; lower = more predictable/focused |
-| **RAG (Retrieval Augmented Generation)** | Technique that connects AI to external knowledge sources to improve accuracy and reduce hallucinations |
-| **Bias** | Systematic patterns in AI outputs that unfairly favor or disadvantage certain groups, often from training data |
-
-### Prompt Engineering Concepts
-
-| Term | Definition |
-|------|------------|
-| **Prompt** | The input given to an AI model, including instructions and any shared documents |
-| **Prompt engineering** | The practice of designing effective prompts to produce desired AI outputs |
-| **Chain-of-thought prompting** | Encouraging AI to work through a problem step by step, breaking complex tasks into smaller steps |
-| **Few-shot learning (n-shot prompting)** | Teaching AI by showing examples of desired input-output patterns; "N" = number of examples provided |
-| **Role / persona definition** | Specifying a character, expertise level, or communication style for the AI to adopt (e.g., "speak as a UX expert") |
-| **Output constraints / formatting** | Specifying the desired format, length, or structure of the AI's response within your prompt |
-| **Think-first approach** | Asking the AI to work through its reasoning before giving a final answer, for more thorough responses |
 
 ---
 
@@ -187,20 +140,6 @@ Using AI responsibly and ethically, with transparency and accountability.
 - **Adapts to new tasks through in-context learning** (learning from examples given directly in the prompt)
 - **Demonstrates emergent capabilities from scale** — abilities that appear unpredictably as models grow larger
 
-### Key Capabilities
-- Versatile language skills
-- General-purpose abilities
-- Learning from examples
-- Connecting to external tools and data
-
-### Current Limitations
-- **Knowledge cutoff date** — no awareness of events after training ended
-- **Hallucinations** — can confidently state plausible but incorrect information
-- **Context window constraints** — limited amount of information it can hold at once (includes your prompts, AI responses, and any other info you've shared)
-- **Challenges with complex reasoning and math**
-
-![AI context window](assets/L4-generative-ai/context-window.png)
-
 ### Capabilities (In Depth)
 
 ![LLM capabilities](assets/L5-capabilities/llm-capabilities.png)
@@ -258,14 +197,6 @@ LLMs can struggle with complex multi-step reasoning and math. This is being addr
 
 > The most effective applications **combine** these strengths — neither humans alone nor AI alone.
 
-### Looking Ahead
-
-![Looking ahead](assets/L5-capabilities/looking-ahead.png)
-
-- **Evolving landscape** — the field is changing rapidly; today's limitations may not be tomorrow's
-- **Human-AI collaboration** — the focus remains on working together, not replacing humans
-- **Being hands-on** — practical experience is the best way to develop AI Fluency
-
 ### Key Takeaways
 - Generative AI **creates** new content — it doesn't just classify or retrieve existing data
 - Three key enablers: algorithmic breakthroughs (**Transformer**), vast **training data**, increased **compute**
@@ -274,6 +205,17 @@ LLMs can struggle with complex multi-step reasoning and math. This is being addr
 - Current limitations: knowledge cutoff, hallucinations, context window constraints, non-deterministic output, reasoning challenges
 - **Most effective applications combine human and AI strengths** — humans bring judgment and ethics; AI brings speed and scale
 - Understanding these foundations directly strengthens your **Delegation** competence — knowing what AI can and can't do helps you decide when to use it
+
+### 📝 Quick Reference: Key Technical Terms (for exam prep)
+
+| Term | Definition |
+|------|------------|
+| **Temperature** | Controls response randomness — higher = more creative/varied; lower = more predictable/focused |
+| **RAG** (Retrieval Augmented Generation) | Technique connecting AI to external knowledge sources to improve accuracy and reduce hallucinations |
+| **Bias** | Systematic patterns in AI outputs that unfairly favor/disadvantage certain groups, often from training data |
+| **Parameters** | Mathematical values inside a model that determine how it processes information; modern LLMs have billions |
+| **Few-shot learning** | Teaching AI by showing example input→output pairs in the prompt (N-shot = N examples given) |
+| **Chain-of-thought prompting** | Asking AI to work through a problem step-by-step before answering |
 
 ---
 
@@ -605,53 +547,6 @@ Some ways to refine your prompt:
 - **A continuous loop of instruction and evaluation drives quality** — Discernment works hand-in-hand with Description
 - **Discernment ensures that AI collaboration remains guided by human judgment** — even the most advanced AI systems benefit from human oversight
 
-### 🏋️ Exercise: Expert Discernment — Evaluating AI Responses in Your Domain
-
-> **Goal:** Practice Product, Process, and Performance Discernment by evaluating AI-generated content in a domain where you have expertise, recognizing how your knowledge enhances your ability to critically assess AI outputs.
-
-1. **Return to your area of expertise** — recall the topic you discussed with Claude in the earlier "Explore something you love" exercise
-2. **Ask for multiple explanations** — start a new conversation and ask Claude to generate **three different explanations or analyses** of a specific aspect of your expert topic (e.g., three explanations of depth of field for photography, three analyses of fermentation for cooking, three perspectives on a historical event)
-3. **Apply your expert discernment**:
-   - **Product Discernment** — Which explanation is most accurate? Any factual errors/misconceptions? Is the level of detail appropriate?
-   - **Process Discernment** — Does Claude follow logical reasoning? Are there gaps in analysis? Does it make appropriate connections between concepts?
-   - **Performance Discernment** — Was Claude attentive to your specific question and responsive to feedback? Is terminology used appropriately? How does tone/style affect clarity?
-4. **Provide feedback and refinement** — identify the strongest and weakest explanations, explain *why*, then work with Claude to create an improved version
-5. **Reflect** — What specific knowledge let you judge strengths/weaknesses? How might a non-expert struggle to discern quality here? What does this teach about the relationship between domain knowledge and effective Discernment?
-
-> 💡 For a more playful Discernment workout, try the "Game Night" suggestions in the final lesson's "Additional Activities."
-
-### 🤔 Reflection
-- Which type of Discernment (Product, Process, or Performance) do you find most challenging to apply, and why?
-- How does Discernment complement Description? How do they work together?
-- What signals or patterns might indicate that an AI output requires closer scrutiny?
-
----
-
-## Lecture 10: Project Execution with Description-Discernment Loops
-
-> A hands-on application of Lectures 6–9 (Delegation, Description, Discernment) to your own course project — no new theory, just practice.
-
-### 🏋️ Exercise: Project Execution with Description-Discernment Loops
-
-1. **Review your project plan** — pull up the plan from Lesson 5, quickly re-check your delegation decisions (human / AI / collaboration), and refine if needed based on what you've learned since
-2. **Prepare your Description approach** — before executing, plan out:
-   - **Product Description** — what specific outputs do you need for each task? format, style, length, level of detail?
-   - **Process Description** — how should Claude approach each task? specific methods, frameworks, or steps?
-   - **Performance Description** — what collaborative behavior do you want? concise vs. detailed, challenging vs. supportive, ideas-focused vs. analysis-focused?
-3. **Execute using Description-Discernment loops** — for each task:
-   - **Describe** clearly (Product / Process / Performance Description)
-   - **Discern** the quality of what you receive (Product / Process / Performance Discernment)
-   - **Refine** — give feedback on what worked/didn't, adjust your description, iterate until satisfied
-   - **Integrate your own expertise** — add your perspective, creativity, domain knowledge; make the final call on what to keep, modify, or discard; **take responsibility for the final output**
-   - Repeat the loop for each task until the project is complete
-
-> **Example loop:** Task = "write a project summary." *Describe:* "Write a 200-word summary for a non-technical stakeholder, in 3 short paragraphs (Product); cover goal → approach → outcome, in that order (Process); keep the tone confident but not salesy (Performance)." *Discern:* the draft is accurate and well-structured (Product ✅) but jumped straight to outcome before explaining approach (Process ❌) and reads a little too promotional (Performance ❌). *Refine:* "Reorder to goal→approach→outcome, and tone it down — state facts rather than selling them." *Integrate:* you swap in the real budget figures only you have access to, then approve the final version.
-
-### 🤔 Reflection
-- What patterns did you notice in the types of descriptions that led to the best outcomes?
-- Which required more effort from you: **Description** or **Discernment**? Why?
-- How did your actual project execution compare to your initial plan from Lesson 5? What adjustments did you make along the way?
-
 ---
 
 ## Lecture 11: The 4Ds — Diligence
@@ -727,30 +622,6 @@ Some ways to refine your prompt:
 - AI use should be not only **effective and efficient**, but also **ethical and safe**
 - We all want AI that is **fair**, **safe**, and of **benefit** to society — **our own behaviors play a key role in making this happen**
 
-### 🏋️ Exercise: Creating a Diligence Statement
-
-A **diligence statement** is a transparent acknowledgment of AI's role in your work, along with your commitment to responsibility for the final output. Example:
-
-> *"In creating this [document/project/content], I collaborated with [AI assistant name] to assist with [specific tasks: drafting, research, editing, etc.]. I affirm that all AI-generated and co-created content underwent thorough review and evaluation. The final output accurately reflects my understanding, expertise, and intended meaning. While AI assistance was instrumental in the process, I maintain full responsibility for the content, its accuracy, and its presentation. This disclosure is made in the spirit of transparency and to acknowledge the role of AI in the creation process."*
-
-**Step 1: Understand diligence statements** — read the example above.
-
-**Step 2: Reflect on your AI collaboration**:
-- **Creation Diligence** — Which AI systems did you choose and why? What data/information did you share? Any privacy, security, or ethical considerations?
-- **Transparency Diligence** — Who is the audience for your output? What disclosure expectations might they have? How specifically did AI contribute to different aspects?
-- **Deployment Diligence** — What steps verified the accuracy/appropriateness of AI contributions? How did you ensure the final output meets your standards? What responsibility are you taking?
-
-**Step 3: Draft your statement** — share your reflections (and optionally past conversations) with Claude, and collaborate to draft a statement addressing: which AI systems you used, how AI contributed, your review process, your assertion of responsibility, and any context-specific considerations.
-
-**Step 4: Add your statement to your project** — e.g., footer, appendix, or metadata.
-
-### 🤔 Reflection
-- Which aspect of Diligence (Creation, Transparency, or Deployment) do you find most challenging, and why?
-- How might your approach to Diligence vary depending on the context (personal, academic, professional)?
-- How does acknowledging AI's role in your work affect how others might perceive it?
-- What ethical considerations arose during your project that you hadn't anticipated?
-- What personal guidelines might you develop for responsible AI collaboration going forward?
-
 ---
 
 ## Lecture 12: Conclusion — AI Fluency: Framework and Foundations
@@ -780,31 +651,6 @@ This concluding video revisits the AI Fluency Framework and brings together the 
 - **Diligence** — ensures accountability, transparency, and responsibility in our AI work
 - The most powerful outcomes emerge when **humans and AI build on each other's strengths**
 - The framework is designed to **remain relevant as AI systems continue to evolve**
-
-### 🏋️ Exercises
-
-**Exercise 1: Discuss the AI Fluency Course with Claude**
-- Engage Claude in a meaningful conversation about this course and the AI Fluency Framework (optionally upload a copy of the framework from ringling.libguides.com/ai/framework)
-- Suggested conversation starters:
-  - *"I've just completed a course on AI Fluency covering Delegation, Description, Discernment, and Diligence. Let's discuss how these competencies might apply to [my degree program / my job / etc.]."*
-  - *"Let's explore how the AI Fluency Framework might evolve as AI capabilities advance. What new competencies might become important in the future?"*
-  - *"Help me identify which of the 4D competencies I seem to understand well and which I might need to develop further, based on our conversation."*
-  - *"Here's [some exercise you did in this course]. Let's analyze it to improve my competencies."*
-
-**Exercise 2: Build a Personal AI Policy** — with Claude as a thinking partner, create your own guidelines for responsible/ethical AI collaboration:
-- Clear standards for when/how you'll work with AI in different contexts
-- Boundaries for sensitive or confidential information
-- How you'll maintain quality control for AI-assisted work
-- Ethical issues most relevant to your field or activities
-- Decision-making criteria for addressing ethical dilemmas
-- Perspectives of people who might be affected by your AI interactions
-- How you'll disclose AI collaboration in different contexts
-- Templates for attribution and transparency statements
-- Criteria for when more detailed disclosure is appropriate
-
-> **Example policy snippet:** *"I use Claude for drafting and research, never for final decisions involving client data. I always verify factual claims before sharing. Any deliverable with substantial AI involvement gets a one-line disclosure in the footer (see the Diligence Statement template above). I don't paste confidential client information into any AI tool without an enterprise data agreement in place."*
-
----
 
 ## 📋 Certification Quiz — AI Fluency: Framework & Foundations
 
@@ -920,21 +766,6 @@ This concluding video revisits the AI Fluency Framework and brings together the 
 
 ---
 
-## 📊 Quiz Summary
-
-| Topic | Question | Key Concept |
-|-------|----------|-------------|
-| **Core Definition** | Q1 | AI Fluency = effective, efficient, ethical, and safe AI use |
-| **Framework** | Q2 | 4Ds = Delegation · Description · Discernment · Diligence |
-| **Delegation** | Q3 | Delegation = deciding AI vs. human work |
-| **Diligence** | Q4 | Diligence = responsible use, transparency, accountability |
-| **Problem Awareness** | Q5 | Problem Awareness = defining goals before AI |
-| **Description** | Q6 | Description = communicating what, how, and interaction style |
-| **Product Description** | Q7 | Product Description = defining what AI creates |
-| **Discernment** | Q8 | Discernment = critically evaluating AI outputs/behaviors |
-| **Process Discernment** | Q9 | Process Discernment = assessing AI's reasoning approach |
-| **Transparency Diligence** | Q10 | Transparency Diligence = being honest about AI's role |
-
 ### 🎯 Study Tips for Exam
 
 **Core Definition:**
@@ -974,61 +805,3 @@ This concluding video revisits the AI Fluency Framework and brings together the 
 - Diligence focuses on **responsibility** (ethics, transparency, accountability)
 
 ---
-
-## 📎 Appendix: Additional Activities (Self-Paced)
-
-> Optional, self-paced practice after finishing the course. Pick what resonates, or use as inspiration for your own.
-
-### 🗺️ Build a Personal AI Fluency Plan
-
-With an AI assistant, create a structured plan for developing your AI fluency over time:
-
-1. **Current competency assessment** — rate yourself (novice / developing / confident) on each of the 4Ds; note specific strengths and growth areas; identify which interaction modes (Automation, Augmentation, Agency) you use most/least effectively
-2. **Development priority identification** — pick 1–2 competencies to focus on first; identify which specific aspects matter most in your context; consider which interaction modes you want to grow
-3. **Specific action planning** — create activities to develop each priority competency; set a timeline/frequency for practice; identify supporting resources/tools; define how you'll recognize progress
-
-> Work with Claude as a thinking partner — share your self-assessments and get feedback on your plan.
-
-### 📚 Build a Personal Prompt & Pattern Library
-
-Create a personalized collection of effective prompts/patterns for recurring AI interactions:
-
-1. **Common task template creation** — identify 5–10 recurring tasks; develop a template prompt for each that consistently works well; include placeholders for variable info
-2. **Effective strategy documentation** — document which Description techniques work for which task types; record Discernment patterns that help you evaluate outputs; note what works best per interaction mode
-3. **Personal reference resource building** — organize templates/strategies so they're easy to search; include examples of successful outputs; keep a system for updating the library as you find new approaches
-
-> Ask Claude to help analyze your past successful interactions and identify what made them effective.
-
-### 🎮 Game Night!
-
-Playful exercises to practice precise **Description** and sharpen **Discernment** through word puzzles — puzzles have specific instructions (unlike open-ended tasks), making them great for both clear communication *and* discernment workouts.
-
-**Swap Riddles**
-- Create a riddle (or try: *"Five-score and more drums I tap to paint a symphony of light. What am I doing?"* → *typing on a ~104-key keyboard to create pixels on a monitor*)
-- Have Claude guess **and explain its reasoning** — note not just the guess but the *why*
-- Don't reveal the answer — instead nudge Claude toward the right chain-of-thought
-- Switch sides: ask Claude for a riddle and have it guide you in return
-
-**Co-operative Crosswords**
-- Work on crossword clues together (cryptic clues are especially interesting)
-- Focus isn't on solving skill — it's on **guiding and refining thinking**: *"Remember, it's only 5 letters"*, *"Can't be that, it starts with B"*, *"Maybe they mean 'swallow' the bird, not the drink"*
-- These steering skills transfer directly to real projects
-
-**Word Association**
-- Pick 12–20 random words and collaborate with Claude to find relationships/themes
-- When Claude makes a questionable connection or misses a pattern, point it out and guide it toward better reasoning — and stay open to Claude spotting things you missed
-- Practice all three Discernment types:
-  - **Product** — do the answers logically fit a cohesive theme?
-  - **Process** — does Claude consider multiple possibilities, or fixate narrowly?
-  - **Performance** — is Claude's communication clear? Does it ask good questions and build on your suggestions?
-
-**More Game Suggestions**
-- **Twenty Questions** — Claude thinks of something, you ask yes/no questions to guess it, then switch roles
-- **Collaborative Storytelling** — alternate sentences building a story; observe how you both maintain coherence
-- **A Wizard Approaches You in the Tavern** — play an RPG with an LLM as player or game master
-- **Concepts & Constraints** — explain a complex concept under a tight constraint (e.g., "cooking metaphors only"); compare your approach to Claude's
-- **Advanced Puzzling** — create logic/word puzzles for Claude to solve (or vice versa); programmers can swap in [Project Euler](https://projecteuler.net/) problems
-
----
-
-<!-- End of AI Fluency Course -->
