@@ -503,6 +503,8 @@ Skills support metadata fields: **`name`** and **`description`** (required), **`
 | **Context** | Add knowledge to your **current conversation** — instructions join the **existing context** | Run in a **separate context** — receive a task, work **independently**, return results (**isolated** from the main conversation) |
 | **Use when** | You want to **enhance Claude's knowledge for the current task** · the expertise applies **throughout a conversation** | You want to **delegate** to a separate execution context · you need **different tool access** than the main conversation · you want **isolation** between delegated work and your main context |
 
+![Illustration comparing Subagents (delegate a task to a separate execution context · need different tool access than the main conversation · want isolation between delegated work and main context) with Skills (enhance Claude's knowledge for the current task · the expertise applies throughout a conversation)](assets/L4-skills-vs-other-features/subagents-vs-skills.png)
+
 > 🔗 Subagents: [Claude Code 101, Ch 9](../claude-code-101/README.md). The isolation/own-context idea matches the cold-review sub-agent in [Claude Code in Action, Ch 8](../claude-code-in-action/README.md) (my mapping).
 
 ---
@@ -513,6 +515,8 @@ Skills support metadata fields: **`name`** and **`description`** (required), **`
 |---|---|---|
 | **Trigger** | **Request-driven** — activate based on **what you're asking** | **Event-driven** — fire **on events** (e.g. run a linter every file save, validate input before certain tool calls) |
 | **Use for** | Knowledge that **informs how Claude handles requests** · guidelines that **affect Claude's reasoning** | Operations that should run on **every file save** · **validation before specific tool calls** · **automated side effects** of Claude's actions |
+
+![Illustration comparing Hooks (operations that should run on every file save · validation before specific tool calls · automated side effects of Claude's actions) with Skills (knowledge that informs how Claude handles requests · guidelines that affect Claude's reasoning)](assets/L4-skills-vs-other-features/hooks-vs-skills.png)
 
 > 🔗 Hooks: [Claude Code in Action, Ch 5](../claude-code-in-action/README.md). The request-driven vs event-driven split is the key exam contrast (my mapping).
 
