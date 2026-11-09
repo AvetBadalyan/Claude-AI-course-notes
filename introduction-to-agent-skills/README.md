@@ -8,7 +8,7 @@
 
 | Unit | Chapters | Status |
 |------|----------|:------:|
-| 🗂️ **Course Overview** | [Ch 1: What Are Skills?](#chapter-1-what-are-skills) · [Ch 2: Creating Your First Skill](#chapter-2-creating-your-first-skill) · [Ch 3: Configuration and Multi-File Skills](#chapter-3-configuration-and-multi-file-skills) · [Ch 4: Skills vs. Other Claude Code Features](#chapter-4-skills-vs-other-claude-code-features) · Ch 5: Sharing Skills · Ch 6: Troubleshooting Skills | 🚧 |
+| 🗂️ **Course Overview** | [Ch 1: What Are Skills?](#chapter-1-what-are-skills) · [Ch 2: Creating Your First Skill](#chapter-2-creating-your-first-skill) · [Ch 3: Configuration and Multi-File Skills](#chapter-3-configuration-and-multi-file-skills) · [Ch 4: Skills vs. Other Claude Code Features](#chapter-4-skills-vs-other-claude-code-features) · [Ch 5: Sharing Skills](#chapter-5-sharing-skills) · Ch 6: Troubleshooting Skills | 🚧 |
 | 🗂️ **Quiz** | Course quiz | 🔲 |
 
 > **Annotation guide for these notes:** 📌 = my own reading from screenshots/context — **not stated in the lesson text itself**. 🔗 = my cross-reference between chapters — **my mapping, not the lesson's wording**. For exam prep, focus on the **📝 Quick Reference** tables and **Key features for exam** bullet lists at the end of each chapter.
@@ -562,3 +562,145 @@ A typical setup combines **all five** — each handling its own specialty:
 - **Skills are request-driven** (activate on what you ask); **hooks are event-driven** (fire on file saves / tool calls).
 - **MCP servers = external tools and integrations** — a separate category from skills.
 - Each feature has its **own specialty** — **combine them** (and you can use several at once) rather than forcing everything into skills.
+
+---
+
+> 🗂️ **Course Overview** · Chapter 5
+
+## Chapter 5: Sharing Skills
+
+> 🎬 **Video: Sharing skills (4 min).** Skills become **much more valuable when shared.** A PR-review skill only you use is helpful; the same skill **shared across your team standardizes code review** and creates a consistent experience. Three distribution methods — **repository commits, plugins, enterprise managed settings** — plus how to configure **custom subagents to use skills.**
+
+### 🎯 Learning Objectives
+
+- **Share** skills with your team by committing them to a Git repo
+- **Distribute** skills across projects via plugins and marketplaces
+- **Deploy** skills organization-wide using enterprise managed settings
+- **Configure** custom subagents to use specific skills
+
+### 🧠 Key Takeaways
+
+- **Project skills in `.claude/skills` are shared automatically through Git** — anyone who clones the repo gets them
+- **Plugins** distribute skills across repositories via **marketplaces** for broader community use
+- **Enterprise managed settings** deploy skills **organization-wide with the highest priority** — for mandatory standards and compliance
+- ⚠️ **Subagents don't automatically see your skills** — you must **explicitly list them in a custom agent's frontmatter `skills` field**
+- **Built-in agents (Explorer, Plan, Verify) can't access skills** — only **custom subagents** defined in `.claude/agents` can
+
+---
+
+### 📦 The Three Distribution Methods
+
+| Method | How | Best for |
+|--------|-----|----------|
+| 🐙 **Repository commit** | Place skills in **`.claude/skills`**, commit; clones get them automatically, pulls get updates | **Team** coding standards, project-specific workflows, skills that reference your codebase |
+| 🧩 **Plugin + marketplace** | Put skills in a plugin's **`skills/`** folder (same shape as `.claude`), distribute to a **marketplace** | Skills **not too project-specific** — useful to the **community** beyond your team |
+| 🏢 **Enterprise managed settings** | Admins deploy **organization-wide**; **highest priority** (overrides personal/project/plugin) | **Mandatory** standards, security, compliance — *"the keyword is **must**"* |
+
+#### 🐙 Committing skills to your repository
+
+The **simplest** method: place skills in **`.claude/skills`** — anyone who clones gets them, **no extra installation**; push updates and everyone gets them on the next pull.
+
+> 💡 The **`.claude` directory** holds your **agents, hooks, skills, and settings** — all version-controlled and shared through normal Git workflows.
+
+#### 🧩 Distributing through plugins
+
+In your plugin project, create a **`skills/`** directory that follows the **same structure as `.claude`** — each skill gets its own folder with a `SKILL.md`. After you distribute the plugin to a **marketplace**, others can **discover and install** it.
+
+![A "Discover plugins (1/46)" terminal panel with a search box, listing code-review (claude-plugins-official, 68.6K installs), github, ralph-loop, typescript-lsp, and playwright, with footer "type to search · Space to toggle · Enter to details · Esc to back"](assets/L5-sharing-skills/discover-plugins.png)
+
+> 🔗 Plugins and marketplaces are covered fully in [Claude Code in Action, Ch 9](../claude-code-in-action/README.md) — here they're one of the skill-distribution channels (my mapping).
+>
+> 📌 *From the screenshot:* the Discover panel shows curated **`claude-plugins-official`** entries with install counts (e.g. code-review at 68.6K) — the official marketplace track (my reading).
+
+#### 🏢 Enterprise deployment through managed settings
+
+Enterprise skills take the **highest priority** — overriding personal, project, and plugin skills of the same name. The managed settings file supports features like **`strictKnownMarketplaces`** to control **where plugins can be installed from:**
+
+```json
+"strictKnownMarketplaces": [
+  {
+    "source": "github",
+    "repo": "acme-corp/approved-plugins"
+  },
+  {
+    "source": "npm",
+    "package": "@acme-corp/compliance-plugins"
+  }
+]
+```
+
+![VS Code managed-settings.json showing an env block (CLAUDE_CODE_ENABLE_TELEMETRY), companyAnnouncements, and a strictKnownMarketplaces array with a github source (acme-corp/approved-plugins) and an npm source (@acme-corp/compliance-plugins)](assets/L5-sharing-skills/managed-settings-marketplaces.png)
+
+> 🔗 Matches the skill-priority hierarchy from [Chapter 2](#chapter-2-creating-your-first-skill): **Enterprise → Personal → Project → Plugins** — managed settings are the Enterprise tier (my mapping).
+>
+> 📌 *From the screenshot:* the same `managed-settings.json` also carries `env` (telemetry) and `companyAnnouncements` — admins bundle org-wide config here, not just marketplace allow-lists (my reading).
+
+---
+
+### 🤖 Skills and Subagents
+
+> ⚠️ **Here's what surprises people: subagents don't automatically see your skills.** When you delegate to a subagent, it starts with a **fresh, clean context.**
+
+| Agent type | Can use skills? |
+|------------|-----------------|
+| 🏗️ **Built-in agents** (Explorer, Plan, Verify) | ❌ **Can't access skills at all** |
+| 🛠️ **Custom subagents** you define | ✅ **Yes — but only when you explicitly list them** |
+
+- **Skills are loaded when the subagent *starts*** — **not on demand** like in the main conversation.
+
+#### Creating a custom subagent with skills
+
+Add an agent markdown file in **`.claude/agents`** — or use the **`/agents`** command to create one interactively.
+
+![Claude Code terminal (v2.1.31, Opus 4.5) running /agents → "Create new agent" with the prompt "I want you to review the frontend for any issues with accessibility, errors and…"](assets/L5-sharing-skills/agents-create-command.png)
+
+The generated agent includes a **`skills` field** listing which skills to load:
+
+```yaml
+---
+name: frontend-security-accessibility-reviewer
+description: "Use this agent when you need to review frontend code for accessibility..."
+tools: Bash, Glob, Grep, Read, WebFetch, WebSearch, Skill...
+model: sonnet
+color: blue
+skills: accessibility-audit, performance-check
+---
+```
+
+> **The flow:** first make sure the skills **exist in `.claude/skills`**, then either create a new subagent or add the **`skills` field** to an existing agent's markdown file. When you delegate, the subagent has **both skills loaded** and applies them to every review.
+
+**This pattern works well when:**
+- You want **isolated task delegation with specific expertise**
+- **Different subagents need different skills** (frontend reviewer vs. backend reviewer)
+- You want to **enforce standards in delegated work** without relying on prompts
+
+> 💡 **Only list skills that are *always* relevant** to the subagent's purpose — because they load at startup, not on demand.
+
+> 📌 **Beyond the course (not on the exam):** the course says built-in agents **"can't access skills at all."** The live [Claude Academy page](https://academy.claude.com/courses/introduction-to-agent-skills/sharing-skills) phrases it as built-in agents **"don't *preload*"** skills, and notes a general-purpose subagent with the **Skill tool** can still *find and invoke* skills via the filesystem. For the exam, use the course's wording: **built-in agents can't access skills; subagents need the explicit `skills` field.**
+
+---
+
+### 🔁 Recap
+
+**Share skills** three ways: **project directories** (team access) · **plugins** (cross-repository distribution) · **enterprise deployment** (org-wide standards). **Subagents don't inherit skills automatically** — list them explicitly in the subagent's **`skills` field.** **Built-in agents can't access skills**; only **custom subagents in `.claude/agents`** can. Skills **load when the subagent starts**, so only list skills **always relevant** to its purpose.
+
+### 📝 Quick Reference: Sharing Skills (for exam prep)
+
+| Concept | Key point |
+|---------|-----------|
+| 🐙 **Repository** | `.claude/skills` committed to Git → clones get them, pulls get updates (team standards) |
+| 🧩 **Plugin** | `skills/` folder in a plugin → distribute via **marketplace** (cross-repo / community) |
+| 🏢 **Enterprise** | **Managed settings**, **highest priority** (overrides all), for **mandatory** standards/compliance |
+| ⚙️ **`strictKnownMarketplaces`** | Managed-settings field controlling **where plugins can install from** (github repo / npm package) |
+| ⚠️ **Subagents + skills** | **Don't inherit automatically** — list in the subagent's **`skills` field**; loaded at **startup**, not on demand |
+| 🏗️ **Built-in agents** | **Explorer / Plan / Verify can't access skills** — only **custom subagents** in `.claude/agents` |
+| 🛠️ **Create a subagent** | Add a markdown file in `.claude/agents` or run **`/agents`**; add a `skills:` field |
+
+> 🎓 **Memory tip:** sharing ladder = **Repo (team) → Plugin (community) → Enterprise (org, must-have, top priority).** Subagents: **don't inherit → list in `skills:` → loads at startup → built-ins can't.**
+
+**Key features for exam:**
+- **Three ways to share:** commit to **`.claude/skills`** (team via Git) · **plugin + marketplace** (community) · **enterprise managed settings** (org-wide, highest priority, for *must-have* standards).
+- **`strictKnownMarketplaces`** in managed settings restricts **where plugins can be installed from**.
+- **Subagents don't automatically see skills** — list them in the custom agent's **frontmatter `skills` field**; skills load **at subagent startup** (not on demand).
+- **Built-in agents (Explorer, Plan, Verify) can't access skills** — only **custom subagents** in **`.claude/agents`** can.
+- Create a subagent via a markdown file in `.claude/agents` or the **`/agents`** command; **only list skills always relevant** to its purpose.
