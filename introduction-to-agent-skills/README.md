@@ -8,7 +8,7 @@
 
 | Unit | Chapters | Status |
 |------|----------|:------:|
-| 🗂️ **Course Overview** | [Ch 1: What Are Skills?](#chapter-1-what-are-skills) · [Ch 2: Creating Your First Skill](#chapter-2-creating-your-first-skill) · Ch 3: Configuration and Multi-File Skills · Ch 4: Skills vs. Other Claude Code Features · Ch 5: Sharing Skills · Ch 6: Troubleshooting Skills | 🚧 |
+| 🗂️ **Course Overview** | [Ch 1: What Are Skills?](#chapter-1-what-are-skills) · [Ch 2: Creating Your First Skill](#chapter-2-creating-your-first-skill) · [Ch 3: Configuration and Multi-File Skills](#chapter-3-configuration-and-multi-file-skills) · Ch 4: Skills vs. Other Claude Code Features · Ch 5: Sharing Skills · Ch 6: Troubleshooting Skills | 🚧 |
 | 🗂️ **Quiz** | Course quiz | 🔲 |
 
 > **Annotation guide for these notes:** 📌 = my own reading from screenshots/context — **not stated in the lesson text itself**. 🔗 = my cross-reference between chapters — **my mapping, not the lesson's wording**. For exam prep, focus on the **📝 Quick Reference** tables and **Key features for exam** bullet lists at the end of each chapter.
@@ -305,3 +305,154 @@ Creating a skill means making a **directory with a `SKILL.md`** containing **met
 - **Priority for name conflicts: Enterprise → Personal → Project → Plugins** (enterprise highest, plugins lowest).
 - **Avoid conflicts** with descriptive names (`backend-review`, not `review`).
 - **Update** = edit `SKILL.md`; **remove** = delete the directory; **always restart Claude Code** for changes to take effect.
+
+---
+
+> 🗂️ **Course Overview** · Chapter 3
+
+## Chapter 3: Configuration and Multi-File Skills
+
+> 🎬 **Video: Configuration and multi-file skills (4 min).** The advanced techniques that make skills more powerful: the full set of **metadata fields**, how to write **descriptions that trigger reliably**, **restricting tool access** for security-sensitive workflows, and **organizing larger skills** across multiple files using **progressive disclosure.**
+
+### 🎯 Learning Objectives
+
+- Configure advanced skill metadata — **`allowed-tools`** and **`model`**
+- Write effective **descriptions** that reliably trigger on the right requests
+- Use **`allowed-tools`** to restrict what Claude can do when a skill is active
+- Organize complex skills with **progressive disclosure** and **multi-file structures**
+
+### 🧠 Key Takeaways
+
+- **`name`** and **`description`** are **required**; **`allowed-tools`** and **`model`** are **optional** but powerful
+- A good **description** answers two questions: **What does the skill do?** and **When should Claude use it?**
+- **`allowed-tools`** restricts which tools Claude can use while the skill is active — useful for **read-only / security-sensitive** workflows
+- **Progressive disclosure:** keep `SKILL.md` **under 500 lines** and link to supporting files (**references, scripts, assets**) that Claude reads **only when needed**
+- **Scripts execute without loading their contents** into context — only the **output** consumes tokens
+
+---
+
+### 🏷️ Skill Metadata Fields
+
+The **agent skills open standard** supports several frontmatter fields. **Two are required, the rest optional:**
+
+| Field | Required? | Purpose | Limits / notes |
+|-------|:---------:|---------|----------------|
+| **`name`** | ✅ | Identifies the skill | **Lowercase letters, numbers, hyphens only · max 64 chars · should match the directory name** |
+| **`description`** | ✅ | Tells Claude **when to use it** (matching) | **Max 1,024 chars** · the **most important field** |
+| **`allowed-tools`** | ⬜ | **Restricts** which tools Claude can use when the skill is active | Omit = no restriction |
+| **`model`** | ⬜ | Specifies **which Claude model** the skill uses | e.g. `sonnet` |
+
+> 📌 **Beyond the course (not on the exam):** the course says *"two are required."* The live [Claude Academy course page](https://academy.claude.com/courses/introduction-to-agent-skills/configuration-and-multi-file-skills) now notes that in **Claude Code specifically, all fields are technically optional and only `description` is *recommended*** (and Claude Code adds its own fields like `model`). For the exam, go with the course's rule: **`name` + `description` required.**
+
+---
+
+### ✍️ Writing Effective Descriptions
+
+**Be explicit.** If someone told you *"your job is to help with docs,"* you wouldn't know what to do — Claude thinks the same way.
+
+A good description answers **two questions:**
+
+| Question |
+|----------|
+| ❓ **What does the skill do?** |
+| ❓ **When should Claude use it?** |
+
+> 💡 **If your skill isn't triggering** when you expect, **add more keywords that match how you actually phrase your requests.** The description is what Claude uses to decide relevance, so the **language matters.**
+
+---
+
+### 🔒 Restricting Tools with `allowed-tools`
+
+Sometimes you want a skill that can **only read files, not modify them** — for **security-sensitive workflows, read-only tasks, or guardrails.**
+
+```yaml
+---
+name: codebase-onboarding
+description: Helps new developers understand how the system works.
+allowed-tools: Read, Grep, Glob, Bash
+model: sonnet
+---
+```
+
+![VS Code showing .claude/skills/codebase-onboarding/SKILL.md frontmatter — name, description, allowed-tools: Read, Grep, Glob, Bash, model: sonnet — then "# Codebase Guide"](assets/L3-configuration-multi-file/allowed-tools-frontmatter.png)
+
+| Behavior | |
+|----------|--|
+| ✅ **With `allowed-tools: Read, Grep, Glob, Bash`** | While the skill is active, Claude can **only use those tools, without asking permission** — **no editing, no writing** |
+| ⬜ **Omit `allowed-tools` entirely** | **No restriction** — Claude uses its normal permission model |
+
+> 🔗 This is a skill-level version of the tool-restriction idea — compare the `allowedTools` option in the Agent SDK and GitHub Action ([Claude Code in Action, Ch 6 & 7](../claude-code-in-action/README.md)) (my mapping).
+
+---
+
+### 🪜 Progressive Disclosure
+
+Skills **share Claude's context window** with your conversation. When Claude activates a skill, it **loads the `SKILL.md` into context.** But sometimes you need references, examples, or utility scripts.
+
+⚠️ **Cramming everything into one 2,000-line file** has two problems: it **eats context window space** and it's **not fun to maintain.**
+
+**Progressive disclosure solves this:** keep **essential instructions in `SKILL.md`** and put **detailed reference material in separate files** Claude reads **only when needed.**
+
+The open standard suggests organizing the skill directory with:
+
+| Folder | Holds |
+|--------|-------|
+| 📜 **`scripts/`** | Executable code |
+| 📚 **`references/`** | Additional documentation |
+| 🎨 **`assets/`** | Images, templates, or other data files |
+
+Then in `SKILL.md`, **link to the supporting files** with clear instructions about **when to load them:**
+
+![VS Code SKILL.md for codebase-onboarding showing "## Progressive Disclosure Levels" — Level 2: Architecture Overview with "Only load when user requests more detail. See architecture-guide.md (references/…)" and Level 3: Deep Dives with "Only load when user requests a specific topic. See deep-dive-guide.md"; explorer shows assets, references, scripts folders](assets/L3-configuration-multi-file/progressive-disclosure-levels.png)
+
+> In this example Claude reads **`architecture-guide.md` only when someone asks about system design.** If they're asking *where to add a component*, it **never loads** that file. It's like having a **table of contents in the context window** rather than the entire document.
+
+> 📏 **Rule of thumb:** keep **`SKILL.md` under 500 lines.** Exceeding that → consider splitting into reference files.
+
+> 📌 *From the screenshot:* the body uses explicit **"Level 2 / Level 3"** headings each gated by **"Only load when user requests…"**, with the `references/`, `scripts/`, and `assets/` folders in the explorer — the multi-file layout in practice (my reading).
+
+---
+
+### ⚙️ Using Scripts Efficiently
+
+**Scripts in your skill directory can run without loading their contents into context.** The script **executes and only the output consumes tokens.**
+
+> 🔑 **The key instruction to include in `SKILL.md`: tell Claude to *run* the script, not *read* it.**
+
+Particularly useful for:
+
+| Use case |
+|----------|
+| ✅ **Environment validation** |
+| 🔄 **Data transformations** that need to be consistent |
+| 🧪 **Operations more reliable as tested code** than generated code |
+
+> 🔗 Same "scripts are executed, not loaded" point as [Claude Code in Action, Ch 3](../claude-code-in-action/README.md) — here framed as a token-efficiency technique (my mapping).
+
+---
+
+### 🔁 Recap
+
+Skills support metadata fields: **`name`** and **`description`** (required), **`allowed-tools`** (restricts available tools), and **`model`** (which Claude to use). Descriptions need **specific actions and trigger phrases** to match reliably. For larger skills, use **progressive disclosure** — keep `SKILL.md` **under 500 lines** and link to supporting files that **load only when needed**. **Scripts execute without loading their contents**, keeping context efficient.
+
+### 📝 Quick Reference: Configuration and Multi-File Skills (for exam prep)
+
+| Field / concept | Key point |
+|-----------------|-----------|
+| 🏷️ **`name`** (required) | Lowercase + numbers + hyphens · **max 64 chars** · matches directory name |
+| 📝 **`description`** (required) | **Max 1,024 chars** · the matching criteria · answer **what + when** |
+| 🔒 **`allowed-tools`** (optional) | Restricts tools while active (e.g. `Read, Grep, Glob, Bash`) — read-only/security; **omit = no restriction** |
+| 🧠 **`model`** (optional) | Which Claude model the skill uses (e.g. `sonnet`) |
+| ✍️ **Good description** | Specific actions + **trigger keywords** matching how you phrase requests |
+| 🪜 **Progressive disclosure** | `SKILL.md` **< 500 lines**; link to **`references/` · `scripts/` · `assets/`** loaded only when needed |
+| ⚙️ **Scripts** | **Run, don't read** — only the **output** uses tokens (env validation, consistent transforms, tested code) |
+
+> 🎓 **Memory tip:** required = **N-D** (**N**ame, **D**escription), optional = **A-M** (**A**llowed-tools, **M**odel). Limits: **name ≤ 64, description ≤ 1024.** Big skills: **< 500 lines + progressive disclosure**; scripts = **run, don't read.**
+
+**Key features for exam:**
+- Frontmatter fields: **`name`** + **`description`** required; **`allowed-tools`** + **`model`** optional.
+- **`name`** ≤ 64 chars (lowercase/numbers/hyphens, matches dir); **`description`** ≤ 1,024 chars and is the **matching criteria**.
+- A good **description** answers **what the skill does** and **when to use it**; add **trigger keywords** if it under-triggers.
+- **`allowed-tools`** restricts tools while the skill is active (read-only/security); **omit = normal permission model**.
+- **Progressive disclosure:** keep `SKILL.md` **under 500 lines**, split depth into **`references/`, `scripts/`, `assets/`** loaded only when needed.
+- **Scripts execute without loading their contents** — only output uses tokens; tell Claude to **run, not read** them.
