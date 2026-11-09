@@ -8,8 +8,9 @@
 
 | Unit | Chapters | Status |
 |------|----------|:------:|
-| 🗂️ **Course Overview** | [Ch 1: What Are Skills?](#chapter-1-what-are-skills) · [Ch 2: Creating Your First Skill](#chapter-2-creating-your-first-skill) · [Ch 3: Configuration and Multi-File Skills](#chapter-3-configuration-and-multi-file-skills) · [Ch 4: Skills vs. Other Claude Code Features](#chapter-4-skills-vs-other-claude-code-features) · [Ch 5: Sharing Skills](#chapter-5-sharing-skills) · Ch 6: Troubleshooting Skills | 🚧 |
-| 🗂️ **Quiz** | Course quiz | 🔲 |
+| 🗂️ **Course Overview** | [Ch 1: What Are Skills?](#chapter-1-what-are-skills) · [Ch 2: Creating Your First Skill](#chapter-2-creating-your-first-skill) · [Ch 3: Configuration and Multi-File Skills](#chapter-3-configuration-and-multi-file-skills) · [Ch 4: Skills vs. Other Claude Code Features](#chapter-4-skills-vs-other-claude-code-features) · [Ch 5: Sharing Skills](#chapter-5-sharing-skills) · [Ch 6: Troubleshooting Skills](#chapter-6-troubleshooting-skills) | ✅ |
+
+> _This course has **no quiz** — it ends with a course wrap-up after Chapter 6._
 
 > **Annotation guide for these notes:** 📌 = my own reading from screenshots/context — **not stated in the lesson text itself**. 🔗 = my cross-reference between chapters — **my mapping, not the lesson's wording**. For exam prep, focus on the **📝 Quick Reference** tables and **Key features for exam** bullet lists at the end of each chapter.
 
@@ -704,3 +705,147 @@ skills: accessibility-audit, performance-check
 - **Subagents don't automatically see skills** — list them in the custom agent's **frontmatter `skills` field**; skills load **at subagent startup** (not on demand).
 - **Built-in agents (Explorer, Plan, Verify) can't access skills** — only **custom subagents** in **`.claude/agents`** can.
 - Create a subagent via a markdown file in `.claude/agents` or the **`/agents`** command; **only list skills always relevant** to its purpose.
+
+---
+
+> 🗂️ **Course Overview** · Chapter 6
+
+## Chapter 6: Troubleshooting Skills
+
+> 🎬 **Video: Troubleshooting skills (4 min).** When skills don't work, the problem usually falls into **a few predictable categories** — the skill **doesn't trigger, doesn't load, has conflicts, or fails at runtime.** A systematic approach, plus the **skills validator** and **`claude --debug`.** Most fixes are straightforward.
+
+### 🎯 Learning Objectives
+
+- Use the **skills validator** to catch structural issues before debugging
+- Diagnose and fix common **triggering** and **loading** problems
+- Resolve skill **priority conflicts** (enterprise/personal/project/plugin)
+- Debug **runtime errors** (dependencies, permissions, paths)
+
+### 🧠 Key Takeaways
+
+- **Start with the skills validator** — it catches structural problems before you waste time elsewhere
+- **Doesn't trigger** → almost always the **description**: add trigger phrases matching how you actually phrase requests
+- **Doesn't load** → check `SKILL.md` is **inside a named directory** (not at the skills root) and named **exactly `SKILL.md`**
+- **Wrong skill used** → descriptions are **too similar**: make them more **distinct**
+- **Runtime errors** → check **dependencies**, **file permissions (`chmod +x`)**, and **path separators (forward slashes everywhere)**
+
+---
+
+### ✅ Use the Skills Validator
+
+**The first thing to try.** It catches **structural problems** before you spend time debugging other things. Installation steps vary by OS — **`uv` is the easiest way** to get it set up quickly. Once installed, either **navigate to your skill directory** or run the command from anywhere.
+
+> 📌 **Validator — course vs. live product (not on the exam):** the course (video + lesson text) calls it the **"agent skills verifier,"** installed via **`uv`**. The live [Claude Academy page](https://academy.claude.com/courses/introduction-to-agent-skills/troubleshooting-skills) has since been updated to use the built-in **`claude plugin validate`** command (e.g. `claude plugin validate ~/.claude/skills` for personal, `claude plugin validate .claude/skills` for project; requires Claude Code **v2.1.233+**). **For the exam, go with what your course materials show (the `uv`-installed verifier)**; just know the live tool is `claude plugin validate`.
+
+---
+
+### 🚫 Skill Doesn't Trigger
+
+Your skill exists and passes validation, but Claude isn't using it. **The cause is almost always the `description`.** Claude uses **semantic matching** — your request needs to **overlap with the description's meaning.** No overlap → no match.
+
+| Fix |
+|-----|
+| Check your **description against how you're actually phrasing requests** |
+| Add **trigger phrases users would actually say** |
+| Test with **variations** — *"help me profile this," "why is this slow?", "make this faster"* |
+| If any variation **fails to trigger**, add those **keywords** to your description |
+
+---
+
+### 📂 Skill Doesn't Load
+
+If your skill **doesn't appear** when you ask *"what skills are available,"* check the **structural requirements:**
+
+| Requirement |
+|-------------|
+| `SKILL.md` must be **inside a named directory**, **not at the skills root** |
+| The file name must be **exactly `SKILL.md`** — **all caps `SKILL`, lowercase `md`** |
+
+> 🔧 Run **`claude --debug`** to see **loading errors.** Look for messages **mentioning your skill name** — sometimes this alone points you straight to the problem.
+
+---
+
+### 🔀 Wrong Skill Gets Used
+
+If Claude uses the **wrong skill** or seems confused between skills, your **descriptions are too similar.** **Make them distinct.**
+
+> 💡 Being **as specific as possible** doesn't just help Claude decide when to use your skill — it also **prevents conflicts** with other similar-sounding skills.
+
+---
+
+### 🏆 Skill Priority Conflicts
+
+If your **personal skill is being ignored**, a **higher-priority skill might have the same name.**
+
+![The skill priority hierarchy with Enterprise highlighted at the top over faded Personal, Project, and Plugins, beside "managed-settings.json" — showing an enterprise skill overriding a same-named personal skill](assets/L6-troubleshooting-skills/priority-conflict.png)
+
+> **Example:** an enterprise `code-review` and a personal `code-review` → the **enterprise one wins every time.**
+
+| Your options |
+|--------------|
+| 🥇 **Rename your skill** to something more distinct — *usually the easier path* |
+| 🗣️ **Talk to your admin** about the enterprise skill |
+
+> 🔗 This is the **Enterprise → Personal → Project → Plugins** hierarchy from [Chapter 2](#chapter-2-creating-your-first-skill) biting you — enterprise shadows a same-named personal skill (my mapping).
+
+---
+
+### 🧩 Plugin Skills Not Appearing
+
+Installed a plugin but **can't see its skills?** → **Clear the cache, restart Claude Code, and reinstall.**
+
+- If skills **still** don't appear, the **plugin structure might be wrong** — this is when the **validator tool really earns its keep.**
+
+---
+
+### 💥 Runtime Errors
+
+The skill **loads but fails during execution.** Common causes:
+
+| Cause | Fix |
+|-------|-----|
+| 📦 **Missing dependencies** | External packages must be **installed**; **add dependency info to your skill description** so Claude knows what's needed |
+| 🔑 **Permission issues** | Scripts need **execute permission** — run **`chmod +x`** on any scripts the skill references |
+| 🪟 **Path separators** | Use **forward slashes everywhere**, even on Windows |
+
+---
+
+### 📋 Quick Troubleshooting Checklist
+
+| Symptom | Fix |
+|---------|-----|
+| **Not triggering?** | Improve your **description** and add **trigger phrases** |
+| **Not loading?** | Check your **path, file name, and YAML syntax** |
+| **Wrong skill used?** | Make **descriptions more distinct** from each other |
+| **Being shadowed?** | Check the **priority hierarchy** and **rename** if needed |
+| **Plugin skills missing?** | **Clear cache and reinstall** |
+| **Runtime failure?** | Check **dependencies, permissions, and paths** |
+
+---
+
+### 🔁 Recap (Course Wrap-Up)
+
+Most skill problems fall into **four categories** — doesn't trigger, doesn't load, conflicts, runtime failure — each with a straightforward fix. **Start with the validator**, then work the checklist. 🎓 **That completes Introduction to Agent Skills:** you can now **create, configure, share, and troubleshoot** skills. The best skills come from **real pain points** — start with the instructions you find yourself **repeating most often.**
+
+### 📝 Quick Reference: Troubleshooting Skills (for exam prep)
+
+| Symptom | Likely cause | Fix |
+|---------|--------------|-----|
+| 🚫 **Not triggering** | Description doesn't **overlap** your phrasing | Add **trigger phrases / keywords**; test variations |
+| 📂 **Not loading** | Structural issue | `SKILL.md` in a **named directory** (not root), named **exactly `SKILL.md`**; valid **YAML**; run **`claude --debug`** |
+| 🔀 **Wrong skill used** | Descriptions **too similar** | Make them **distinct / specific** |
+| 🏆 **Shadowed / ignored** | Higher-priority same-named skill | **Rename** (easier) or talk to **admin** (Enterprise > Personal > Project > Plugins) |
+| 🧩 **Plugin skills missing** | Cache / wrong structure | **Clear cache, restart, reinstall**; **validate** structure |
+| 💥 **Runtime failure** | Deps / perms / paths | Install **dependencies** (note them in description) · **`chmod +x`** scripts · **forward slashes** |
+| ✅ **Validator** | Start here | Catches **structural** issues first (course: `uv`-installed verifier; live: `claude plugin validate`) |
+
+> 🎓 **Memory tip:** four failure modes — **Trigger · Load · Conflict · Runtime.** First move = **run the validator**. Debug loading = **`claude --debug`**. Runtime trio = **Dependencies · Permissions (`chmod +x`) · Paths (forward slashes)**.
+
+**Key features for exam:**
+- **Start with the skills validator** — catches structural problems before anything else.
+- **Doesn't trigger** = the **description**: add **trigger phrases** matching real requests; test variations.
+- **Doesn't load** = `SKILL.md` must be **in a named directory** (not the skills root) and named **exactly `SKILL.md`**; use **`claude --debug`** for loading errors.
+- **Wrong skill** = descriptions **too similar** → make them **distinct**.
+- **Shadowed** = a higher-priority same-named skill (**Enterprise > Personal > Project > Plugins**) → **rename** or ask your admin.
+- **Plugin skills missing** = **clear cache, restart, reinstall**.
+- **Runtime errors** = check **dependencies** (note them in the description), **`chmod +x`** for script permissions, and **forward-slash paths** everywhere (even on Windows).
