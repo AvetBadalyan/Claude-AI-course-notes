@@ -8,7 +8,7 @@
 
 | Unit | Chapters | Status |
 |------|----------|:------:|
-| 🗂️ **Course Overview** | [Ch 1: What Are Skills?](#chapter-1-what-are-skills) · [Ch 2: Creating Your First Skill](#chapter-2-creating-your-first-skill) · [Ch 3: Configuration and Multi-File Skills](#chapter-3-configuration-and-multi-file-skills) · Ch 4: Skills vs. Other Claude Code Features · Ch 5: Sharing Skills · Ch 6: Troubleshooting Skills | 🚧 |
+| 🗂️ **Course Overview** | [Ch 1: What Are Skills?](#chapter-1-what-are-skills) · [Ch 2: Creating Your First Skill](#chapter-2-creating-your-first-skill) · [Ch 3: Configuration and Multi-File Skills](#chapter-3-configuration-and-multi-file-skills) · [Ch 4: Skills vs. Other Claude Code Features](#chapter-4-skills-vs-other-claude-code-features) · Ch 5: Sharing Skills · Ch 6: Troubleshooting Skills | 🚧 |
 | 🗂️ **Quiz** | Course quiz | 🔲 |
 
 > **Annotation guide for these notes:** 📌 = my own reading from screenshots/context — **not stated in the lesson text itself**. 🔗 = my cross-reference between chapters — **my mapping, not the lesson's wording**. For exam prep, focus on the **📝 Quick Reference** tables and **Key features for exam** bullet lists at the end of each chapter.
@@ -456,3 +456,105 @@ Skills support metadata fields: **`name`** and **`description`** (required), **`
 - **`allowed-tools`** restricts tools while the skill is active (read-only/security); **omit = normal permission model**.
 - **Progressive disclosure:** keep `SKILL.md` **under 500 lines**, split depth into **`references/`, `scripts/`, `assets/`** loaded only when needed.
 - **Scripts execute without loading their contents** — only output uses tokens; tell Claude to **run, not read** them.
+
+---
+
+> 🗂️ **Course Overview** · Chapter 4
+
+## Chapter 4: Skills vs. Other Claude Code Features
+
+> 🎬 **Video: Skills vs. other Claude Code features (3 min).** Claude Code offers several customization options — **Skills, CLAUDE.md, subagents, hooks, MCP servers** — and **choosing the wrong one leads to unnecessary complexity.** They solve different problems; knowing when to use each **prevents you from building the wrong thing.**
+
+### 🎯 Learning Objectives
+
+- **Compare** skills to CLAUDE.md, subagents, hooks, and MCP servers
+- **Choose** the right customization feature for a given use case
+- **Design** a complementary setup that combines multiple features
+
+### 🧠 Key Takeaways
+
+- **CLAUDE.md** loads into **every conversation** → always-on project standards. **Skills** load **on demand** → task-specific expertise
+- **Subagents** run in **isolated execution contexts** → delegated work. **Skills** add knowledge to your **current conversation**
+- **Hooks** are **event-driven** (fire on file saves, tool calls). **Skills** are **request-driven** (activate based on what you're asking)
+- **MCP servers** provide **external tools and integrations** — a different category entirely
+- **Each feature handles its own specialty — combine them** rather than forcing everything into one approach
+
+---
+
+### 📋 CLAUDE.md vs. Skills
+
+| | 📋 **CLAUDE.md** | 🧰 **Skills** |
+|---|---|---|
+| **Loads** | Into **every conversation, always** | **On demand**, when a request matches |
+| **Use for** | **Project-wide standards** that always apply · constraints like *"never modify the database schema"* · framework preferences and coding style | **Task-specific expertise** · knowledge that's **only relevant sometimes** · detailed procedures that would **clutter every conversation** |
+
+![Illustration comparing CLAUDE.md (Project-wide standards that always apply · constraints like "never modify the database schema" · framework preferences and coding style) with Skills (Task-specific expertise · knowledge that's only relevant sometimes)](assets/L4-skills-vs-other-features/claude-md-vs-skills.png)
+
+> 💡 Your **PR review checklist doesn't need to be in context when writing new code** — it activates when you ask for a review.
+
+> 🔗 Same distinction as [Chapter 1](#chapter-1-what-are-skills) and [Claude Code in Action, Ch 2–3](../claude-code-in-action/README.md), here laid out as a side-by-side use-case split.
+
+---
+
+### 🤖 Skills vs. Subagents
+
+| | 🧰 **Skills** | 🤖 **Subagents** |
+|---|---|---|
+| **Context** | Add knowledge to your **current conversation** — instructions join the **existing context** | Run in a **separate context** — receive a task, work **independently**, return results (**isolated** from the main conversation) |
+| **Use when** | You want to **enhance Claude's knowledge for the current task** · the expertise applies **throughout a conversation** | You want to **delegate** to a separate execution context · you need **different tool access** than the main conversation · you want **isolation** between delegated work and your main context |
+
+> 🔗 Subagents: [Claude Code 101, Ch 9](../claude-code-101/README.md). The isolation/own-context idea matches the cold-review sub-agent in [Claude Code in Action, Ch 8](../claude-code-in-action/README.md) (my mapping).
+
+---
+
+### 🪝 Skills vs. Hooks
+
+| | 🧰 **Skills** | 🪝 **Hooks** |
+|---|---|---|
+| **Trigger** | **Request-driven** — activate based on **what you're asking** | **Event-driven** — fire **on events** (e.g. run a linter every file save, validate input before certain tool calls) |
+| **Use for** | Knowledge that **informs how Claude handles requests** · guidelines that **affect Claude's reasoning** | Operations that should run on **every file save** · **validation before specific tool calls** · **automated side effects** of Claude's actions |
+
+> 🔗 Hooks: [Claude Code in Action, Ch 5](../claude-code-in-action/README.md). The request-driven vs event-driven split is the key exam contrast (my mapping).
+
+---
+
+### 🧩 Putting It All Together
+
+A typical setup combines **all five** — each handling its own specialty:
+
+| Feature | Specialty |
+|---------|-----------|
+| 📋 **CLAUDE.md** | **Always-on** project standards |
+| 🧰 **Skills** | **Task-specific** expertise that loads **on demand** |
+| 🪝 **Hooks** | **Automated** operations triggered by **events** |
+| 🤖 **Subagents** | **Isolated** execution contexts for **delegated** work |
+| 🔌 **MCP servers** | **External tools and integrations** |
+
+> 💡 **Don't force everything into skills** when another option fits better — **and you can use multiple at a time.** Use skills when you have **knowledge Claude should apply automatically when the topic is relevant**, and **combine** them with other features for comprehensive customization.
+
+> 🔗 This is the same "three surfaces" idea from [Claude Code in Action, Ch 3](../claude-code-in-action/README.md) (CLAUDE.md · Skills · Hooks), extended here with **subagents** and **MCP** to cover all five customization features (my mapping).
+
+---
+
+### 🔁 Recap
+
+**Skills** provide automatic **task-specific expertise**; **CLAUDE.md** is for **always-on** instructions; **subagents** run in **isolated contexts**; **hooks** fire on **events**; **MCP** provides **external tools**. Use skills when you have knowledge Claude should **apply automatically when the topic is relevant**, and **combine** features rather than forcing everything into one.
+
+### 📝 Quick Reference: Skills vs. Other Features (for exam prep)
+
+| Feature | Trigger / nature | Use for |
+|---------|------------------|---------|
+| 📋 **CLAUDE.md** | Loads into **every** conversation | **Always-on** standards, constraints, coding style |
+| 🧰 **Skills** | **Request-driven**, loads **on demand** | **Task-specific** expertise, sometimes-relevant knowledge |
+| 🤖 **Subagents** | **Isolated** separate context | **Delegated** work, different tool access, isolation |
+| 🪝 **Hooks** | **Event-driven** (file save, tool call) | Run-on-every-save, pre-tool validation, automated side effects |
+| 🔌 **MCP servers** | External **tools/integrations** | Connecting to outside services (different category) |
+
+> 🎓 **Memory tip:** **Always vs. on-demand** = CLAUDE.md vs. Skills. **Request-driven vs. event-driven** = Skills vs. Hooks. **Current context vs. isolated** = Skills vs. Subagents. **MCP = external tools** (its own category). *Combine, don't force.*
+
+**Key features for exam:**
+- **CLAUDE.md = every conversation (always-on standards)**; **Skills = on demand (task-specific expertise)**.
+- **Skills add to the current conversation**; **subagents run in an isolated context** for delegated work / different tool access.
+- **Skills are request-driven** (activate on what you ask); **hooks are event-driven** (fire on file saves / tool calls).
+- **MCP servers = external tools and integrations** — a separate category from skills.
+- Each feature has its **own specialty** — **combine them** (and you can use several at once) rather than forcing everything into skills.
