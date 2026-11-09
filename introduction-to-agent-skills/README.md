@@ -8,7 +8,7 @@
 
 | Unit | Chapters | Status |
 |------|----------|:------:|
-| 🗂️ **Course Overview** | [Ch 1: What Are Skills?](#chapter-1-what-are-skills) · Ch 2: Creating Your First Skill · Ch 3: Configuration and Multi-File Skills · Ch 4: Skills vs. Other Claude Code Features · Ch 5: Sharing Skills · Ch 6: Troubleshooting Skills | 🚧 |
+| 🗂️ **Course Overview** | [Ch 1: What Are Skills?](#chapter-1-what-are-skills) · [Ch 2: Creating Your First Skill](#chapter-2-creating-your-first-skill) · Ch 3: Configuration and Multi-File Skills · Ch 4: Skills vs. Other Claude Code Features · Ch 5: Sharing Skills · Ch 6: Troubleshooting Skills | 🚧 |
 | 🗂️ **Quiz** | Course quiz | 🔲 |
 
 > **Annotation guide for these notes:** 📌 = my own reading from screenshots/context — **not stated in the lesson text itself**. 🔗 = my cross-reference between chapters — **my mapping, not the lesson's wording**. For exam prep, focus on the **📝 Quick Reference** tables and **Key features for exam** bullet lists at the end of each chapter.
@@ -144,3 +144,164 @@ A **skill is a markdown file (`SKILL.md`) that teaches Claude how to do somethin
 - **Personal skills** → `~/.claude/skills` (all projects); **project skills** → `.claude/skills` (committed, shared with the repo).
 - Skills **load on demand** (only name + description up front), unlike **CLAUDE.md** (every conversation) and **slash commands** (explicit invocation).
 - **Rule of thumb:** repeating the same explanation → write a skill. Best for review standards, commit formats, brand guidelines, doc templates, debug checklists.
+
+---
+
+> 🗂️ **Course Overview** · Chapter 2
+
+## Chapter 2: Creating Your First Skill
+
+> 🎬 **Video: Creating your first skill (4 min).** Build a skill **from scratch** — a **personal PR-description skill** that works across all your projects. See how to structure the `SKILL.md`, test it, and understand how Claude Code **discovers and matches** skills behind the scenes, plus the **priority hierarchy** that decides which skill wins when names conflict.
+
+### 🎯 Learning Objectives
+
+- **Create** a skill from scratch with proper frontmatter structure
+- **Test and verify** that a skill loads correctly in Claude Code
+- **Explain** how Claude Code matches incoming requests to available skills
+- **Describe** the skill **priority hierarchy** (Enterprise → Personal → Project → Plugins)
+
+### 🧠 Key Takeaways
+
+- A skill is a **directory** containing a **`SKILL.md`** with **metadata (`name`, `description`) in frontmatter** and **instructions below**
+- Claude loads **only names + descriptions at startup**, then matches requests against those descriptions using **semantic matching**
+- You get a **confirmation prompt** before Claude loads the **full skill content** into context
+- **Priority for name conflicts:** **Enterprise → Personal → Project → Plugins**
+- To **update** a skill, edit its `SKILL.md`; to **remove** one, delete its directory. **Always restart Claude Code** for changes to take effect
+
+---
+
+### 🏗️ Creating a Skill
+
+We'll build a **personal** skill that teaches Claude to write PR descriptions in a consistent format. Being personal, it **lives in your home directory** and works **across all your projects.**
+
+**Step 1 — make a directory** inside the skills folder; **the directory name should match the skill name:**
+
+```bash
+mkdir -p ~/.claude/skills/pr-description
+```
+
+**Step 2 — create `SKILL.md`** inside it, with two parts separated by frontmatter dashes:
+
+```markdown
+---
+name: pr-description
+description: Writes pull request descriptions. Use when creating a PR, writing a PR, or when the user asks to summarize changes for a pull request.
+---
+
+When writing a PR description:
+
+1. Run `git diff main...HEAD` to see all changes on this branch
+2. Write a description following this format:
+
+## What
+One sentence explaining what this PR does.
+
+## Why
+Brief context on why this change is needed
+
+## Changes
+- Bullet points of specific changes made
+- Group related changes together
+- Mention any files deleted or renamed
+```
+
+| Part | Role |
+|------|------|
+| **`name`** | **Identifies** your skill |
+| **`description`** | Tells Claude **when to use it** — this is the **matching criteria** |
+| **Everything after the second `---`** | The **instructions** Claude follows when the skill is activated |
+
+![VS Code editing ~/.claude/skills/pr-description/SKILL.md — the body below frontmatter with "When writing a PR description:", the git diff step, and the ## What / ## Why / ## Changes template; the Skills explorer shows commit-message, debugging, documentation, and pr-description](assets/L2-creating-your-first-skill/pr-description-skill-md.png)
+
+> 📌 *From the screenshot:* the Skills sidebar shows this skill sitting alongside **commit-message, debugging, and documentation** skills, and the output panel reads *"Loading configuration… Done loading configuration"* (my reading).
+
+---
+
+### 🧪 Testing Your Skill
+
+Claude Code **loads skills at startup**, so **restart your session** after creating one. Verify it's available by checking the **available skills list** — you should see `pr-description` listed.
+
+![An "Available Skills" terminal panel listing Skill: documentation / debugging / pr-description ("Write pull request descriptions and summarize changes") / commit-message, with a note "You can invoke these with a slash command like /commit or /debugging, or ask me to use them directly"; footer shows "IDE disconnected"](assets/L2-creating-your-first-skill/available-skills-list.png)
+
+- To test: make some changes on a branch and say *"write a PR description for my changes."* Claude **indicates it's using the pr-description skill**, checks your diff, and writes a description following your template — **same format every time.**
+
+> 📌 *From the screenshot:* the panel confirms skills can be invoked **either** by a slash command (`/commit`, `/debugging`) **or** by asking Claude directly — matching the automatic-vs-explicit distinction from [Chapter 1](#chapter-1-what-are-skills). It also shows each skill's description is what's loaded at this stage, not the body (my reading).
+
+---
+
+### 🔎 How Skill Matching Works
+
+When Claude Code **starts**, it scans **four locations** for skills but loads **only the name and description — not the full content.** (This matters for the priority rules below.)
+
+| Step | What happens |
+|------|--------------|
+| 1️⃣ **Startup scan** | Scans four locations, loads **only name + description** of each skill |
+| 2️⃣ **Request** | Claude compares your message against **all available skill descriptions** (semantic matching) |
+| 3️⃣ **Match** | e.g. *"explain what this function does"* matches a skill described as *"explain code with visual diagrams"* — the **intent overlaps** |
+| 4️⃣ **Confirm** | Claude **asks you to confirm loading** the skill (keeps you aware of what context it's pulling in) |
+| 5️⃣ **Execute** | After you confirm, Claude **reads the complete `SKILL.md`** and follows its instructions |
+
+![A hand-drawn crab beside a SKILL.md frontmatter (name: backend-review, description: "Reviews backend code for security issues and compliance mishaps.") with a prompt "Use backend-review Skill?"](assets/L2-creating-your-first-skill/skill-confirmation-prompt.png)
+
+> 📌 *From the screenshot:* the confirmation reads **"Use backend-review Skill?"** — the step 4 prompt in action, shown with a `backend-review` skill whose descriptive name avoids conflicts (the naming tip below) (my reading).
+
+---
+
+### 🏆 Skill Priority
+
+If you clone a repo with a skill named the same as one of your personal skills — **which wins?** There's a clear order:
+
+| # | Scope | Location | Priority |
+|---|-------|----------|:--------:|
+| 1 | 🏢 **Enterprise** | Managed settings | **Highest** |
+| 2 | 👤 **Personal** | `~/.claude/skills` (home directory) | ↓ |
+| 3 | 📁 **Project** | `.claude/skills` inside a repo | ↓ |
+| 4 | 🧩 **Plugins** | Installed plugins | **Lowest** |
+
+- This lets organizations **enforce standards** via enterprise skills while still allowing **individual customization.** If your company has an enterprise `code-review` and you make a personal `code-review` with the same name, **the enterprise version takes precedence.**
+- ✅ **To avoid conflicts, use descriptive names** — instead of `review`, use `frontend-review` or `backend-review`.
+
+> 🎓 **Order mnemonic:** **E-P-P-P** → **E**nterprise > **P**ersonal > **P**roject > **P**lugins (enterprise always wins; plugins always lose).
+
+> 📌 **Beyond the course (not on the exam):** the course teaches **Enterprise → Personal → Project → Plugins**, and the [Claude Academy course page](https://academy.claude.com/courses/introduction-to-agent-skills/creating-your-first-skill) confirms this wording — **learn this order for the exam.** In the live product, the **Personal-vs-Project** relationship has since gained nuance (some docs describe project skills overriding personal ones, configurable via a `skillOverrides` setting). Ignore that for exam prep; just know the course's order.
+
+---
+
+### 🔄 Updating and Removing Skills
+
+| Action | How |
+|--------|-----|
+| ✏️ **Update** | Edit its **`SKILL.md`** file |
+| 🗑️ **Remove** | Delete its **directory** |
+| 🔁 **Apply changes** | **Restart Claude Code** after any change |
+
+> ⚠️ **Always restart Claude Code** — skills are loaded at startup, so edits and deletions don't take effect until you do.
+
+---
+
+### 🔁 Recap
+
+Creating a skill means making a **directory with a `SKILL.md`** containing **metadata + instructions.** Claude loads **names and descriptions at startup**, **matches** incoming requests against those descriptions, and **asks for confirmation** before loading the full content. **Priority rules** handle name conflicts — **Enterprise overrides Personal overrides Project overrides Plugins** — and you **restart Claude Code** for any change to take effect.
+
+### 📝 Quick Reference: Creating Your First Skill (for exam prep)
+
+| Concept | Key point |
+|---------|-----------|
+| 🏗️ **Create** | `mkdir -p ~/.claude/skills/<name>` (dir name = skill name), then add a **`SKILL.md`** |
+| 📄 **Structure** | Frontmatter (`name`, `description`) between `---` dashes · instructions below the second `---` |
+| 🎯 **`description`** | The **matching criteria** — how Claude decides when to use the skill |
+| 🧪 **Test** | **Restart** → check the **available skills list** → make a request that matches |
+| 🔎 **Matching** | Startup loads **only name + description** (4 locations) → semantic match → **confirm** → read full `SKILL.md` |
+| 🏆 **Priority** | **Enterprise → Personal → Project → Plugins** (enterprise wins, plugins lose) |
+| 🏷️ **Avoid conflicts** | Use **descriptive names** (`frontend-review`, not `review`) |
+| 🔄 **Update / remove** | Edit `SKILL.md` / delete the directory — **restart Claude Code** either way |
+
+> 🎓 **Memory tip:** **"Make a dir, write SKILL.md, restart."** Matching = **scan names+descriptions → match → confirm → load body.** Conflicts = **E-P-P-P** (Enterprise > Personal > Project > Plugins).
+
+**Key features for exam:**
+- A skill = a **directory with a `SKILL.md`** (frontmatter `name` + `description`, instructions below); create via `mkdir -p ~/.claude/skills/<name>`.
+- Claude loads **only name + description at startup** from **four locations**, then **semantically matches** requests to descriptions.
+- Claude shows a **confirmation prompt** before loading the **full skill body** into context.
+- **Priority for name conflicts: Enterprise → Personal → Project → Plugins** (enterprise highest, plugins lowest).
+- **Avoid conflicts** with descriptive names (`backend-review`, not `review`).
+- **Update** = edit `SKILL.md`; **remove** = delete the directory; **always restart Claude Code** for changes to take effect.
