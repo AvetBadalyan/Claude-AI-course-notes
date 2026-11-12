@@ -8,7 +8,7 @@
 
 | Unit | Chapters | Status |
 |------|----------|:------:|
-| 🗂️ **Introduction** | [Ch 1: Introducing MCP](#chapter-1-introducing-mcp) · Ch 2: MCP Clients · [Background: What Is MCP?](#-background-what-is-the-model-context-protocol-mcp) | 🚧 |
+| 🗂️ **Introduction** | [Ch 1: Introducing MCP](#chapter-1-introducing-mcp) · [Ch 2: MCP Clients](#chapter-2-mcp-clients) · [Background: What Is MCP?](#-background-what-is-the-model-context-protocol-mcp) | 🚧 |
 | 🗂️ **Hands-on with MCP Servers** | Ch 3: Project Setup · Ch 4: Defining Tools with MCP · Ch 5: The Server Inspector | 🔲 |
 | 🗂️ **Connecting with MCP Clients** | Ch 6: Implementing a Client · Ch 7: Defining Resources · Ch 8: Accessing Resources · Ch 9: Defining Prompts · Ch 10: Prompts in the Client | 🔲 |
 | 🗂️ **Assessment and Wrap Up** | Ch 11: MCP Review | 🔲 |
@@ -200,3 +200,115 @@ In the GitHub example:
 - **Anyone** can write an MCP server; **service providers often publish official ones**.
 - MCP servers come with **tool schemas and functions already defined**; calling an API directly means **you write them**.
 - **MCP ≠ tool use**: they're **complementary**. The difference is **who does the work** (with MCP, someone else already implemented the tools).
+
+---
+
+> 🗂️ **Unit 1: Introduction** · Chapter 2
+
+## Chapter 2: MCP Clients
+
+> The **MCP client** is the **communication bridge** between **your server** and **MCP servers**. It is your **access point to all the tools** an MCP server provides, and it handles the **message exchange and protocol details** so your application doesn't have to.
+
+### 🧠 Key Takeaways
+
+- The **MCP client** = the **bridge** between your server and MCP servers; it **hides protocol details**
+- MCP is **transport agnostic**: client and server can talk over **different protocols**
+- **Most common setup:** client and server on the **same machine**, talking via **standard input/output (stdio)**
+- Other transports: **HTTP**, **WebSockets**, and various network protocols
+- The **two main message types** you work with:
+  - **`ListToolsRequest` / `ListToolsResult`**: "what tools do you provide?"
+  - **`CallToolRequest` / `CallToolResult`**: "run this tool with these arguments"
+- These messages are **defined in the MCP specification**
+
+---
+
+### 🔀 Transport Agnostic Communication
+
+**Transport agnostic** = the client and server can communicate over **different protocols**, depending on your setup.
+
+![Slide "Transport Agnostic": inside "Our Server" the MCP Client has a two-way link labeled "Standard IO" to an "MCP Server for Github" marked "Running locally"](assets/L2-mcp-clients/transport-standard-io.png)
+
+![Slide "MCP Client": the same layout, but the two-way link between the MCP Client and the MCP Server for Github is labeled "Websockets"](assets/L2-mcp-clients/transport-websockets.png)
+
+| Transport | When / note |
+|-----------|-------------|
+| 💻 **Standard I/O (stdio)** | **Most common.** Client and server run on the **same machine** (server "running locally") |
+| 🌐 **HTTP** | Connect over the network |
+| 🔌 **WebSockets** | Connect over the network (shown in the slide) |
+| ➕ **Other network protocols** | Also possible |
+
+> 📌 *From the slides:* the link is drawn **two-way** (arrow on both ends) in both pictures, and only the label changes (**Standard IO** vs **Websockets**). That is the "transport agnostic" point (my reading).
+
+---
+
+### 📨 MCP Message Types
+
+Once connected, client and server exchange **specific message types** defined in the **MCP specification**.
+
+| Message pair | Direction | Meaning |
+|--------------|-----------|---------|
+| 📋 **`ListToolsRequest`** → **`ListToolsResult`** | Client asks, server answers | "Give me a list of tools you provide" → "Here are the tools I can run" |
+| ▶️ **`CallToolRequest`** → **`CallToolResult`** | Client asks, server answers | "Please run a particular tool with these arguments" → "Here's the result of the tool run" |
+
+![Slide "MCP Communication": the MCP Client inside Our Server sends ListToolsRequest ("Give me a list of tools you provide") to the MCP Server for Github and gets back ListToolsResult ("Here are the tools I can run")](assets/L2-mcp-clients/list-tools-messages.png)
+
+![Slide "MCP Communication": the MCP Client sends CallToolRequest ("Please run a particular tool with these arguments") to the MCP Server for Github and gets back CallToolResult ("Here's the result of the tool run")](assets/L2-mcp-clients/call-tool-messages.png)
+
+---
+
+### 🔄 The Full Flow
+
+**Example:** a user asks *"What repositories do I have?"* The query travels through **your server → MCP client → MCP server → GitHub** and back through **Claude**.
+
+![Sequence diagram with six columns: User, Our Server, MCP Client, MCP Server, Claude, Github. Steps: user asks "What repositories do I have?"; server says "I need a list of tools to send to Claude"; ListToolsRequest/ListToolsResult between client and MCP server; "Query + Tools" sent to Claude; Claude replies ToolUse; server says "Please run this tool with these args"; CallToolRequest to MCP server, which sends a request to Github; Github responds; CallToolResult returns to the server; toolResult sent to Claude; Claude answers "Your repositories are…" back to the user](assets/L2-mcp-clients/full-flow-sequence.png)
+
+| # | Step | What happens |
+|:-:|------|--------------|
+| 1 | **User Query** | The user submits the question to **your server** |
+| 2 | **Tool Discovery** | Your server needs to know **which tools are available** to send to Claude |
+| 3 | **List Tools Exchange** | Your server asks the **MCP client** for the available tools |
+| 4 | **MCP Communication** | The MCP client sends **`ListToolsRequest`** to the MCP server and receives **`ListToolsResult`** |
+| 5 | **Claude Request** | Your server sends the **user's query + the available tools** to Claude |
+| 6 | **Tool Use Decision** | **Claude decides** it needs to call a tool (**`ToolUse`**) |
+| 7 | **Tool Execution Request** | Your server asks the **MCP client** to run the tool Claude specified |
+| 8 | **External API Call** | The MCP client sends **`CallToolRequest`** to the MCP server, which makes the **actual GitHub API call** |
+| 9 | **Results Flow Back** | GitHub responds; the data flows back through the MCP server as a **`CallToolResult`** |
+| 10 | **Tool Result to Claude** | Your server sends the **tool result** (**`toolResult`**) back to Claude |
+| 11 | **Final Response** | Claude **formulates the final answer** using the repository data |
+| 12 | **User Gets Answer** | Your server **delivers Claude's response** to the user |
+
+> 💡 Many steps, but **each component has a clear responsibility**. The MCP client **abstracts away server communication**, so you focus on **application logic**.
+
+> 📌 *From the diagram:* the two labels in tan boxes, **`ToolUse`** (Claude → your server) and **`toolResult`** (your server → Claude), are the **Claude-side** messages. The brown boxes (**`ListTools…`**, **`CallTool…`**) are the **MCP-side** messages (my reading).
+
+> 🔗 Steps 5, 6, 10, 11 are the normal **tool use loop** from earlier courses; MCP only changes **where the tools come from (step 3-4)** and **who runs them (step 7-9)** (my mapping).
+
+---
+
+### 🔁 Recap
+
+The **MCP client** sits in your server and talks to MCP servers over **any transport** (usually **stdio** locally). It uses **`ListTools`** to discover tools and **`CallTool`** to run them, while your server shuttles **tools + results** to and from **Claude**.
+
+### 📝 Quick Reference: MCP Clients (for exam prep)
+
+| Concept | Key point |
+|---------|-----------|
+| 🔌 **MCP client** | **Bridge** between your server and MCP servers; handles **message exchange + protocol details** |
+| 🔀 **Transport agnostic** | Client and server can use **different protocols** |
+| 💻 **Most common transport** | **Standard input/output**, both on the **same machine** |
+| 🌐 **Other transports** | **HTTP**, **WebSockets**, other network protocols |
+| 📋 **List tools** | **`ListToolsRequest`** → **`ListToolsResult`** |
+| ▶️ **Call tool** | **`CallToolRequest`** → **`CallToolResult`** |
+| 📜 **Where messages are defined** | The **MCP specification** |
+| 🤖 **Who decides to use a tool** | **Claude** (your server then asks the client to run it) |
+| 🌍 **Who calls the external API** | The **MCP server** (e.g. GitHub), not the client |
+
+> 🎓 **Memory tip:** **"List, then Call."** First **List** tools (so Claude knows them), then **Call** the one Claude picks. The client is just the **messenger**; the **MCP server** does the real work.
+
+**Key features for exam:**
+- The **MCP client** is the **communication bridge** between your server and MCP servers.
+- MCP is **transport agnostic**: **stdio** (most common, same machine), **HTTP**, **WebSockets**, others.
+- **`ListToolsRequest` / `ListToolsResult`**: ask for and receive the **available tools**.
+- **`CallToolRequest` / `CallToolResult`**: ask to **run a tool with arguments** and receive its **result**.
+- Flow: **list tools → send query + tools to Claude → Claude requests tool use → client calls tool on MCP server → result back to Claude → final answer to user**.
+- The **MCP server** makes the **actual external API call** (e.g. GitHub).
