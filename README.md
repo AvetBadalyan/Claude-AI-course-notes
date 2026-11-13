@@ -21,7 +21,7 @@ Notes and visual summaries from the **Anthropic Academy / Claude Certified Archi
 | 3 | Claude Code 101 | 2 hr | ✅ Done | [claude-code-101/README.md](claude-code-101/README.md) · 🏆 **Certified (100%)** |
 | 4 | Claude Code in Action | 1 hr | ✅ Done | [claude-code-in-action/README.md](claude-code-in-action/README.md) · 🏆 **Certified (8/8)** |
 | 5 | Introduction to Agent Skills | 1 hr | ✅ Done | [introduction-to-agent-skills/README.md](introduction-to-agent-skills/README.md) · all 6 chapters (no quiz) |
-| 6 | Introduction to MCP | 1 hr | 🚧 In progress | [introduction-to-mcp/README.md](introduction-to-mcp/README.md) · Ch 1 done |
+| 6 | Introduction to MCP | 1 hr | 🚧 In progress | [introduction-to-mcp/README.md](introduction-to-mcp/README.md) · Ch 1-10 + final assessment passed (5/7); Ch 11 review pending |
 | 7 | Building with the Claude API | 8 hr | 🔲 Not started | — |
 | 8 | MCP: Advanced Topics | 1 hr 15 min | 🔲 Not started | — |
 

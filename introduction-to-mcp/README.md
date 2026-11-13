@@ -12,7 +12,7 @@
 | 🗂️ **Hands-on with MCP Servers** | [Ch 3: Project Setup](#chapter-3-project-setup) · [Ch 4: Defining Tools with MCP](#chapter-4-defining-tools-with-mcp) · [Ch 5: The Server Inspector](#chapter-5-the-server-inspector) | ✅ |
 | 🗂️ **Connecting with MCP Clients** | [Ch 6: Implementing a Client](#chapter-6-implementing-a-client) · [Ch 7: Defining Resources](#chapter-7-defining-resources) · [Ch 8: Accessing Resources](#chapter-8-accessing-resources) · [Ch 9: Defining Prompts](#chapter-9-defining-prompts) · [Ch 10: Prompts in the Client](#chapter-10-prompts-in-the-client) | ✅ |
 | 🗂️ **Assessment and Wrap Up** | Ch 11: MCP Review | 🔲 |
-| 🗂️ **Quiz** | Final assessment on MCP | 🔲 |
+| 🗂️ **Quiz** | [Final assessment on MCP](#-final-assessment-on-mcp-quiz) | ✅ |
 
 > _Two lessons have no chapter of their own: **"Welcome to the course"** (an intro video; its course-goals slide is summarized in the Introduction below) and the **"Course satisfaction survey"** (a feedback form with no learning content)._
 
@@ -1079,3 +1079,38 @@ async def get_prompt(self, prompt_name, args: dict[str, str]):
 > 📌 *The last row is **beyond the lesson text** (the common way MCP docs describe it), but it fits the project: Claude picks tools on its own, the user triggers `@` and `/`. Not stated in these lessons.*
 
 > 🎓 **Memory tip:** **T-R-P** = **T**ools **do**, **R**esources **give**, **P**rompts **guide**.
+
+---
+
+> 🗂️ **Quiz** · Final assessment on MCP
+
+## 📝 Final Assessment on MCP (Quiz)
+
+> **Result of my attempt:** ✅ **Passed, 5 of 7 (71%)**, about 4 minutes. Questions **5** and **7** were missed. Below is the **answer key for all 7**, so this section reads as a clean study sheet. Questions 5 and 7 are marked ⚠️ as the ones to re-read.
+
+| # | Question (short) | ✅ Correct answer | Why | Chapter |
+|:-:|------------------|-------------------|-----|:-------:|
+| 1 | Two main components of an **MCP client** | **MCP Client class + Client Session** | Our wrapper class + the SDK's real connection to the server | [Ch 6](#chapter-6-implementing-a-client) |
+| 2 | Message to **discover available tools** | **`ListToolsRequest`** | Server answers with `ListToolsResult`; not `GetTools…` or `ToolDiscovery…` | [Ch 2](#chapter-2-mcp-clients) |
+| 3 | Easiest way to **test tools** before a full app | **MCP Inspector**: `mcp dev mcp_server.py` | Built-in, browser-based, keeps state between calls | [Ch 5](#chapter-5-the-server-inspector) |
+| 4 | Main problem **without MCP** (GitHub chat app) | **You must write and maintain all the GitHub tool code yourself** | MCP moves tool definitions + execution to the MCP server | [Ch 1](#chapter-1-introducing-mcp) |
+| 5 ⚠️ | A **button** the user clicks to start a "summarize document" workflow | **Prompts** (users control when to start the workflow) | Prompts are **pre-built, tested instructions** the **user** triggers (like `/format`) | [Ch 9](#chapter-9-defining-prompts) |
+| 6 | Easiest way to define a **file-reading tool** (Python SDK) | **`@mcp.tool()` decorator on a Python function** | SDK builds the schema from type hints; no manual JSON schema | [Ch 4](#chapter-4-defining-tools-with-mcp) |
+| 7 ⚠️ | Resource fetching docs **by ID**, like `docs://documents/report.pdf` | **Templated resource** with parameters in the URI | URI has a `{doc_id}` parameter; the SDK passes it as a keyword argument | [Ch 7](#chapter-7-defining-resources) |
+
+### ⚠️ The Two I Missed
+
+| Q | What I picked | Why it's wrong | Rule to remember |
+|:-:|---------------|----------------|------------------|
+| **5** | **Resources** ("fetch document data") | Resources **expose read-only data**; the question is about a **user-triggered workflow** | **User starts a workflow → Prompt.** (Tools = Claude's actions; Resources = data) |
+| **7** | **A database query resource** | Not an MCP resource type. The real choice is **direct vs. templated**, and a **direct** resource has a **fixed URI with no params**, while here the **ID changes** | **Parameter in the URI → templated.** **No parameter → direct.** |
+
+> 🔗 **Quick decision rule (my mapping from Ch 4, 7, 9):** *Claude needs a new ability* → **Tool**. *App needs to fetch data* → **Resource** (**direct** = fixed URI, **templated** = URI with `{param}`). *User wants a ready-made workflow* → **Prompt**.
+
+> 🎓 **Memory tip:** **"Tools do, Resources give, Prompts guide"**, and **"`{param}` in the URI = templated."**
+
+**Key features for exam:**
+- Client = **MCP Client class + Client Session**; tool discovery = **`ListToolsRequest`**.
+- Test servers with **`mcp dev mcp_server.py`** (MCP Inspector).
+- Without MCP you **write and maintain the tool code yourself**.
+- **User-triggered workflow → Prompt**; **tool in Python → `@mcp.tool()`**; **ID in the URI → templated resource**.
