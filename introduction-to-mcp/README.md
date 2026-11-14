@@ -8,10 +8,10 @@
 
 | Unit | Chapters | Status |
 |------|----------|:------:|
-| 🗂️ **Introduction** | [Ch 1: Introducing MCP](#chapter-1-introducing-mcp) · [Ch 2: MCP Clients](#chapter-2-mcp-clients) · [Background: What Is MCP?](#-background-what-is-the-model-context-protocol-mcp) | 🚧 |
+| 🗂️ **Introduction** | [Ch 1: Introducing MCP](#chapter-1-introducing-mcp) · [Ch 2: MCP Clients](#chapter-2-mcp-clients) · [Background: What Is MCP?](#-background-what-is-the-model-context-protocol-mcp) |✅ |
 | 🗂️ **Hands-on with MCP Servers** | [Ch 3: Project Setup](#chapter-3-project-setup) · [Ch 4: Defining Tools with MCP](#chapter-4-defining-tools-with-mcp) · [Ch 5: The Server Inspector](#chapter-5-the-server-inspector) | ✅ |
 | 🗂️ **Connecting with MCP Clients** | [Ch 6: Implementing a Client](#chapter-6-implementing-a-client) · [Ch 7: Defining Resources](#chapter-7-defining-resources) · [Ch 8: Accessing Resources](#chapter-8-accessing-resources) · [Ch 9: Defining Prompts](#chapter-9-defining-prompts) · [Ch 10: Prompts in the Client](#chapter-10-prompts-in-the-client) | ✅ |
-| 🗂️ **Assessment and Wrap Up** | Ch 11: MCP Review | 🔲 |
+| 🗂️ **Assessment and Wrap Up** | [Ch 11: MCP Review](#chapter-11-mcp-review) | ✅ |
 | 🗂️ **Quiz** | [Final assessment on MCP](#-final-assessment-on-mcp-quiz) | ✅ |
 
 > _Two lessons have no chapter of their own: **"Welcome to the course"** (an intro video; its course-goals slide is summarized in the Introduction below) and the **"Course satisfaction survey"** (a feedback form with no learning content)._
@@ -1065,7 +1065,7 @@ async def get_prompt(self, prompt_name, args: dict[str, str]):
 
 ## 🧭 Tools vs. Resources vs. Prompts (at a glance)
 
-> 🔗 *My summary table built from Ch 4, 7, 9 (not a lesson slide).*
+> 🔗 *My summary table built from Ch 4, 7, 9 and 11 (not a lesson slide).*
 
 | | 🛠️ **Tools** | 📄 **Resources** | 💬 **Prompts** |
 |---|-------------|------------------|----------------|
@@ -1074,11 +1074,89 @@ async def get_prompt(self, prompt_name, args: dict[str, str]):
 | **Define with** | `@mcp.tool` | `@mcp.resource("uri")` | `@mcp.prompt` |
 | **Client function** | `list_tools` · `call_tool` | `read_resource(uri)` | `list_prompts` · `get_prompt` |
 | **Project example** | `read_doc_contents`, `edit_document` | `docs://documents` · `docs://documents/{doc_id}` (the **`@`** mentions) | `format` (the **`/format`** command) |
-| **Who triggers it** 📌 | **Claude** decides | The **app/user** (e.g. `@mention`) | The **user** (e.g. `/command`) |
+| **Who controls it** | **Model-controlled**: **Claude** decides | **App-controlled**: **your app** decides | **User-controlled**: the **user** decides |
 
-> 📌 *The last row is **beyond the lesson text** (the common way MCP docs describe it), but it fits the project: Claude picks tools on its own, the user triggers `@` and `/`. Not stated in these lessons.*
+> 🧠 *The "Who controls it" row comes from the lesson in [Ch 11](#chapter-11-mcp-review).*
 
 > 🎓 **Memory tip:** **T-R-P** = **T**ools **do**, **R**esources **give**, **P**rompts **guide**.
+
+---
+
+> 🗂️ **Unit 4: Assessment and Wrap Up** · Chapter 11
+
+## Chapter 11: MCP Review
+
+> A review of the **three core server primitives** and **when to use each**. The key insight: **each primitive is controlled by a different part of your application stack**.
+
+### 🧠 Key Takeaways
+
+- **Tools** = **model-controlled** (Claude decides)
+- **Resources** = **app-controlled** (your application code decides)
+- **Prompts** = **user-controlled** (the user decides)
+- Each serves a different layer: **tools serve the model, resources serve your app, prompts serve your users**
+
+---
+
+### 🧭 The Three Server Primitives
+
+| | 🛠️ **Tools** | 📄 **Resources** | 💬 **Prompts** |
+|---|-------------|------------------|----------------|
+| **Controlled by** | **Model** (Claude) | **App** (your code) | **User** |
+| **Who decides when to use it** | **Claude** decides when to call | **Our app** decides when to call | **The user** decides when to run |
+| **Who uses the result** | **Claude** | Primarily **our app** | The **user's workflow** (messages go to Claude) |
+| **Used for** | Giving **additional functionality to Claude** | **Getting data into our app** · **adding context to messages** | **Workflows** run from **user input**: slash command, button click, or menu option |
+| **Example in the lesson** | Claude decides to run a **JavaScript execution tool** to "calculate the square root of 3" | **Autocomplete options** in the UI · **augmenting prompts** with extra context | The **workflow buttons** below the chat input; the **`/format`** command |
+
+> 📌 *From the lesson's "MCP Server Primitives" slide (my reading):* the three boxes are labeled **Model-controlled: Claude**, **App-controlled: Our app**, and **User-controlled: The user**, matching the table above. The "Who uses the result" row for prompts is my summary, not the slide's wording.
+
+### 🔍 Each Primitive in Detail
+
+| Primitive | Detail |
+|-----------|--------|
+| 🛠️ **Tools: model-controlled** | Controlled **entirely by Claude**. Claude decides **when** to call these functions, and the results are **used directly by Claude** to accomplish tasks. Perfect for **additional capabilities Claude can use autonomously** |
+| 📄 **Resources: app-controlled** | Your **application code** decides **when to fetch** resource data and **how to use it**, typically for **UI elements** or to **add context to conversations**. In our project: (1) **autocomplete options** in the UI, (2) **retrieving content to augment prompts** |
+| 💬 **Prompts: user-controlled** | Triggered by **user actions**: **button clicks, menu selections, or slash commands**. Ideal for **workflows users trigger on demand** |
+
+### 🖥️ In Claude's Own Interface
+
+| Feature in Claude's interface | Primitive |
+|-------------------------------|-----------|
+| **"Add from Google Drive"**: the app decides which documents to show and injects their content into the chat | 📄 **Resources** |
+| **Workflow buttons** below the chat input: predefined, optimized workflows started with one click | 💬 **Prompts** |
+| Claude **executes code or performs calculations** behind the scenes | 🛠️ **Tools** |
+
+### 🧩 Choosing the Right Primitive
+
+| If you need to… | Use |
+|-----------------|-----|
+| Give **Claude new capabilities** | 🛠️ **Tools** |
+| Get **data into your app** (for UI or context) | 📄 **Resources** |
+| Create **predefined workflows for users** | 💬 **Prompts** |
+
+> 💡 These are **high-level guidelines**, not hard rules: pick the primitive that fits your use case.
+
+> 🔗 This is the rule behind quiz Q5 (button for a "summarize document" workflow → **Prompts**) in the [Final Assessment](#-final-assessment-on-mcp-quiz) (my mapping).
+
+### 🔁 Recap
+
+**Tools serve the model, resources serve your app, prompts serve your users.** The question to ask is **"who controls when it runs?"**: **Claude** (tools), **your app** (resources), or **the user** (prompts).
+
+### 📝 Quick Reference: MCP Review (for exam prep)
+
+| Primitive | Controlled by | Decided by | Typical use | Example |
+|-----------|---------------|------------|-------------|---------|
+| 🛠️ **Tools** | **Model** | **Claude** | New **capabilities** for Claude | Run JavaScript to calculate |
+| 📄 **Resources** | **App** | **Your code** | **Data** for UI / **context** for messages | Autocomplete list; "Add from Google Drive" |
+| 💬 **Prompts** | **User** | **The user** | **Predefined workflows** | Slash command, button, menu option |
+
+> 🎓 **Memory tip:** **"Model · App · User"** = **Tools · Resources · Prompts**, in that order. Or: **tools serve the model, resources serve your app, prompts serve your users.**
+
+**Key features for exam:**
+- **Tools = model-controlled**: Claude decides when to call them and uses the results.
+- **Resources = app-controlled**: your app decides when to fetch and how to use the data (UI elements, adding context).
+- **Prompts = user-controlled**: triggered by slash commands, button clicks, or menu selections.
+- **Decision guide:** new capabilities for Claude → **tools**; data for your app → **resources**; predefined user workflows → **prompts**.
+- In Claude's interface: **Google Drive integration = resources**, **workflow buttons = prompts**, **code execution/calculations = tools**.
 
 ---
 
