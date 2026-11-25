@@ -29,4 +29,14 @@ Notes and visual summaries from the **Anthropic Academy / Claude Certified Archi
 
 ---
 
+## 🎯 CCAR-F Exam Prep (aicertguides.com)
+
+Short scenario-exam notes from all 30 lessons of the [aicertguides.com](https://aicertguides.com/learn) CCAR-F curriculum (a third-party prep site). Organized by domain, with exam traps and a closing cheat sheet.
+
+| Resource | Coverage | Status |
+|----------|----------|--------|
+| [ccar-f-exam-prep/README.md](ccar-f-exam-prep/README.md) | All 30 lessons · 5 domains · exam traps · cross-domain tables | ✅ Done |
+
+---
+
 <!-- Add new courses as rows above, each in its own folder: course-slug/README.md + course-slug/assets/ -->
